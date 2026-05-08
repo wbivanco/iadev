@@ -2,32 +2,38 @@
 
 ## Estado general
 
-- Proyecto en fase: Inicial
-- Módulo activo: Definición del sistema base
-- Última actualización: YYYY-MM-DD
+- Proyecto en fase: Fase 1 - Sistema base operativo
+- Módulo activo: Consolidación de `ai-system/`
+- Última actualización: 2026-05-08
 
 ## En progreso
 
-- Definir arquitectura de trabajo con IA
-- Separar planificación de código real
+- Ordenar la documentación maestra del sistema
+- Consolidar memoria y reglas para que sean portables
+- Preparar la base para un flujo SDD más formal
 
 ## Problemas actuales
 
-- Pendiente definir flujo SDD completo
-- Pendiente definir AGENTS.md
+- `PLAN.md` concentraba demasiada información mezclada
+- Falta formalizar el flujo SDD completo
+- `AGENTS.md` sigue en una versión mínima
+- Aún no existen templates operativos
 
 ## Archivos relevantes
 
-- ai-system/
-- workspace/
+- `ai-system/PLAN.md`
+- `ai-system/AGENTS.md`
+- `ai-system/memory/`
 
 ## Próximos pasos
 
-1. Crear AGENTS.md
-2. Definir templates de specs
-3. Definir flujo de trabajo con agentes
+1. Definir `AGENTS.md` v2
+2. Crear templates mínimos
+3. Formalizar flujo SDD base
+4. Evaluar estructura futura para `skills/` y `orchestration/`
 
 ## Contexto importante
 
 - `ai-system/` contiene planificación, memoria, specs y reglas.
-- `workspace/` contiene el código real del proyecto.
+- `ai-system/` debe poder copiarse a cualquier proyecto.
+- `workspace/` no es crítico en esta etapa y puede mantenerse casi vacío.

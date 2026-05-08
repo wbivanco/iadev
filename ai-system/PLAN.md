@@ -1,294 +1,201 @@
 # PLAN.md
 
-## 📌 Estado general del proyecto
+## Propósito
 
-Este proyecto tiene como objetivo construir un **sistema portable de desarrollo con IA** (AI Development System) que permita trabajar de forma consistente entre herramientas como VS Code, Cursor, OpenCode, Claude Code y Codex.
+Este repositorio existe para construir un `AI Development System` portable.
+La idea es que `ai-system/` pueda copiarse a cualquier proyecto y sirva como
+capa de planificación, memoria, reglas y coordinación de agentes.
 
-Se busca separar completamente:
+`workspace/` no es el foco actual. Puede permanecer vacío o mínimo hasta que el
+sistema base esté lo bastante maduro como para usarse en un proyecto real.
 
-- la **planificación, memoria y reglas** (`ai-system/`)
-- del **código real del proyecto** (`workspace/`)
+## Objetivo del sistema
 
----
+Lograr una forma de trabajo consistente entre herramientas como VS Code,
+Cursor, OpenCode, Claude Code y Codex, sin depender de una sola plataforma.
 
-# 🧭 Fase actual
+El sistema busca separar por completo:
 
-## Fase 1 — Fundación del sistema (EN PROGRESO)
+- `ai-system/`: inteligencia operativa del proyecto
+- `workspace/`: código ejecutable del proyecto
 
-Estamos construyendo la base estructural del sistema.
+## Estado actual
 
----
+Fase actual: `Fase 1 - Sistema base operativo`
 
-# ✅ Lo que ya está hecho
+Estado resumido:
 
-## 1. Estructura del proyecto
+- El sistema ya es usable como base manual de trabajo con IA.
+- La memoria persistente ya funciona.
+- Ya existe una primera versión de reglas para agentes.
+- El sistema todavía no está formalizado como flujo completo de desarrollo.
 
-Se definió y creó:
+## Qué ya está resuelto
+
+### 1. Separación estructural
+
+La división principal ya está definida:
 
 ```text
 mi-proyecto/
 ├── ai-system/
 └── workspace/
+```
 
+Esto permite:
 
+- portabilidad entre proyectos
+- independencia respecto de una herramienta concreta
+- separación clara entre planificación y ejecución
 
-
-Estado actual del proyecto
-Fase actual
-🟡 Fase 1 — Sistema base operativo (EN PROGRESO AVANZADO)
-
-El sistema ya:
-
-✔ Es usable
-✔ Permite retomar contexto
-✔ Funciona con agentes
-
-Pero aún no:
-
-❌ Está completamente formalizado
-❌ Tiene flujo SDD completo
-❌ Está optimizado para equipos
-
-🧱 Arquitectura definida
-mi-proyecto/
-├── ai-system/
-│   ├── AGENTS.md
-│   ├── plan.md
-│   ├── memory/
-│   ├── specs/
-│   ├── skills/
-│   ├── orchestration/
-│   ├── templates/
-│   └── docs/
-│
-└── workspace/
-✅ Lo que YA está hecho
-1. Separación estructural del sistema
-
-✔ ai-system/ como capa de inteligencia
-✔ workspace/ como código ejecutable
-✔ Independencia de herramientas
-
-👉 Esto permite portabilidad total
-
-2. Sistema de memoria completo (v1 funcional)
+### 2. Sistema de memoria v1
 
 Ubicación:
 
-ai-system/memory/
+`ai-system/memory/`
 
-Archivos:
+Archivos actuales:
 
-MEMORY.md → entrypoint del sistema
-current-state.md → estado actual del proyecto
-project-summary.md → visión general
-decisions.md → decisiones persistentes
-open-questions.md → incertidumbre activa
-session-log.md → historial de trabajo
-agent-handoffs.md → coordinación entre agentes
-Capacidades
+- `MEMORY.md`: entrypoint para leer la memoria
+- `project-summary.md`: visión general del sistema
+- `current-state.md`: estado actual del proyecto
+- `decisions.md`: decisiones persistentes
+- `open-questions.md`: dudas y pendientes abiertos
+- `session-log.md`: historial de sesiones
+- `agent-handoffs.md`: coordinación entre agentes
 
-✔ Persistencia entre sesiones
-✔ Reemplazo del contexto de chat
-✔ Base para multi-agente
-✔ Portable entre herramientas
+Capacidades ya presentes:
 
-👉 Esta es una de las piezas más maduras del sistema
+- persistencia entre sesiones
+- continuidad de contexto más allá del chat
+- base operativa para trabajo con agentes
+- formato portable y simple basado en Markdown
 
-3. Filosofía del sistema
+### 3. Filosofía base
 
-Se definieron principios clave:
+Los principios ya definidos son:
 
-Spec Anchored Development
-Separación planificación / ejecución
-IA como ejecutor, no como fuente de verdad
-Memoria persistente como núcleo del sistema
-Independencia total de herramientas
+- independencia de herramientas
+- separación entre planificación y código
+- desarrollo guiado por specs
+- memoria persistente como fuente de verdad contextual
+- IA como ejecutor asistido, no como única fuente de verdad
 
-👉 Esto define el comportamiento global
+### 4. Flujo mínimo ya operativo
 
-4. Flujo de trabajo mínimo (operativo)
+Hoy el sistema permite trabajar así:
 
-Actualmente el sistema permite:
+1. leer memoria
+2. entender estado y contexto
+3. revisar o crear spec
+4. ejecutar trabajo
+5. validar
+6. actualizar memoria
 
-leer memoria
-→ entender estado
-→ implementar
-→ actualizar memoria
+Este flujo funciona, pero todavía no está completamente formalizado.
 
-✔ Funciona en práctica
-❌ No está formalizado completamente
+### 5. Reglas base para agentes
 
-5. AGENTS.md (versión base funcional)
+`AGENTS.md` ya define una primera operación mínima:
 
-Define:
+- lectura obligatoria de memoria
+- separación entre `ai-system/` y `workspace/`
+- pasos mínimos de ejecución
+- regla de cierre con actualización de memoria
 
-lectura obligatoria de memoria
-separación ai-system / workspace
-flujo mínimo de ejecución
-reglas de cierre
+## Qué está incompleto
 
-✔ Permite usar agentes reales
-❌ Aún es limitado
+### 1. Flujo SDD formal
 
-6. Modelo de memoria avanzada (conceptual)
+Existe la intención, pero no la formalización completa.
 
-Diseñado:
+Flujo objetivo:
 
-Markdown como fuente de verdad
-SQLite/FTS como optimización futura
-memoria por capas (estado, decisiones, histórico)
+`idea -> spec -> design -> tasks -> implementacion -> testing -> PR -> memoria`
 
-✔ Escalable
-✔ Portable
-✔ independiente de tecnología
+Falta definir:
 
-🚧 Lo que está parcialmente hecho
-1. Flujo SDD (incompleto)
+- documentos mínimos por etapa
+- criterios de entrada y salida
+- enforcement para agentes
+- integración con revisión y validación
 
-Existe de forma implícita:
+### 2. AGENTS.md v2
 
-idea → spec → implementación → memoria
+La próxima versión debería cubrir:
 
-Pero falta:
+- comportamiento según tipo de tarea
+- uso obligatorio de specs
+- manejo de errores y ambigüedad
+- criterios de calidad
+- relación con testing, revisión y cierre
 
-formalización completa
-enforcement
-integración con agentes
-❌ Lo que falta (para completar el sistema)
-🔴 PRIORIDAD ALTA
-1. AGENTS.md v2 (CRÍTICO)
+### 3. Templates base
 
-Debe incluir:
+Todavía no existen, pero son parte del siguiente salto de madurez.
 
-flujo SDD completo
-comportamiento por tipo de tarea
-integración con specs
-manejo de errores
-reglas de calidad
-integración con testing / PR
+Templates sugeridos:
 
-👉 Esto convierte el sistema en consistente
+- `spec.template.md`
+- `task.template.md`
+- `decision.template.md`
+- `session-log.template.md`
+- template de PR o cierre de trabajo
 
-2. Flujo SDD completo
+### 4. Skills y orquestación
 
-Formalizar:
+Más adelante el sistema debería incorporar:
 
-idea
-→ spec
-→ design
-→ tasks
-→ implementación
-→ testing
-→ PR
-→ memoria
+- skills modulares por tipo de tarea
+- contratos de entrada y salida para agentes
+- handoffs más formales
+- soporte real para trabajo multiagente
 
-👉 Esto convierte el sistema en profesional
+## Prioridades
 
-3. Templates base
+### Alta
 
-Ubicación:
+- ordenar y estabilizar la documentación base
+- definir `AGENTS.md` v2
+- formalizar el flujo SDD mínimo
+- crear templates esenciales
 
-ai-system/templates/
+### Media
 
-Necesarios:
+- estructurar `skills/`
+- estructurar `orchestration/`
+- mejorar handoffs entre agentes
 
-spec.template.md
-task.template.md
-decision.template.md
-PR template
+### Baja
 
-👉 Reduce fricción
-👉 Asegura consistencia
+- automatización de memoria
+- búsqueda avanzada con SQLite o FTS
+- integraciones con IDE y Git
+- utilidades o MCPs específicos del sistema
 
-🟡 PRIORIDAD MEDIA
-4. Skills modulares
+## Estado real resumido
 
-Ubicación:
+Completado:
 
-ai-system/skills/
+- arquitectura base
+- separación `ai-system/` / `workspace/`
+- memoria v1 funcional
+- `AGENTS.md` base
+- flujo mínimo operativo
 
-Ejemplos:
+Pendiente:
 
-spec-writing
-implementation
-debugging
-testing
-review
+- flujo SDD formal
+- `AGENTS.md` avanzado
+- templates
+- skills
+- orquestación
 
-👉 Permite escalar conocimiento sin romper contexto
+## Criterio de éxito de esta fase
 
-5. Orquestación mínima
+Esta fase se considera cerrada cuando:
 
-Ubicación:
-
-ai-system/orchestration/
-
-Definir:
-
-roles de agentes
-handoffs
-contratos de salida
-
-👉 Habilita multi-agente real
-
-🟢 PRIORIDAD BAJA (futuro)
-6. Automatización de memoria
-búsqueda avanzada (SQLite / FTS)
-scripts de indexación
-MCP server
-7. Integraciones IDE
-VS Code tasks
-hooks de Git
-comandos automáticos
-🎯 Estado real resumido
-[✔] Arquitectura del sistema
-[✔] Separación código / planificación
-[✔] Sistema de memoria completo
-[✔] AGENTS.md base funcional
-[✔] Flujo mínimo operativo
-
-[ ] Flujo SDD formal
-[ ] AGENTS.md avanzado
-[ ] Templates
-[ ] Skills
-[ ] Orquestación
-🧠 Nivel del sistema
-Estructura:       100%
-Memoria:          90%
-Flujo:            60%
-Automatización:   20%
-Escalabilidad:    50%
-🚀 Próximo paso estratégico
-
-👉 Enfocar en:
-
-AGENTS.md v2 + Flujo SDD completo
-
-Porque:
-
-define cómo trabaja todo el sistema
-elimina ambigüedad
-permite consistencia entre herramientas
-habilita multi-agente real
-📌 Regla del proyecto
-
-No agregar complejidad hasta cerrar el flujo base.
-
-🏁 Objetivo de esta fase
-
-Pasar de:
-
-👉 sistema estructurado
-
-a:
-
-👉 sistema operativo completo
-
-🔥 Insight clave
-
-Este proyecto no busca mejorar un IDE.
-
-Busca crear:
-
-👉 una capa superior que gobierne cómo se desarrolla software con IA
+- `ai-system/` pueda copiarse a otro proyecto sin depender de este repositorio
+- un agente pueda arrancar leyendo memoria y reglas sin contexto adicional
+- exista un flujo mínimo repetible desde idea hasta cierre
+- la estructura documental esté limpia, consistente y mantenible
