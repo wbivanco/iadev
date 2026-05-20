@@ -46,3 +46,27 @@ Priorizar la calidad y coherencia de `ai-system/` por encima de poblar
 
 Las siguientes iteraciones deben enfocarse en memoria, reglas, flujo SDD y
 templates antes de considerar implementación de producto.
+
+---
+
+## 2026-05-20 - Formalizar flujo SDD v1 antes de expandir skills u orquestación
+
+Tipo: proceso  
+Estado: vigente  
+Tags: sdd, flujo, agentes, templates  
+
+### Contexto
+
+El sistema ya tenía memoria y reglas básicas, pero faltaba un flujo repetible
+que indicara cuándo crear spec, design, task, validación y cierre. Sin ese
+flujo, `AGENTS.md` y los templates quedaban subdefinidos.
+
+### Decisión
+
+Definir primero un flujo `SDD v1` mínimo en `ai-system/docs/sdd-flow-v1.md`,
+derivar de ahí `AGENTS.md` v2 y crear sólo los templates esenciales.
+
+### Consecuencia
+
+El siguiente trabajo del proyecto ya no es diseñar más estructura, sino probar
+el flujo con un caso real y ajustar fricciones observadas.

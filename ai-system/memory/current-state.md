@@ -4,33 +4,34 @@
 
 - Proyecto en fase: Fase 1 - Sistema base operativo
 - Módulo activo: Consolidación de `ai-system/`
-- Última actualización: 2026-05-08
+- Última actualización: 2026-05-20
 
 ## En progreso
 
 - Ordenar la documentación maestra del sistema
-- Consolidar memoria y reglas para que sean portables
-- Preparar la base para un flujo SDD más formal
+- Consolidar memoria, flujo y reglas para que sean portables
+- Convertir el sistema base en un flujo repetible entre sesiones y agentes
 
 ## Problemas actuales
 
-- `PLAN.md` concentraba demasiada información mezclada
-- Falta formalizar el flujo SDD completo
-- `AGENTS.md` sigue en una versión mínima
-- Aún no existen templates operativos
+- El flujo SDD v1 ya fue definido, pero todavía no fue probado en trabajo real
+- Falta poblar `specs/` con un caso concreto de punta a punta
+- `skills/` y `orchestration/` siguen sólo como estructura vacía
 
 ## Archivos relevantes
 
 - `ai-system/PLAN.md`
 - `ai-system/AGENTS.md`
+- `ai-system/docs/sdd-flow-v1.md`
+- `ai-system/templates/`
 - `ai-system/memory/`
 
 ## Próximos pasos
 
-1. Definir `AGENTS.md` v2
-2. Crear templates mínimos
-3. Formalizar flujo SDD base
-4. Evaluar estructura futura para `skills/` y `orchestration/`
+1. Probar el flujo SDD v1 con una spec real
+2. Crear la primera task operativa usando templates
+3. Ajustar `AGENTS.md` según fricciones reales
+4. Evaluar recién después la evolución de `skills/` y `orchestration/`
 
 ## Contexto importante
 

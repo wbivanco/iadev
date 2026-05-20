@@ -27,8 +27,9 @@ Estado resumido:
 
 - El sistema ya es usable como base manual de trabajo con IA.
 - La memoria persistente ya funciona.
-- Ya existe una primera versión de reglas para agentes.
-- El sistema todavía no está formalizado como flujo completo de desarrollo.
+- Ya existe una versión operativa de reglas para agentes.
+- Ya existe un flujo SDD mínimo formalizado.
+- La siguiente etapa es probar el sistema con casos reales y ajustar fricciones.
 
 ## Qué ya está resuelto
 
@@ -88,59 +89,64 @@ Hoy el sistema permite trabajar así:
 1. leer memoria
 2. entender estado y contexto
 3. revisar o crear spec
-4. ejecutar trabajo
-5. validar
-6. actualizar memoria
+4. revisar o crear design y task si hace falta
+5. ejecutar trabajo
+6. validar
+7. actualizar memoria
 
-Este flujo funciona, pero todavía no está completamente formalizado.
+Este flujo ya fue formalizado en:
+
+`ai-system/docs/sdd-flow-v1.md`
 
 ### 5. Reglas base para agentes
 
-`AGENTS.md` ya define una primera operación mínima:
+`AGENTS.md` ya define una operación v2 más clara:
 
 - lectura obligatoria de memoria
 - separación entre `ai-system/` y `workspace/`
-- pasos mínimos de ejecución
+- uso de spec, design y task según complejidad
+- manejo de ambigüedad y validación mínima
 - regla de cierre con actualización de memoria
 
 ## Qué está incompleto
 
-### 1. Flujo SDD formal
+### 1. Validación del flujo en casos reales
 
-Existe la intención, pero no la formalización completa.
-
-Flujo objetivo:
+Flujo definido:
 
 `idea -> spec -> design -> tasks -> implementacion -> testing -> PR -> memoria`
 
-Falta definir:
+Falta comprobar:
 
-- documentos mínimos por etapa
-- criterios de entrada y salida
-- enforcement para agentes
-- integración con revisión y validación
+- si el flujo es lo bastante liviano para trabajo real
+- qué fricciones aparecen en sesiones reales
+- qué partes necesitan simplificación o más detalle
 
-### 2. AGENTS.md v2
+### 2. Ajuste fino de AGENTS.md
 
-La próxima versión debería cubrir:
+La base ya existe, pero debería refinarse después de uso real:
 
-- comportamiento según tipo de tarea
-- uso obligatorio de specs
-- manejo de errores y ambigüedad
-- criterios de calidad
-- relación con testing, revisión y cierre
+- excepciones prácticas
+- comportamiento multiagente
+- relación más precisa con revisión y cierre
 
 ### 3. Templates base
 
-Todavía no existen, pero son parte del siguiente salto de madurez.
+Ya existen templates mínimos en `ai-system/templates/`.
 
-Templates sugeridos:
+Templates actuales:
 
 - `spec.template.md`
 - `task.template.md`
 - `decision.template.md`
 - `session-log.template.md`
 - template de PR o cierre de trabajo
+
+Falta validar:
+
+- si alcanzan para trabajo real
+- si sobran o faltan campos
+- si conviene agregar un template de design
 
 ### 4. Skills y orquestación
 
@@ -156,9 +162,9 @@ Más adelante el sistema debería incorporar:
 ### Alta
 
 - ordenar y estabilizar la documentación base
-- definir `AGENTS.md` v2
-- formalizar el flujo SDD mínimo
-- crear templates esenciales
+- probar el flujo SDD mínimo con un caso real
+- ajustar `AGENTS.md` según uso
+- validar templates esenciales
 
 ### Media
 
@@ -180,14 +186,15 @@ Completado:
 - arquitectura base
 - separación `ai-system/` / `workspace/`
 - memoria v1 funcional
-- `AGENTS.md` base
-- flujo mínimo operativo
+- `AGENTS.md` operativo
+- flujo SDD v1 formalizado
+- templates mínimos
 
 Pendiente:
 
-- flujo SDD formal
-- `AGENTS.md` avanzado
-- templates
+- prueba de punta a punta con un caso real
+- refinamiento de `AGENTS.md`
+- refinamiento de templates
 - skills
 - orquestación
 
