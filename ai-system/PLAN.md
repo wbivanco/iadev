@@ -2,17 +2,27 @@
 
 ## Propósito
 
-Este repositorio existe para construir un `AI Development System` portable.
-La idea es que `ai-system/` pueda copiarse a cualquier proyecto y sirva como
-capa de planificación, memoria, reglas y coordinación de agentes.
+Este repositorio existe para construir un asistente portable de desarrollo con
+IA capaz de ayudar a crear software de cualquier tipo a partir de una
+especificacion.
 
-`workspace/` no es el foco actual. Puede permanecer vacío o mínimo hasta que el
-sistema base esté lo bastante maduro como para usarse en un proyecto real.
+La idea es que `ai-system/` pueda copiarse a cualquier proyecto y sirva como
+capa de planificacion, memoria, contexto, reglas, skills y coordinacion de
+agentes.
+
+`workspace/` no representa el producto principal. Puede permanecer vacio o
+minimo hasta que el sistema base este lo bastante maduro como para generar,
+acompanar o modificar proyectos reales.
 
 ## Objetivo del sistema
 
 Lograr una forma de trabajo consistente entre herramientas como VS Code,
 Cursor, OpenCode, Claude Code y Codex, sin depender de una sola plataforma.
+
+El objetivo funcional es que el asistente pueda recibir una especificacion,
+mantener memoria y contexto del trabajo, decidir que skills o agentes necesita
+usar, producir un plan ejecutable, implementar cambios, validarlos y dejar
+registro persistente del estado alcanzado.
 
 El sistema busca separar por completo:
 

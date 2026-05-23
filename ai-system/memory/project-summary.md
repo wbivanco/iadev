@@ -2,14 +2,18 @@
 
 ## Objetivo
 
-Crear un sistema portable de desarrollo con IA que pueda copiarse entre
-proyectos y funcionar de forma consistente en distintas herramientas.
+Crear un asistente portable de desarrollo con IA que ayude a crear software de
+cualquier tipo a partir de una especificacion.
+
+El asistente debe manejar memoria, contexto, skills y agentes cuando sean
+necesarios para convertir una especificacion en plan, implementacion,
+validacion y cierre.
 
 ## Enfoque
 
-El repositorio no está centrado todavía en construir una aplicación dentro de
-`workspace/`. El activo principal es `ai-system/`, que actúa como plantilla
-operativa reusable para memoria, planificación, reglas y agentes.
+El repositorio no esta centrado en construir una aplicacion especifica dentro
+de `workspace/`. El producto principal es `ai-system/`, que actua como sistema
+operativo reusable para guiar a agentes de IA en la construccion de software.
 
 ## Principios
 

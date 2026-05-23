@@ -4,6 +4,7 @@
 
 - Proyecto en fase: V1.0 - Kit portable completado
 - Módulo activo: Validación posterior mediante adopción en proyectos reales
+- Producto objetivo: asistente para crear software desde especificaciones
 - Última actualización: 2026-08-05
 
 ## Completado
@@ -26,4 +27,6 @@
 ## Contexto importante
 
 - `ai-system/` es un producto documental portable e independiente de stack.
+- Contiene planificación, memoria, contexto, specs, reglas, skills y coordinación de agentes.
+- Debe poder copiarse a cualquier proyecto.
 - `workspace/` contiene el código real cuando exista; no es requisito para cerrar la v1.
