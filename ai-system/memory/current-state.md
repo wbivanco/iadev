@@ -4,7 +4,7 @@
 
 - Proyecto en fase: V1.0 - Kit portable completado
 - Módulo activo: Validación posterior mediante adopción en proyectos reales
-- Producto objetivo: asistente para crear software desde especificaciones
+- Producto objetivo: `ai-system/` como asistente de programación para crear software desde especificaciones
 - Última actualización: 2026-08-05
 
 ## Completado
@@ -26,7 +26,7 @@
 
 ## Contexto importante
 
-- `ai-system/` es un producto documental portable e independiente de stack.
-- Contiene planificación, memoria, contexto, specs, reglas, skills y coordinación de agentes.
+- El objetivo de este repositorio es desarrollar `ai-system/`, un producto documental portable e independiente de stack.
+- Contiene planificación, memoria, contexto, specs, reglas, skills y coordinación de agentes para operar como asistente de programación.
 - Debe poder copiarse a cualquier proyecto.
-- `workspace/` contiene el código real cuando exista; no es requisito para cerrar la v1.
+- `workspace/` no es el producto principal; es el destino del código que el asistente ayude a crear, modificar o mantener.
