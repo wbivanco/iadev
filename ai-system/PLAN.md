@@ -21,7 +21,7 @@ El sistema busca separar por completo:
 
 ## Estado actual
 
-Fase actual: `Fase 1 - Sistema base operativo`
+Fase actual: `V1.0 - Kit portable completado`
 
 Estado resumido:
 
@@ -29,7 +29,7 @@ Estado resumido:
 - La memoria persistente ya funciona.
 - Ya existe una versión operativa de reglas para agentes.
 - Ya existe un flujo SDD mínimo formalizado.
-- La siguiente etapa es probar el sistema con casos reales y ajustar fricciones.
+- La validación en proyectos reales es una evolución posterior, no un requisito de cierre de la v1.
 
 ## Qué ya está resuelto
 
@@ -108,101 +108,31 @@ Este flujo ya fue formalizado en:
 - manejo de ambigüedad y validación mínima
 - regla de cierre con actualización de memoria
 
-## Qué está incompleto
+## Evolución posterior
 
-### 1. Validación del flujo en casos reales
+La v1.0 está cerrada como base documental portable. El uso en proyectos reales permitirá medir fricciones y priorizar una v1.1 o v2.
 
-Flujo definido:
+### Prioridad alta
 
-`idea -> spec -> design -> tasks -> implementacion -> testing -> PR -> memoria`
+- Aplicar la guía y checklist al adoptar el kit en un proyecto real.
+- Registrar fricciones de los roles, skills, templates y handoffs.
 
-Falta comprobar:
+### Prioridad media
 
-- si el flujo es lo bastante liviano para trabajo real
-- qué fricciones aparecen en sesiones reales
-- qué partes necesitan simplificación o más detalle
+- Ajustar `AGENTS.md` y templates según evidencia de uso.
+- Agregar skills específicos sólo cuando sean reutilizables entre proyectos.
 
-### 2. Ajuste fino de AGENTS.md
+### Prioridad baja
 
-La base ya existe, pero debería refinarse después de uso real:
+- Automatización de memoria y orquestación autónoma.
+- Búsqueda avanzada con SQLite o FTS.
+- Integraciones con IDE, Git, MCPs u otras herramientas.
 
-- excepciones prácticas
-- comportamiento multiagente
-- relación más precisa con revisión y cierre
+## Criterio de éxito de v1
 
-### 3. Templates base
+La v1 se considera cerrada cuando:
 
-Ya existen templates mínimos en `ai-system/templates/`.
-
-Templates actuales:
-
-- `spec.template.md`
-- `task.template.md`
-- `decision.template.md`
-- `session-log.template.md`
-- template de PR o cierre de trabajo
-
-Falta validar:
-
-- si alcanzan para trabajo real
-- si sobran o faltan campos
-- si conviene agregar un template de design
-
-### 4. Skills y orquestación
-
-Más adelante el sistema debería incorporar:
-
-- skills modulares por tipo de tarea
-- contratos de entrada y salida para agentes
-- handoffs más formales
-- soporte real para trabajo multiagente
-
-## Prioridades
-
-### Alta
-
-- ordenar y estabilizar la documentación base
-- probar el flujo SDD mínimo con un caso real
-- ajustar `AGENTS.md` según uso
-- validar templates esenciales
-
-### Media
-
-- estructurar `skills/`
-- estructurar `orchestration/`
-- mejorar handoffs entre agentes
-
-### Baja
-
-- automatización de memoria
-- búsqueda avanzada con SQLite o FTS
-- integraciones con IDE y Git
-- utilidades o MCPs específicos del sistema
-
-## Estado real resumido
-
-Completado:
-
-- arquitectura base
-- separación `ai-system/` / `workspace/`
-- memoria v1 funcional
-- `AGENTS.md` operativo
-- flujo SDD v1 formalizado
-- templates mínimos
-
-Pendiente:
-
-- prueba de punta a punta con un caso real
-- refinamiento de `AGENTS.md`
-- refinamiento de templates
-- skills
-- orquestación
-
-## Criterio de éxito de esta fase
-
-Esta fase se considera cerrada cuando:
-
-- `ai-system/` pueda copiarse a otro proyecto sin depender de este repositorio
-- un agente pueda arrancar leyendo memoria y reglas sin contexto adicional
-- exista un flujo mínimo repetible desde idea hasta cierre
-- la estructura documental esté limpia, consistente y mantenible
+- `ai-system/` puede copiarse sin depender de este repositorio.
+- Un agente puede iniciar leyendo memoria y reglas sin contexto adicional.
+- Existe un flujo repetible desde idea hasta cierre, con templates, skills y roles.
+- La guía, checklist y escenarios permiten adoptar y entender la base sin un proyecto real.

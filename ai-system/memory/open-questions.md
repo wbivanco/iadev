@@ -1,10 +1,10 @@
 # Open Questions
 
-## Sistema base
+## Evolución posterior
 
-- ¿Cuándo conviene crear `skills/` y `orchestration/` de forma real?
-- ¿Se usará búsqueda simple en Markdown o SQLite más adelante?
-- ¿Qué fricciones aparecerán al aplicar el flujo SDD v1 a un caso real?
+- ¿Qué automatización u orquestación avanzada se justifica después de adopciones reales?
+- ¿Conviene mantener búsqueda simple en Markdown o incorporar SQLite/FTS?
+- ¿Qué fricciones aparecen al aplicar v1.0 a un caso real?
 
 ## Bloqueantes
 

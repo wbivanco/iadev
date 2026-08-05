@@ -4,9 +4,9 @@
 
 ## 2026-05-08 - Separar ai-system y workspace
 
-Tipo: arquitectura  
-Estado: vigente  
-Tags: estructura, agentes, memoria  
+Tipo: arquitectura
+Estado: vigente
+Tags: estructura, agentes, memoria
 
 ### Contexto
 
@@ -27,9 +27,9 @@ El sistema queda portable y puede aplicarse a distintos tipos de proyectos.
 
 ## 2026-05-08 - Tratar ai-system como producto principal en esta fase
 
-Tipo: alcance  
-Estado: vigente  
-Tags: prioridad, sistema-base, portabilidad  
+Tipo: alcance
+Estado: vigente
+Tags: prioridad, sistema-base, portabilidad
 
 ### Contexto
 
@@ -51,9 +51,9 @@ templates antes de considerar implementación de producto.
 
 ## 2026-05-20 - Formalizar flujo SDD v1 antes de expandir skills u orquestación
 
-Tipo: proceso  
-Estado: vigente  
-Tags: sdd, flujo, agentes, templates  
+Tipo: proceso
+Estado: vigente
+Tags: sdd, flujo, agentes, templates
 
 ### Contexto
 
@@ -70,3 +70,22 @@ derivar de ahí `AGENTS.md` v2 y crear sólo los templates esenciales.
 
 El siguiente trabajo del proyecto ya no es diseñar más estructura, sino probar
 el flujo con un caso real y ajustar fricciones observadas.
+
+
+## 2026-08-05 - Definir v1 como kit portable con skills y roles mínimos
+
+Tipo: alcance
+Estado: vigente
+Tags: v1, skills, agentes, portabilidad
+
+### Contexto
+
+El sistema base ya contenía reglas, memoria y flujo SDD, pero sus carpetas de skills y orquestación estaban vacías. Era necesario cerrar una base reutilizable sin depender de un producto concreto.
+
+### Decisión
+
+Publicar la v1 como un kit manual y portable: conservar memoria y specs como gobierno central, agregar skills declarativos y roles temporales con handoffs, y dejar la automatización y orquestación autónoma para una versión posterior.
+
+### Consecuencia
+
+Los agents y skills complementan, no reemplazan, el flujo SDD ni la memoria persistente. La plantilla puede validarse con escenarios ficticios y luego refinarse con proyectos reales.

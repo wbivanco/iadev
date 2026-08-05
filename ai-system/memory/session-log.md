@@ -58,3 +58,26 @@
 ### Próximo paso
 
 - Probar el flujo con una spec real y una task real para detectar fricciones.
+
+
+## 2026-08-05
+
+### Trabajo realizado
+
+- Se definió e implementó el alcance documental de AI Development System v1.0.
+- Se agregaron guía de adopción, checklist de portabilidad, ciclo de vida documental, templates de design y skill.
+- Se formalizaron roles, handoffs y cuatro skills genéricos.
+- Se documentaron dos escenarios ficticios de referencia.
+
+### Decisiones tomadas
+
+- Mantener skills y agents como capas complementarias del sistema de memoria y specs.
+- Cerrar la base genérica sin exigir un proyecto real; la validación en proyectos reales queda como evolución posterior.
+
+### Validación
+
+- Se revisó consistencia de documentos y formato con `git diff --check`.
+
+### Próximo paso
+
+- Aplicar la checklist al copiar el kit a un proyecto y recoger fricciones de uso.

@@ -2,39 +2,26 @@
 
 ## Estado general
 
-- Proyecto en fase: Fase 1 - Sistema base operativo
-- Módulo activo: Consolidación de `ai-system/`
-- Última actualización: 2026-05-20
+- Proyecto en fase: V1.0 - Kit portable completado
+- Módulo activo: Validación posterior mediante adopción en proyectos reales
+- Última actualización: 2026-08-05
 
-## En progreso
+## Completado
 
-- Ordenar la documentación maestra del sistema
-- Consolidar memoria, flujo y reglas para que sean portables
-- Convertir el sistema base en un flujo repetible entre sesiones y agentes
+- Separación entre `ai-system/` y `workspace/`.
+- Memoria persistente, reglas para agentes y flujo SDD v1.
+- Templates para spec, design, task, decisión, sesión, cierre y skill.
+- Guía de adopción, ciclo de vida documental y checklist de portabilidad.
+- Roles temporales, contrato de handoff y skills genéricos.
+- Escenarios ficticios de referencia de punta a punta.
 
-## Problemas actuales
+## Próximo paso
 
-- El flujo SDD v1 ya fue definido, pero todavía no fue probado en trabajo real
-- Falta poblar `specs/` con un caso concreto de punta a punta
-- `skills/` y `orchestration/` siguen sólo como estructura vacía
-
-## Archivos relevantes
-
-- `ai-system/PLAN.md`
-- `ai-system/AGENTS.md`
-- `ai-system/docs/sdd-flow-v1.md`
-- `ai-system/templates/`
-- `ai-system/memory/`
-
-## Próximos pasos
-
-1. Probar el flujo SDD v1 con una spec real
-2. Crear la primera task operativa usando templates
-3. Ajustar `AGENTS.md` según fricciones reales
-4. Evaluar recién después la evolución de `skills/` y `orchestration/`
+1. Copiar el kit a un proyecto real y aplicar la checklist.
+2. Registrar fricciones y decidir cambios para v1.1 o v2.
+3. Evaluar automatización, búsqueda avanzada e integración con herramientas sólo si el uso real lo justifica.
 
 ## Contexto importante
 
-- `ai-system/` contiene planificación, memoria, specs y reglas.
-- `ai-system/` debe poder copiarse a cualquier proyecto.
-- `workspace/` no es crítico en esta etapa y puede mantenerse casi vacío.
+- `ai-system/` es un producto documental portable e independiente de stack.
+- `workspace/` contiene el código real cuando exista; no es requisito para cerrar la v1.

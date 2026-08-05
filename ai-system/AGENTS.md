@@ -13,14 +13,17 @@ Antes de trabajar, leer primero:
 
 1. `ai-system/memory/MEMORY.md`
 2. `ai-system/memory/current-state.md`
-3. `ai-system/memory/decisions.md`
-4. `ai-system/memory/open-questions.md`
-5. `ai-system/docs/sdd-flow-v1.md`
+3. `ai-system/memory/project-summary.md`
+4. `ai-system/memory/decisions.md`
+5. `ai-system/memory/open-questions.md`
+6. `ai-system/docs/sdd-flow-v1.md`
 
 ## Separación de responsabilidades
 
 - `ai-system/`: planificación, memoria, specs, reglas, skills y orquestación.
 - `workspace/`: código real del proyecto.
+
+Antes de empezar una tarea, declarar el rol asumido según `ai-system/orchestration/roles.md`. Aplicar un skill de `ai-system/skills/` cuando corresponda. Los roles asignan responsabilidad; los skills describen el procedimiento reutilizable.
 
 ## Flujo operativo
 
@@ -83,12 +86,16 @@ Después de cada trabajo relevante, actualizar:
 - `open-questions.md` si quedaron dudas
 - `session-log.md`
 
+Los handoffs se registran en `agent-handoffs.md` con el contrato definido en `orchestration/roles.md`. Consultar `docs/adoption-guide.md` para ciclo de vida y archivo de los artefactos.
+
 ## Plantillas base
 
 Usar cuando aplique:
 
 - `ai-system/templates/spec.template.md`
 - `ai-system/templates/task.template.md`
+- `ai-system/templates/design.template.md`
 - `ai-system/templates/decision.template.md`
 - `ai-system/templates/session-log.template.md`
 - `ai-system/templates/work-closeout.template.md`
+- `ai-system/templates/skill.template.md`
