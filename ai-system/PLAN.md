@@ -21,7 +21,7 @@ El sistema busca separar por completo:
 
 ## Estado actual
 
-Fase actual: `V1.0 - Kit portable completado`
+Fase actual: `V1.1 - Orquestación gobernada documentada`
 
 Estado resumido:
 
@@ -29,7 +29,7 @@ Estado resumido:
 - La memoria persistente ya funciona.
 - Ya existe una versión operativa de reglas para agentes.
 - Ya existe un flujo SDD mínimo formalizado.
-- La validación en proyectos reales es una evolución posterior, no un requisito de cierre de la v1.
+- La orquestación gobernada agrega coordinación y aprobación humana documentadas; la automatización ejecutable de agentes sigue siendo una evolución posterior.
 
 ## Qué ya está resuelto
 

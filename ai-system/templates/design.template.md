@@ -4,7 +4,12 @@
 
 ## Estado
 
-Propuesto | En progreso | Aprobado | Reemplazado
+Borrador | Pendiente de aprobación | Aprobado | En progreso | Reemplazado
+
+## Responsable y aprobación
+
+- Responsable humano:
+- Solicitud de aprobación:
 
 ## Spec relacionada
 

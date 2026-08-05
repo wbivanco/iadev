@@ -81,3 +81,11 @@
 ### Próximo paso
 
 - Aplicar la checklist al copiar el kit a un proyecto y recoger fricciones de uso.
+
+---
+
+## 2026-08-05 — Runtime del orquestador técnico v1
+
+- Se agregó el CLI Python `aidev` con estado local auditable, gates de aprobación en Markdown y máquina de estados coordinada.
+- El primer proveedor real es Codex CLI; su ejecución se limita a `workspace/` y entrega resultados estructurados.
+- Se añadieron pruebas de flujo completo, aprobación pendiente e impacto alto.

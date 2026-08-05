@@ -2,100 +2,42 @@
 
 ## Objetivo
 
-Este archivo define cómo debe operar un agente dentro de este repositorio.
-
-El objetivo no es sólo producir cambios, sino hacerlo de forma portable,
-repetible y compatible con memoria persistente.
+Operar un desarrollo asistido por IA de forma portable, trazable y gobernada por una persona responsable.
 
 ## Lectura obligatoria
 
-Antes de trabajar, leer primero:
+Antes de trabajar, leer en este orden:
 
-1. `ai-system/memory/MEMORY.md`
-2. `ai-system/memory/current-state.md`
-3. `ai-system/memory/project-summary.md`
-4. `ai-system/memory/decisions.md`
-5. `ai-system/memory/open-questions.md`
-6. `ai-system/docs/sdd-flow-v1.md`
+1. `ai-system/memory/MEMORY.md` y los archivos de memoria enlazados.
+2. `ai-system/docs/sdd-flow-v1.md`.
+3. `ai-system/docs/governed-orchestration-v2.md`.
+4. El Project Brief, Technology Profile, spec, design y task aplicables.
+5. La solicitud de aprobación vigente.
 
 ## Separación de responsabilidades
 
 - `ai-system/`: planificación, memoria, specs, reglas, skills y orquestación.
 - `workspace/`: código real del proyecto.
 
-Antes de empezar una tarea, declarar el rol asumido según `ai-system/orchestration/roles.md`. Aplicar un skill de `ai-system/skills/` cuando corresponda. Los roles asignan responsabilidad; los skills describen el procedimiento reutilizable.
+Declarar el rol de `orchestration/roles.md`. Aplicar el skill correspondiente de `skills/`. El Coordinador administra el flujo; el responsable humano decide las transiciones materiales.
 
 ## Flujo operativo
 
-Seguir este flujo:
+1. Recibir el Project Brief y Technology Profile.
+2. El Coordinador verifica completitud y obtiene aprobación del intake.
+3. El Planner genera spec, design y tasks; solicita aprobación del plan.
+4. El Coordinador solicita autorización para iniciar cada task.
+5. El Implementer ejecuta sólo la task aprobada y solicita autorización para entregarla a revisión.
+6. El Reviewer emite dictamen y solicita autorización para aceptar o corregir.
+7. El Closeout prepara el cierre y solicita autorización para completar.
+8. Registrar la respuesta y actualizar memoria tras cada transición.
 
-1. Entender la tarea.
-2. Revisar memoria.
-3. Determinar si el trabajo es trivial, normal o grande.
-4. Revisar o crear la `spec` correspondiente.
-5. Revisar o crear `design` si el cómo no está claro.
-6. Revisar o crear `task` antes de ejecutar.
-7. Implementar.
-8. Validar.
-9. Cerrar el trabajo.
-10. Actualizar memoria.
+## Regla de aprobación humana
 
-## Regla de specs
+Antes de una acción material, crear una solicitud usando `templates/approval-request.template.md` y esperar una respuesta explícita. No avanzar por silencio ni por una aprobación ambigua. Si cambian alcance, arquitectura, costo, seguridad, fechas o riesgos, volver al Coordinador.
 
-- No implementar cambios medianos o grandes sin `spec`.
-- Si la tarea abarca más de una sesión o más de un agente, crear `task`
-  explícita.
-- Si el enfoque tiene ambigüedad técnica o documental, crear `design` antes de
-  ejecutar.
+Son acciones materiales: aprobar/publicar artefactos, iniciar implementación, ampliar una task, instalar dependencias, migrar, desplegar, modificar configuración compartida, comunicar externamente y cerrar trabajo.
 
-## Clasificación del trabajo
+## Validación y cierre
 
-### Trabajo trivial
-
-- Ajuste pequeño y de bajo riesgo.
-- Puede resolverse con contexto breve y validación simple.
-
-### Trabajo normal
-
-- Requiere `spec`, validación explícita y actualización de memoria.
-
-### Trabajo grande o ambiguo
-
-- Requiere `spec`, `design`, `task` descompuesta y cierre más formal.
-
-## Comportamiento ante ambigüedad o falta de contexto
-
-- Si falta contexto resoluble, buscarlo en el repo antes de avanzar.
-- Si falta contexto crítico no resoluble, detener implementación y registrar la
-  duda en `ai-system/memory/open-questions.md`.
-- Si una decisión cambia la forma de trabajar del sistema, registrarla en
-  `ai-system/memory/decisions.md`.
-
-## Validación mínima
-
-- Toda tarea debe declarar cómo se valida.
-- Si no se pudo validar, dejarlo explícito en el cierre y en la memoria.
-- No dar por terminado un trabajo relevante sin algún tipo de evidencia.
-
-## Regla de cierre
-
-Después de cada trabajo relevante, actualizar:
-
-- `current-state.md`
-- `decisions.md` si hubo decisiones nuevas
-- `open-questions.md` si quedaron dudas
-- `session-log.md`
-
-Los handoffs se registran en `agent-handoffs.md` con el contrato definido en `orchestration/roles.md`. Consultar `docs/adoption-guide.md` para ciclo de vida y archivo de los artefactos.
-
-## Plantillas base
-
-Usar cuando aplique:
-
-- `ai-system/templates/spec.template.md`
-- `ai-system/templates/task.template.md`
-- `ai-system/templates/design.template.md`
-- `ai-system/templates/decision.template.md`
-- `ai-system/templates/session-log.template.md`
-- `ai-system/templates/work-closeout.template.md`
-- `ai-system/templates/skill.template.md`
+Toda task declara validación. No declarar éxito sin evidencia. Después de trabajo relevante, actualizar `current-state.md`, `decisions.md` cuando corresponda, `open-questions.md`, `session-log.md` y `agent-handoffs.md`.

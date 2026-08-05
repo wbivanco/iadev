@@ -2,30 +2,18 @@
 
 ## Propósito
 
-Cerrar un trabajo relevante preservando el contexto para la siguiente sesión.
-
-## Cuándo usarlo
-
-Después de implementación y validación aceptables.
+Cerrar un trabajo relevante preservando contexto para la siguiente sesión.
 
 ## Entradas requeridas
 
-Resultado, evidencia, revisión y artefactos relacionados.
+Resultado, evidencia, dictamen de revisión y decisiones aplicables.
 
 ## Procedimiento
 
-1. Completar el cierre con cambios, validación, riesgos y siguiente paso.
-2. Actualizar estado, decisiones, dudas y registro de sesión.
-3. Marcar los artefactos como completados o bloqueados.
-
-## Salidas esperadas
-
-Cierre verificable y memoria coherente.
-
-## Validación
-
-Una nueva sesión puede retomar el trabajo sólo leyendo la memoria y el cierre.
+1. Preparar el cierre con cambios, validación, riesgos y siguiente paso.
+2. Usar Approval Gate antes de declarar el trabajo completado.
+3. Tras aprobación, actualizar estado, decisiones, dudas, sesión y handoffs.
 
 ## Límites
 
-No declara éxito si falta validación o existe un bloqueo sin registrar.
+No declara éxito ni cambia el estado a completado sin aprobación explícita.

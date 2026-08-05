@@ -2,31 +2,19 @@
 
 ## Propósito
 
-Evaluar que un resultado cumple el alcance, los criterios de éxito y las
-restricciones declaradas.
-
-## Cuándo usarlo
-
-Antes del cierre de trabajo normal o grande, o ante cambios de riesgo.
+Evaluar que el resultado cumpla el alcance, criterios de éxito y restricciones.
 
 ## Entradas requeridas
 
-Spec, task, cambios realizados y evidencia de validación.
+Spec, task, cambios realizados, evidencia de validación y autorización de entrega.
 
 ## Procedimiento
 
 1. Comparar el resultado contra alcance y fuera de alcance.
 2. Revisar evidencia, riesgos y efectos no previstos.
-3. Registrar aprobación o hallazgos accionables.
-
-## Salidas esperadas
-
-Resultado de revisión listo para cierre o una task de corrección.
-
-## Validación
-
-Cada hallazgo es reproducible o referencia un criterio incumplido.
+3. Preparar dictamen con hallazgos accionables o recomendación de aceptación.
+4. Usar Approval Gate antes de aceptar definitivamente o iniciar correcciones.
 
 ## Límites
 
-No aprueba cambios sin evidencia de validación.
+No aprueba cambios sin evidencia ni sustituye la decisión del responsable humano.

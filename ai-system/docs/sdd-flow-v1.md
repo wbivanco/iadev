@@ -1,5 +1,7 @@
 # SDD Flow v1
 
+> Para proyectos que requieran aprobaciones humanas por etapa, este flujo se opera mediante [Orquestación gobernada v2](governed-orchestration-v2.md).
+
 ## Objetivo
 
 Definir un flujo mínimo, portable y repetible para trabajar con IA desde una

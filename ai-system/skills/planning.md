@@ -2,33 +2,19 @@
 
 ## Propósito
 
-Transformar una necesidad en una unidad de trabajo entendible y verificable.
-
-## Cuándo usarlo
-
-Antes de cualquier trabajo normal o grande, o cuando el alcance de una idea no
-está definido.
+Transformar un intake aprobado en un plan implementable y verificable.
 
 ## Entradas requeridas
 
-Pedido, memoria actual y restricciones conocidas.
+Project Brief, Technology Profile, memoria y aprobación de intake.
 
 ## Procedimiento
 
-1. Leer `MEMORY.md`, estado, decisiones y dudas abiertas.
-2. Clasificar el trabajo como trivial, normal o grande.
-3. Crear o actualizar spec; agregar design y task cuando corresponda.
-4. Declarar alcance, fuera de alcance, riesgos y validación.
-
-## Salidas esperadas
-
-Artefactos enlazados y un handoff listo para el implementer.
-
-## Validación
-
-Otro agente puede explicar objetivo, siguiente paso y criterio de éxito sin
-contexto del chat.
+1. Leer memoria, restricciones y preguntas abiertas.
+2. Crear o actualizar spec, design y tasks enlazados al intake.
+3. Declarar alcance, fuera de alcance, riesgos, dependencias y validación.
+4. Presentar el plan al responsable humano mediante Approval Gate antes de consolidarlo.
 
 ## Límites
 
-No implementa ni aprueba cambios de código.
+No inicia implementación ni marca los artefactos como aprobados por sí mismo.

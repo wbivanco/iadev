@@ -4,7 +4,13 @@
 
 ## Estado
 
-Pendiente | En progreso | Bloqueado | Completado
+Borrador | Pendiente de aprobación | Aprobada | En progreso | Bloqueada | Completada
+
+## Responsable y aprobación
+
+- Responsable humano:
+- Solicitud de inicio:
+- Solicitud de entrega:
 
 ## Relación
 

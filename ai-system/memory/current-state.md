@@ -13,11 +13,13 @@
 - Templates para spec, design, task, decisión, sesión, cierre y skill.
 - Guía de adopción, ciclo de vida documental y checklist de portabilidad.
 - Roles temporales, contrato de handoff y skills genéricos.
+- Orquestación gobernada: Coordinador, entradas estructuradas y aprobación humana por transición material.
+- Runtime v1: CLI Python `aidev`, estado JSON/JSONL versionable y adaptador a Codex CLI con sandbox de workspace.
 - Escenarios ficticios de referencia de punta a punta.
 
 ## Próximo paso
 
-1. Copiar el kit a un proyecto real y aplicar la checklist.
+1. Ejecutar un proyecto piloto con `aidev`, completar el intake y validar el ciclo de aprobaciones con Codex CLI.
 2. Registrar fricciones y decidir cambios para v1.1 o v2.
 3. Evaluar automatización, búsqueda avanzada e integración con herramientas sólo si el uso real lo justifica.
 
