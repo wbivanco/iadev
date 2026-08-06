@@ -5,14 +5,15 @@
 1. Copiá `ai-system/`, `src/`, `tests/` y `pyproject.toml` en la raíz del proyecto destino.
 2. Conservá `workspace/` como código ejecutable o adaptá esa ruta de forma consistente.
 3. Instalá el comando local: `python -m pip install -e .`.
-4. Inicializá el proyecto: `aidev init <proyecto> --responsible "<persona>"`.
-5. Completá `specs/intake/<proyecto>-brief.md` y `<proyecto>-technology-profile.md`.
-6. Ejecutá `aidev intake validate <proyecto>`.
-7. Aprobá el intake editando su Markdown y aplicá la decisión con `aidev approvals sync <proyecto>`.
-8. Repetí `aidev run`, aprobación y `aidev approvals sync` hasta completar el ciclo.
+4. Instalá la integración nativa de Codex: `aidev setup codex`.
+5. Inicializá el proyecto: `aidev init <proyecto> --responsible "<persona>"`.
+6. Completá `specs/intake/<proyecto>-brief.md` y `<proyecto>-technology-profile.md`.
+7. Ejecutá `aidev intake validate <proyecto>`.
+8. Aprobá el intake editando su Markdown y aplicá la decisión con `aidev approvals sync <proyecto>`.
+9. Repetí `aidev run`, aprobación y `aidev approvals sync` hasta completar el ciclo.
 
 La referencia operativa de comandos, estados y archivos es la [guía del
-orquestador](../orchestrator/README.md).
+orquestador](orchestrator-cli.md).
 
 ## Qué es universal
 
@@ -29,6 +30,15 @@ orquestador](../orchestrator/README.md).
 
 Nunca incluir secretos en Brief, Technology Profile, estado o archivos de
 configuración versionados.
+
+## Integración nativa de Codex
+
+`aidev setup codex` instala un bloque administrado por IADev en
+`workspace/AGENTS.md` y los skills nativos en `workspace/.agents/skills/`.
+Las reglas existentes se conservan: sólo se actualiza el bloque delimitado por
+marcadores IADev. Los skills pueden usarse manualmente en Codex o los invoca
+explícitamente `aidev run` para cada rol. Si un skill generado fue modificado,
+la instalación pide `--force` antes de restaurarlo.
 
 ## Ciclo de vida documental
 

@@ -31,10 +31,11 @@ class Orchestrator:
         self.root = root.resolve()
         self.provider = provider
         self.system = self.root / "ai-system"
-        self.state_root = self.system / "orchestrator" / "state"
+        self.state_root = self.root / ".aidev" / "state"
         self.intake_root = self.system / "specs" / "intake"
         self.approvals_root = self.system / "specs" / "approvals"
         self.workspace = self.root / "workspace"
+        self.guidance = self.system / "guidance"
 
     def init_project(self, project: str, responsible: str) -> ProjectState:
         self._validate_project(project)
@@ -169,6 +170,10 @@ La transición queda bloqueada hasta contar con una decisión explícita.
         role = ROLE_BY_STAGE.get(state.stage)
         if not role:
             raise OrchestratorError(f"No hay una acción ejecutable para el estado {state.stage}")
+        if getattr(self.provider, "requires_installed_skills", False):
+            from .codex import codex_setup_is_ready
+            if not codex_setup_is_ready(self.root, role):
+                raise OrchestratorError("Faltan los skills de Codex; ejecutá `aidev setup codex` antes de continuar")
         state.active_role = role
         self._save(state)
         result = self.provider.run(role=role, prompt=self._prompt(state, role), workspace=self.workspace)
@@ -193,7 +198,15 @@ La transición queda bloqueada hasta contar con una decisión explícita.
         return state
 
     def _prompt(self, state: ProjectState, role: str) -> str:
-        context_files = [self.system / "AGENTS.md", self.system / "docs" / "governed-orchestration-v2.md"]
+        context_files = [
+            self.guidance / "AGENTS.md",
+            self.system / "memory" / "MEMORY.md",
+            self.system / "memory" / "project-summary.md",
+            self.system / "memory" / "current-state.md",
+            self.system / "memory" / "decisions.md",
+            self.system / "memory" / "open-questions.md",
+            self.system / "docs" / "governed-orchestration-v2.md",
+        ]
         if state.stage == "planning":
             context_files += [self.intake_root / f"{state.project}-brief.md", self.intake_root / f"{state.project}-technology-profile.md"]
         context = "\n\n".join(f"## {file.relative_to(self.root)}\n{file.read_text(encoding='utf-8')}" for file in context_files if file.exists())
@@ -203,7 +216,7 @@ La transición queda bloqueada hasta contar con una decisión explícita.
         run_id = f"run-{len(state.runs) + 1:03d}"
         path = self._project_dir(state.project) / "runs" / f"{run_id}.json"
         path.write_text(json.dumps({"id": run_id, "role": role, "result": result.to_dict(), "at": datetime.now(UTC).isoformat()}, indent=2), encoding="utf-8")
-        state.runs.append(str(path.relative_to(self.system)))
+        state.runs.append(str(path.relative_to(self.root)))
         self._event(state.project, "role_finished", {"run": run_id, "role": role, "status": result.status})
 
     def _write_artifact(self, artifact: dict[str, str]) -> None:

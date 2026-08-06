@@ -55,7 +55,8 @@ def make_root(path: Path) -> Path:
     (system / "templates").mkdir(parents=True)
     for name in ("project-brief.template.md", "technology-profile.template.md"):
         (system / "templates" / name).write_text("# Template\n", encoding="utf-8")
-    (system / "AGENTS.md").write_text("Reglas", encoding="utf-8")
+    (system / "guidance").mkdir()
+    (system / "guidance" / "AGENTS.md").write_text("Reglas", encoding="utf-8")
     (system / "docs").mkdir()
     (system / "docs" / "governed-orchestration-v2.md").write_text("Flujo", encoding="utf-8")
     return path

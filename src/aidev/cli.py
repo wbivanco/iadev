@@ -5,6 +5,7 @@ import sys
 import tomllib
 from pathlib import Path
 
+from .codex import setup_codex
 from .core import Orchestrator, OrchestratorError
 from .provider import CodexCliProvider
 
@@ -31,11 +32,14 @@ def parser() -> argparse.ArgumentParser:
     sync.add_argument("project")
     audit = sub.add_parser("audit", help="Muestra la auditoría")
     audit.add_argument("project")
+    setup = sub.add_parser("setup", help="Instala una integración nativa de IADev")
+    setup.add_argument("target", choices=["codex"])
+    setup.add_argument("--force", action="store_true", help="Restaura skills IADev modificados")
     return root
 
 
 def provider_for(root: Path) -> CodexCliProvider:
-    config_path = root / "ai-system" / "orchestrator" / "config.toml"
+    config_path = root / ".aidev" / "config.toml"
     if not config_path.exists():
         return CodexCliProvider()
     config = tomllib.loads(config_path.read_text(encoding="utf-8"))
@@ -68,8 +72,14 @@ def main(argv: list[str] | None = None) -> int:
             state = orchestrator.load(args.project)
             print(f"Proyecto: {state.project}\nEtapa: {state.stage}\nRol: {state.active_role or '-'}\nAprobaciones: {len(state.approvals)}\nEjecuciones: {len(state.runs)}")
         elif args.command == "audit":
-            path = root / "ai-system" / "orchestrator" / "state" / args.project / "events.jsonl"
+            path = root / ".aidev" / "state" / args.project / "events.jsonl"
             print(path.read_text(encoding="utf-8") if path.exists() else "Sin eventos")
+        elif args.command == "setup":
+            result = setup_codex(root, force=args.force)
+            for path in result.created:
+                print(f"Creado: {path.relative_to(root)}")
+            for path in result.updated:
+                print(f"Actualizado: {path.relative_to(root)}")
     except OrchestratorError as error:
         print(f"Error: {error}", file=sys.stderr)
         return 2
@@ -77,7 +87,7 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def _ensure_config(root: Path) -> None:
-    path = root / "ai-system" / "orchestrator" / "config.toml"
+    path = root / ".aidev" / "config.toml"
     if not path.exists():
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text('[providers.codex]\nexecutable = "codex"\n# model = "gpt-5.6-codex"\n', encoding="utf-8")

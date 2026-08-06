@@ -56,7 +56,7 @@ Todo handoff debe incluir enlaces al brief, perfil tecnológico, spec, design, t
 ## Runtime técnico
 
 El protocolo se ejecuta con `aidev`. El estado canónico para la máquina es
-`orchestrator/state/<proyecto>/project.json`; `runs/*.json` conserva resultados
+`.aidev/state/<proyecto>/project.json`; `runs/*.json` conserva resultados
 de roles y `events.jsonl` mantiene la auditoría. Las solicitudes en
 `specs/approvals/` son el registro editable por la persona responsable.
 

@@ -8,7 +8,7 @@ roles y un orquestador técnico local gobernado por aprobación humana.
 
 Leé la [guía de adopción](docs/adoption-guide.md), personalizá `memory/` y
 completá el Project Brief y Technology Profile. Para usar el runtime, instalá el
-paquete desde la raíz del repositorio y seguí la [guía del orquestador](orchestrator/README.md).
+paquete desde la raíz del repositorio y seguí la [guía del orquestador](docs/orchestrator-cli.md).
 
 El código real del proyecto vive por convención en `../workspace`.
 
@@ -22,6 +22,6 @@ no despliega, migra ni hace operaciones de red de forma autónoma.
 ## Referencias
 
 - [Flujo de orquestación gobernada](docs/governed-orchestration-v2.md)
-- [Guía del orquestador](orchestrator/README.md)
-- [Roles y handoffs](orchestration/roles.md)
-- [Skills incluidos](skills/)
+- [Guía del orquestador](docs/orchestrator-cli.md)
+- [Roles y handoffs](guidance/roles.md)
+- [Skills incluidos](guidance/skills/)

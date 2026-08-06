@@ -12,9 +12,20 @@ python -m pip install -e .
 aidev --help
 ```
 
-`aidev init` crea `ai-system/orchestrator/config.toml` si no existe. El
+`aidev init` crea `.aidev/config.toml` si no existe. El
 proveedor usa el ejecutable `codex` y la sesión local ya autenticada; el modelo
 puede configurarse en ese archivo. No guardar claves ni secretos en el repo.
+
+Antes de ejecutar roles con Codex, instalá la integración nativa:
+
+```bash
+aidev setup codex
+```
+
+Esto crea o actualiza sólo el bloque IADev de `workspace/AGENTS.md` y genera
+los skills `aidev-*` en `workspace/.agents/skills/`. Las reglas existentes no
+se sobrescriben.
+
 
 ## Inicio de un proyecto
 
@@ -28,7 +39,7 @@ El primer comando crea:
 - `specs/intake/mi-proyecto-brief.md`
 - `specs/intake/mi-proyecto-technology-profile.md`
 - una solicitud de aprobación de intake en `specs/approvals/`
-- estado y auditoría en `orchestrator/state/mi-proyecto/`
+- estado y auditoría en `.aidev/state/mi-proyecto/`
 
 Completar el Brief y el Technology Profile antes de aprobar el intake.
 
@@ -52,6 +63,7 @@ vuelve a planificación. El silencio nunca habilita una transición.
 | Comando | Efecto |
 | --- | --- |
 | `aidev init <proyecto> --responsible <persona>` | Inicializa intake, estado y aprobación inicial. |
+| `aidev setup codex` | Instala reglas y skills nativos de Codex en `workspace/`. |
 | `aidev intake validate <proyecto>` | Comprueba contenido mínimo del Brief y del stack. |
 | `aidev approvals sync <proyecto>` | Lee y valida decisiones humanas en Markdown. |
 | `aidev run <proyecto> --responsible <persona>` | Ejecuta el siguiente rol o crea su gate de inicio. |

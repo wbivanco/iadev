@@ -1,0 +1,9 @@
+# IADev — flujo gobernado
+
+Leé `../ai-system/guidance/AGENTS.md`, `../ai-system/memory/MEMORY.md` y los artefactos aplicables dentro de `../ai-system/` antes de iniciar trabajo. El código del proyecto vive en este
+directorio (`workspace/`).
+
+Usá los skills `aidev-*` para el rol que corresponda. No avances una
+transición material sin una aprobación explícita registrada por IADev. No
+instales dependencias, ejecutes migraciones, uses red, despliegues ni cambies
+configuración compartida sin la aprobación aplicable.

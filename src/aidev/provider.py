@@ -7,10 +7,13 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any
 
+from .codex import skill_for_role
 from .models import AgentResult
 
 
 class Provider(ABC):
+    requires_installed_skills = False
+
     @abstractmethod
     def run(self, *, role: str, prompt: str, workspace: Path) -> AgentResult:
         raise NotImplementedError
@@ -18,6 +21,8 @@ class Provider(ABC):
 
 class CodexCliProvider(Provider):
     """Run a role through the locally authenticated Codex CLI."""
+
+    requires_installed_skills = True
 
     def __init__(self, executable: str = "codex", model: str | None = None) -> None:
         self.executable = executable
@@ -43,6 +48,9 @@ class CodexCliProvider(Provider):
                 "high_impact_actions": {"type": "array", "items": {"type": "string"}},
             },
         }
+        skill_name = skill_for_role(role)
+        if skill_name:
+            prompt = f"Usá explícitamente el skill ${skill_name} para esta tarea\n\n{prompt}"
         with tempfile.TemporaryDirectory(prefix="aidev-") as directory:
             schema_path = Path(directory) / "result-schema.json"
             schema_path.write_text(json.dumps(schema), encoding="utf-8")

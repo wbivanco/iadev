@@ -5,7 +5,7 @@ Usá esta lista después de copiar o actualizar el kit.
 ## Integridad del kit
 
 - [ ] Existen `AGENTS.md`, `README.md`, `PLAN.md`, `docs/`, `memory/`,
-  `specs/`, `templates/`, `skills/` y `orchestration/`.
+  `specs/`, `templates/`, `guidance/skills/` y `guidance/`.
 - [ ] Existen los templates de spec, design, task, decisión, sesión, cierre y
   skill.
 - [ ] Los enlaces desde `AGENTS.md`, `README.md` y esta guía resuelven.

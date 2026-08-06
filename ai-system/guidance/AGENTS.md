@@ -19,7 +19,7 @@ Antes de trabajar, leer en este orden:
 - `ai-system/`: planificación, memoria, specs, reglas, skills y orquestación.
 - `workspace/`: código real del proyecto.
 
-Declarar el rol de `orchestration/roles.md`. Aplicar el skill correspondiente de `skills/`. El Coordinador administra el flujo; el responsable humano decide las transiciones materiales.
+Declarar el rol de `guidance/roles.md`. Aplicar el skill correspondiente de `guidance/skills/`. El Coordinador administra el flujo; el responsable humano decide las transiciones materiales.
 
 ## Flujo operativo
 
