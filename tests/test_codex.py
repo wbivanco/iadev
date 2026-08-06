@@ -62,6 +62,13 @@ class CodexSetupTests(unittest.TestCase):
         setup_codex(self.root, force=True)
         self.assertNotIn("Cambio manual", skill.read_text(encoding="utf-8"))
 
+    def test_setup_rejects_an_empty_canonical_skill(self) -> None:
+        skill = self.root / "ai-system" / "guidance" / "skills" / "smart-commit.md"
+        skill.write_text("", encoding="utf-8")
+
+        with self.assertRaisesRegex(OrchestratorError, "está vacío"):
+            setup_codex(self.root)
+
     def test_roles_have_explicit_skills(self) -> None:
         for role, skill in ROLE_SKILLS.items():
             self.assertEqual(skill_for_role(role), skill)

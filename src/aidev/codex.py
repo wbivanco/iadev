@@ -68,8 +68,11 @@ def setup_codex(root: Path, *, force: bool = False) -> SetupResult:
         source = system / "guidance" / "skills" / SKILL_SOURCES[role]
         if not source.exists():
             raise _error(f"No existe el skill canónico: {source.relative_to(root)}")
+        source_content = source.read_text(encoding="utf-8")
+        if not source_content.strip():
+            raise _error(f"El skill canónico está vacío: {source.relative_to(root)}")
         destination = workspace / ".agents" / "skills" / skill_name / "SKILL.md"
-        _install_skill(destination, skill_name, source.read_text(encoding="utf-8"), force, created, updated)
+        _install_skill(destination, skill_name, source_content, force, created, updated)
     return SetupResult(created=created, updated=updated)
 
 
