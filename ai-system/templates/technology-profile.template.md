@@ -1,5 +1,26 @@
 # Technology Profile Template
 
+> Usar este documento como checklist del contexto técnico. Las secciones
+> **obligatorias** deben estar completas para aprobar el intake. Las
+> **recomendadas** agregan el detalle que permite planificar y ejecutar con
+> menos supuestos. Las secciones **condicionales** son obligatorias cuando se
+> cumple su condición. Cuando una sección no aplique, indicarlo explícitamente
+> con `No aplica` y el motivo. Nunca incluir secretos.
+
+## Checklist de completitud
+
+- [ ] Obligatoria: Identificación.
+- [ ] Obligatoria: Stack obligatorio.
+- [ ] Obligatoria: Arquitectura y convenciones.
+- [ ] Obligatoria: Integraciones, credenciales y entornos.
+- [ ] Obligatoria: Calidad y entrega.
+- [ ] Obligatoria: Restricciones técnicas y de seguridad.
+- [ ] Obligatoria: Decisiones pendientes.
+- [ ] Recomendada: Roles permitidos y responsable operativo.
+- [ ] Recomendada: Modelo y configuración local de Codex.
+- [ ] Recomendada: MCPs requeridos.
+- [ ] Condicional: Arquitectura distribuida, si se usan microservicios o servicios independientes.
+
 ## Identificación
 
 - Proyecto:
@@ -23,6 +44,18 @@
 - Convenciones de código:
 - Gestión de dependencias:
 
+## Roles permitidos y responsable operativo — Recomendada
+
+- Responsable operativo:
+- Roles humanos o de agentes permitidos:
+- Separación de responsabilidades requerida:
+
+## Modelo y configuración local de Codex — Recomendada
+
+- Modelo o política de selección de modelo:
+- Configuración local relevante (sin rutas, variables ni secretos):
+- Restricciones de uso o sandbox:
+
 ## Integraciones, credenciales y entornos
 
 No incluir secretos. Referenciar el mecanismo seguro para configurarlos.
@@ -32,6 +65,17 @@ No incluir secretos. Referenciar el mecanismo seguro para configurarlos.
 | MCP | Uso | Configuración |
 | --- | --- | --- |
 | open-pencil | Diseño visual de tasks UI | Instalación local del usuario; no versionar rutas ni secretos |
+
+## Arquitectura distribuida — Condicional
+
+Completar si se usan microservicios o servicios con despliegue independiente.
+
+- Servicios, responsabilidad y límites:
+- Propiedad de datos y consistencia entre servicios:
+- Contratos de APIs o eventos, versionado y compatibilidad:
+- Autenticación, autorización, observabilidad y manejo de fallas:
+- Pruebas de contrato e integración:
+- CI/CD y estrategia de despliegue por servicio:
 
 ## Calidad y entrega
 
