@@ -41,6 +41,12 @@ Estado resumido:
 - La orquestación gobernada se ejecuta mediante el CLI `aidev`: mantiene estado JSON/JSONL, crea gates y llama roles de Codex de forma acotada.
 - El target Codex instala reglas y skills nativos sin sobrescribir instrucciones existentes.
 - El runtime permite seleccionar una task explícitamente y, si la task UI lo requiere, ejecutar un diseño visual con OpenPencil y aprobar su `.fig` antes de implementar.
+- `aidev doctor` verifica automáticamente la estructura portable, templates,
+  enlaces internos, memoria activa e intake de un proyecto cuando se indica.
+- El runtime carga una memoria activa acotada en `memory/context.md`; el
+  detalle cerrado se conserva en `memory/archive/` fuera del prompt habitual.
+- Todos los skills canónicos, incluido Smart Commit, se distribuyen con el kit
+  y la instalación rechaza instrucciones vacías.
 
 ## Qué ya está resuelto
 
@@ -69,12 +75,11 @@ Ubicación:
 Archivos actuales:
 
 - `MEMORY.md`: entrypoint para leer la memoria
-- `project-summary.md`: visión general del sistema
-- `current-state.md`: estado actual del proyecto
-- `decisions.md`: decisiones persistentes
-- `open-questions.md`: dudas y pendientes abiertos
-- `session-log.md`: historial de sesiones
-- `agent-handoffs.md`: coordinación entre agentes
+- `context.md`: resumen operativo que el runtime entrega a cada rol
+- `archive/`: detalle cerrado e histórico fuera del contexto automático
+- `project-summary.md`, `current-state.md`, `decisions.md`,
+  `open-questions.md`, `session-log.md` y `agent-handoffs.md`: fuentes que se
+  consolidan y archivan para no ampliar el prompt sin límite
 
 Capacidades ya presentes:
 
@@ -133,10 +138,12 @@ La base documental v1.0 está cerrada; el runtime gobernado y el target Codex co
 
 - Ajustar `AGENTS.md` y templates según evidencia de uso.
 - Agregar skills específicos sólo cuando sean reutilizables entre proyectos.
+- Diseñar una migración compatible para separar los archivos base del kit de
+  los artefactos generados por proyecto, por ejemplo en `projects/<proyecto>/`.
 
 ### Prioridad baja
 
-- Automatización adicional de memoria y capacidades no gobernadas.
+- Archivado automático de memoria y capacidades no gobernadas.
 - Búsqueda avanzada con SQLite o FTS.
 - Nuevos targets nativos para otras herramientas e integraciones MCP adicionales.
 

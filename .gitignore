@@ -1,2 +1,8 @@
 __pycache__/
 *.py[cod]
+
+# Archivos locales del sistema operativo.
+.DS_Store
+
+# Integración local de Codex regenerable con `aidev setup codex`.
+workspace/.agents/
