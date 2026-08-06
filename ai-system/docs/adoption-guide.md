@@ -35,6 +35,45 @@ orquestador](orchestrator-cli.md).
 Nunca incluir secretos en Brief, Technology Profile, estado o archivos de
 configuración versionados.
 
+## Aplicabilidad, escala y arquitectura
+
+IADev es un sistema de trabajo para pasar de una necesidad a un backlog
+ejecutable y trazable: produce brief, spec, diseño y tasks, y ayuda a
+implementar, validar, revisar y cerrar cada unidad aprobada. No sustituye la
+definición de producto, la arquitectura ni la responsabilidad de una persona;
+tampoco crea y opera de forma autónoma un sistema completo en una sola corrida.
+
+Puede adoptarse en proyectos pequeños, medianos o grandes. En un proyecto
+grande, evitá tratar todo el producto como una sola spec o task: dividilo en
+hitos o capacidades, luego en specs y tasks pequeñas, ordenadas por
+dependencias y con una validación verificable. La escalabilidad práctica del
+flujo depende de conservar decisiones y contexto, controlar cambios de alcance,
+mantener contratos entre componentes y ejecutar pruebas unitarias, de contrato
+e integración apropiadas.
+
+El kit no impone arquitectura. Es aplicable a monolitos, monolitos modulares,
+frontends y backends separados, y microservicios. Los microservicios requieren
+más diseño y operación; antes de planificar su implementación, documentá como
+mínimo en el Technology Profile y el diseño:
+
+- responsabilidad y límites de cada servicio;
+- propiedad de datos y consistencia entre servicios;
+- contratos de APIs, eventos, versionado y compatibilidad;
+- autenticación, autorización, observabilidad y manejo de fallas;
+- pruebas de contrato e integración, CI/CD y estrategia de despliegue.
+
+Elegir microservicios no es un objetivo en sí mismo. Cuando el dominio, el
+equipo y el despliegue todavía son simples, un monolito modular suele reducir
+la coordinación y acelerar el aprendizaje. La división en servicios cobra
+sentido si hay límites de negocio claros, ciclos de despliegue independientes o
+requisitos operativos y de escalado que lo justifiquen.
+
+Finalmente, los límites operativos del runtime se mantienen incluso si el
+proyecto es grande: no instala dependencias, ejecuta migraciones, accede a la
+red ni despliega automáticamente. Esas acciones y toda decisión que afecte
+arquitectura, seguridad, costo o entornos compartidos deben pasar por
+aprobación humana explícita.
+
 ## Integración nativa de Codex
 
 `aidev setup codex` instala un bloque administrado por IADev en

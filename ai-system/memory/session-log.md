@@ -2,6 +2,27 @@
 
 ---
 
+## 2026-08-06
+
+### Trabajo realizado
+
+- Se explicitó en la documentación el alcance de IADev como flujo asistido y
+  gobernado, desde una necesidad hasta un backlog de tasks implementables.
+- Se documentó su aplicabilidad a sistemas grandes mediante hitos, specs y
+  tasks pequeñas, y sus límites prácticos de contexto, integración y revisión.
+- Se aclaró que el kit no impone microservicios y qué decisiones se deben
+  documentar si esa arquitectura se adopta.
+
+### Validación
+
+- Revisión de formato y consistencia con `git diff --check`.
+
+### Próximo paso
+
+- Validar estas guías durante la adopción de un proyecto piloto.
+
+---
+
 ## 2026-06-18
 
 ### Trabajo realizado
