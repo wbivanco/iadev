@@ -6,9 +6,9 @@ roles y un orquestador técnico local gobernado por aprobación humana.
 
 ## Empezar
 
-Leé la [guía de adopción](docs/adoption-guide.md), personalizá `memory/` y
+Leé la [guía de puesta en marcha](docs/adoption-guide.md), personalizá `memory/` y
 completá el Project Brief y Technology Profile. Para usar el runtime, instalá el
-paquete desde la raíz del repositorio y seguí la [guía del orquestador](docs/orchestrator-cli.md).
+paquete desde la raíz del repositorio y seguí la [guía de uso de AIDev CLI](docs/orchestrator-cli.md).
 
 El código real del proyecto vive por convención en `../workspace`.
 
@@ -55,7 +55,8 @@ proyecto.
 ## Referencias
 
 - [Flujo de orquestación gobernada](docs/governed-orchestration-v2.md)
-- [Guía del orquestador](docs/orchestrator-cli.md)
+- [Guía de uso de AIDev CLI](docs/orchestrator-cli.md)
+- [Escenarios de referencia](docs/reference-scenarios.md)
 - [Roles y handoffs](guidance/roles.md)
 - [Skills incluidos](guidance/skills/)
 - [Integración OpenPencil](integrations/open-pencil.toml)

@@ -12,7 +12,10 @@ Resultado, evidencia, dictamen de revisión y decisiones aplicables.
 
 1. Preparar el cierre con cambios, validación, riesgos y siguiente paso.
 2. Usar Approval Gate antes de declarar el trabajo completado.
-3. Tras aprobación, actualizar estado, decisiones, dudas, sesión y handoffs.
+3. Tras aprobación, actualizar `memory/context.md` con el resumen vigente,
+   decisiones activas, dudas abiertas y siguiente paso.
+4. Mover o resumir en `memory/archive/` el detalle cerrado que no deba entrar
+   en el contexto automático.
 
 ## Límites
 

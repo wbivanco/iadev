@@ -1,4 +1,4 @@
-# Guía de adopción
+# Guía de puesta en marcha de IADev
 
 ## Inicio rápido
 
@@ -15,8 +15,15 @@
 11. Tras la revisión aceptada, autorizá el commit local de la task y ejecutá el rol `smart-commit`; luego aprobá su cierre.
 12. Repetí selección de task, ejecución y aprobaciones hasta que no queden tasks abiertas.
 
-La referencia operativa de comandos, estados y archivos es la [guía del
-orquestador](orchestrator-cli.md).
+La referencia operativa de comandos, estados y archivos es la [guía de uso de
+AIDev CLI](orchestrator-cli.md).
+
+## Practicar antes de un proyecto real
+
+Los [escenarios de referencia](reference-scenarios.md) muestran recorridos
+completos para una corrección pequeña, un cambio amplio y una task visual. Son
+opcionales, pero sirven para aprender o validar manualmente el flujo antes de
+aplicarlo a un producto real.
 
 ## Qué es universal
 

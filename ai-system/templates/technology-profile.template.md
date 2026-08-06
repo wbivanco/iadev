@@ -16,7 +16,7 @@
 - [ ] Obligatoria: Calidad y entrega.
 - [ ] Obligatoria: Restricciones técnicas y de seguridad.
 - [ ] Obligatoria: Decisiones pendientes.
-- [ ] Recomendada: Roles permitidos y responsable operativo.
+- [ ] Recomendada: Roles habilitados del catálogo y responsable operativo.
 - [ ] Recomendada: Modelo y configuración local de Codex.
 - [ ] Recomendada: MCPs requeridos.
 - [ ] Condicional: Arquitectura distribuida, si se usan microservicios o servicios independientes.
@@ -44,10 +44,15 @@
 - Convenciones de código:
 - Gestión de dependencias:
 
-## Roles permitidos y responsable operativo — Recomendada
+## Roles habilitados del catálogo y responsable operativo — Recomendada
+
+Elegí cuáles de los roles ya definidos en `guidance/roles.md` pueden
+participar en este proyecto. No es necesario crear roles nuevos. Esta sección
+documenta la configuración operativa del proyecto y actualmente no bloquea la
+ejecución del runtime.
 
 - Responsable operativo:
-- Roles humanos o de agentes permitidos:
+- Roles humanos o de agentes habilitados (del catálogo):
 - Separación de responsabilidades requerida:
 
 ## Modelo y configuración local de Codex — Recomendada

@@ -53,12 +53,29 @@ Se registra un pedido.
 def make_root(path: Path) -> Path:
     system = path / "ai-system"
     (system / "templates").mkdir(parents=True)
-    for name in ("project-brief.template.md", "technology-profile.template.md"):
+    for name in (
+        "project-brief.template.md",
+        "technology-profile.template.md",
+        "spec.template.md",
+        "design.template.md",
+        "task.template.md",
+        "decision.template.md",
+        "session-log.template.md",
+        "work-closeout.template.md",
+        "skill.template.md",
+    ):
         (system / "templates" / name).write_text("# Template\n", encoding="utf-8")
+    (system / "README.md").write_text("# IADev\n", encoding="utf-8")
+    (system / "PLAN.md").write_text("# Plan\n", encoding="utf-8")
     (system / "guidance").mkdir()
     (system / "guidance" / "AGENTS.md").write_text("Reglas", encoding="utf-8")
+    (system / "guidance" / "skills").mkdir()
     (system / "docs").mkdir()
     (system / "docs" / "governed-orchestration-v2.md").write_text("Flujo", encoding="utf-8")
+    (system / "docs" / "sdd-flow-v1.md").write_text("Flujo SDD", encoding="utf-8")
+    (system / "memory").mkdir()
+    (system / "memory" / "context.md").write_text("Contexto activo", encoding="utf-8")
+    (path / "pyproject.toml").write_text("[project]\nname = 'test'\n", encoding="utf-8")
     return path
 
 
@@ -171,6 +188,45 @@ class OrchestratorTests(unittest.TestCase):
         orchestrator.create_approval(state, "Ana", "approve_plan", "planner", "Aceptar plan")
         approve(self.root, "demo", next(key for key, value in state.approvals.items() if value["action"] == "approve_plan"), "rejected")
         self.assertEqual(orchestrator.sync_approvals("demo").stage, "planning")
+
+    def test_prompt_uses_only_the_bounded_active_memory(self) -> None:
+        orchestrator = Orchestrator(self.root, FakeProvider([]))
+        state = orchestrator.init_project("demo", "Ana")
+        memory = self.root / "ai-system" / "memory"
+        (memory / "decisions.md").write_text("No debe cargarse", encoding="utf-8")
+        (memory / "context.md").write_text("Decisión vigente", encoding="utf-8")
+
+        prompt = orchestrator._prompt(state, "planner")
+
+        self.assertIn("Decisión vigente", prompt)
+        self.assertNotIn("No debe cargarse", prompt)
+        self.assertIn("Flujo SDD", prompt)
+
+    def test_prompt_rejects_an_oversized_active_memory(self) -> None:
+        orchestrator = Orchestrator(self.root, FakeProvider([]))
+        state = orchestrator.init_project("demo", "Ana")
+        (self.root / "ai-system" / "memory" / "context.md").write_text("x" * 12_001, encoding="utf-8")
+
+        with self.assertRaisesRegex(OrchestratorError, "memoria activa excede"):
+            orchestrator._prompt(state, "planner")
+
+    def test_doctor_checks_the_kit_and_project_intake(self) -> None:
+        orchestrator = Orchestrator(self.root, FakeProvider([]))
+        orchestrator.init_project("demo", "Ana")
+
+        checks = orchestrator.doctor("demo")
+
+        self.assertTrue(any(not passed and "Falta contenido" in message for passed, message in checks))
+        fill_intake(self.root, "demo")
+        self.assertTrue(all(passed for passed, _ in orchestrator.doctor("demo")))
+
+    def test_doctor_detects_broken_internal_links(self) -> None:
+        orchestrator = Orchestrator(self.root, FakeProvider([]))
+        (self.root / "ai-system" / "README.md").write_text("[Roto](missing.md)", encoding="utf-8")
+
+        checks = orchestrator.doctor()
+
+        self.assertTrue(any(not passed and "Enlace roto" in message for passed, message in checks))
 
 if __name__ == "__main__":
     unittest.main()

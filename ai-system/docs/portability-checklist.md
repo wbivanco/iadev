@@ -1,6 +1,9 @@
 # Checklist de portabilidad
 
-Usá esta lista después de copiar o actualizar el kit.
+Usá esta lista después de copiar o actualizar el kit. Ejecutá primero
+`aidev doctor`: verifica automáticamente estructura, templates, enlaces locales
+y memoria activa. Los puntos que requieren juicio del responsable siguen siendo
+una revisión manual.
 
 ## Integridad del kit
 
@@ -26,4 +29,5 @@ Usá esta lista después de copiar o actualizar el kit.
 - [ ] El diseño visual aprobado se guarda en `workspace/design/<task-id>.fig` antes de iniciar implementación.
 - [ ] Un trabajo ambiguo tiene además design.
 - [ ] Se seleccionó un rol y, cuando aplica, un skill para la tarea.
-- [ ] El cierre actualiza `current-state.md`, decisiones, dudas y sesión.
+- [ ] El cierre actualiza `memory/context.md` y archiva el detalle cerrado
+      fuera del contexto automático.

@@ -2,6 +2,10 @@
 
 > Para proyectos que requieran aprobaciones humanas por etapa, este flujo se opera mediante [Orquestación gobernada v2](governed-orchestration-v2.md).
 
+El runtime `aidev` entrega este documento como contexto en cada ejecución de
+rol; no lo interpreta como una máquina de estados, sino como guía para aplicar
+el proceso y sus criterios.
+
 ## Objetivo
 
 Definir un flujo mínimo, portable y repetible para trabajar con IA desde una
@@ -228,14 +232,16 @@ Propósito:
 
 Archivos mínimos:
 
-- `ai-system/memory/current-state.md`
-- `ai-system/memory/decisions.md`
-- `ai-system/memory/open-questions.md`
-- `ai-system/memory/session-log.md`
+- `ai-system/memory/context.md`: resumen operativo que el runtime carga en
+  cada ejecución.
+- `ai-system/memory/archive/`: detalle histórico consultable bajo demanda.
 
 Regla:
 
-- actualizar memoria después de todo trabajo relevante
+- al cerrar una task o hito, consolidar estado, decisiones vigentes, dudas y
+  próximo paso en `context.md`;
+- mantener `context.md` por debajo de 12.000 caracteres y archivar el detalle
+  cerrado fuera del contexto automático.
 
 ## Criterios de entrada y salida por tipo de trabajo
 
@@ -292,10 +298,10 @@ Requiere:
 
 - Si no existe spec y el trabajo no es trivial, crearla antes de implementar.
 - Si la spec existe pero el cómo no está claro, crear design antes de avanzar.
-- Si hay ambigüedad no resoluble con el repo, registrar la duda en
-  `open-questions.md`.
-- Si una decisión afecta el modo de trabajo del sistema, registrarla en
-  `decisions.md`.
+- Si hay ambigüedad no resoluble con el repo, registrarla en la sección de
+  dudas abiertas de `context.md`.
+- Si una decisión afecta el modo de trabajo del sistema, registrarla como
+  decisión activa en `context.md` y conservar el detalle en `archive/`.
 - Si no se pudo validar, dejarlo explícito en el cierre y en la sesión.
 
 ## Definición de mínimo operable

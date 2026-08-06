@@ -23,7 +23,9 @@ APPROVAL_TRANSITIONS = {
     "complete_task": "task_ready",
 }
 ROLE_BY_STAGE = {"planning": "planner", "visual_design": "visual_designer", "implementation": "implementer", "review": "reviewer", "committing": "smart_committer", "closeout": "closeout"}
+ACTIVE_MEMORY_MAX_CHARS = 12_000
 HIGH_IMPACT_WORDS = ("dependency", "dependencia", "migration", "migración", "deploy", "desplieg", "network", "red", "secret", "credencial", "shared configuration", "configuración compartida")
+MARKDOWN_LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 
 
 class OrchestratorError(RuntimeError):
@@ -89,6 +91,56 @@ class Orchestrator:
         if profile.exists() and not self._section_has_content(profile.read_text(encoding="utf-8"), "## Stack obligatorio"):
             issues.append("Falta contenido en ## Stack obligatorio")
         return issues
+
+    def doctor(self, project: str | None = None) -> list[tuple[bool, str]]:
+        """Verifica automáticamente que el kit y, opcionalmente, un proyecto estén listos."""
+        checks: list[tuple[bool, str]] = []
+        required_paths = (
+            "ai-system/README.md",
+            "ai-system/PLAN.md",
+            "ai-system/docs",
+            "ai-system/memory",
+            "ai-system/specs",
+            "ai-system/templates",
+            "ai-system/guidance/AGENTS.md",
+            "ai-system/guidance/skills",
+            "pyproject.toml",
+        )
+        for relative in required_paths:
+            checks.append(((self.root / relative).exists(), f"Existe {relative}"))
+        for template in (
+            "project-brief.template.md",
+            "technology-profile.template.md",
+            "spec.template.md",
+            "design.template.md",
+            "task.template.md",
+            "decision.template.md",
+            "session-log.template.md",
+            "work-closeout.template.md",
+            "skill.template.md",
+        ):
+            relative = f"ai-system/templates/{template}"
+            checks.append(((self.root / relative).is_file(), f"Existe {relative}"))
+        context = self.system / "memory" / "context.md"
+        if not context.exists():
+            checks.append((False, "Falta ai-system/memory/context.md"))
+        elif len(context.read_text(encoding="utf-8")) > ACTIVE_MEMORY_MAX_CHARS:
+            checks.append((False, f"memory/context.md no supera {ACTIVE_MEMORY_MAX_CHARS} caracteres"))
+        else:
+            checks.append((True, f"memory/context.md está dentro del límite de {ACTIVE_MEMORY_MAX_CHARS} caracteres"))
+        for source, target in self._broken_internal_links():
+            checks.append((False, f"Enlace roto en {source}: {target}"))
+        if project:
+            state_path = self._project_dir(project) / "project.json"
+            if not state_path.exists():
+                checks.append((False, f"No existe el proyecto {project}; ejecutá aidev init"))
+            else:
+                checks.append((True, f"Existe el estado del proyecto {project}"))
+                issues = self.validate_intake(project)
+                checks.extend((False, issue) for issue in issues)
+                if not issues:
+                    checks.append((True, "El intake contiene los campos mínimos"))
+        return checks
 
     def list_tasks(self, project: str) -> list[str]:
         """Lista las tasks individuales disponibles para el proyecto."""
@@ -273,21 +325,33 @@ La transición queda bloqueada hasta contar con una decisión explícita.
     def _prompt(self, state: ProjectState, role: str) -> str:
         context_files = [
             self.guidance / "AGENTS.md",
-            self.system / "memory" / "MEMORY.md",
-            self.system / "memory" / "project-summary.md",
-            self.system / "memory" / "current-state.md",
-            self.system / "memory" / "decisions.md",
-            self.system / "memory" / "open-questions.md",
+            self.system / "memory" / "context.md",
+            self.system / "docs" / "sdd-flow-v1.md",
             self.system / "docs" / "governed-orchestration-v2.md",
         ]
         if state.stage == "planning":
             context_files += [self.intake_root / f"{state.project}-brief.md", self.intake_root / f"{state.project}-technology-profile.md"]
         if state.task_id:
             context_files.append(self.system / "specs" / "tasks" / state.project / f"{state.task_id}.md")
-        context = "\n\n".join(f"## {file.relative_to(self.root)}\n{file.read_text(encoding='utf-8')}" for file in context_files if file.exists())
+        context = "\n\n".join(
+            f"## {file.relative_to(self.root)}\n{self._read_context_file(file)}"
+            for file in context_files
+            if file.exists()
+        )
         visual_instruction = "" if role != "visual_designer" else f"Usá el MCP open-pencil y creá exclusivamente workspace/design/{state.task_id}.fig."
         commit_instruction = "" if role != "smart_committer" else "Podés usar git status, git diff, git add con rutas explícitas y git commit exclusivamente para la task activa ya autorizada; no hagas push ni reescribas historial."
-        return f"""Actuás como {role} dentro de un flujo gobernado.\n{context}\n\nSólo podés editar el workspace. {visual_instruction} {commit_instruction} No instales dependencias, no ejecutes migraciones, no uses red, no despliegues ni modifiques configuración compartida. Si alguna acción es necesaria, listala en high_impact_actions y no la ejecutes. Devolvé únicamente JSON conforme al schema. Para artifacts de planificación, devolvé path relativo a ai-system y content; no intentes escribirlos."""
+        memory_instruction = "" if role != "closeout" else " Al cerrar, actualizá `memory/context.md` mediante un artifact con el resumen vigente, decisiones activas, dudas abiertas y el próximo paso; enviá el detalle histórico a `memory/archive/` sólo si hace falta conservarlo."
+        return f"""Actuás como {role} dentro de un flujo gobernado.\n{context}\n\nSólo podés editar el workspace. {visual_instruction} {commit_instruction}{memory_instruction} No instales dependencias, no ejecutes migraciones, no uses red, no despliegues ni modifiques configuración compartida. Si alguna acción es necesaria, listala en high_impact_actions y no la ejecutes. Devolvé únicamente JSON conforme al schema. Para artifacts de planificación o memoria, devolvé path relativo a ai-system y content; no intentes escribirlos."""
+
+    def _read_context_file(self, path: Path) -> str:
+        """Lee el contexto activo y evita que la memoria histórica llene el prompt."""
+        content = path.read_text(encoding="utf-8")
+        if path == self.system / "memory" / "context.md" and len(content) > ACTIVE_MEMORY_MAX_CHARS:
+            raise OrchestratorError(
+                f"La memoria activa excede {ACTIVE_MEMORY_MAX_CHARS} caracteres: "
+                "resumí memory/context.md y archivá el detalle en memory/archive/"
+            )
+        return content
 
     def _record_run(self, state: ProjectState, role: str, result: AgentResult) -> None:
         run_id = f"run-{len(state.runs) + 1:03d}"
@@ -353,6 +417,20 @@ La transición queda bloqueada hasta contar con una decisión explícita.
             raise OrchestratorError("Un artefacto debe ser un Markdown dentro de ai-system")
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(artifact["content"], encoding="utf-8")
+
+    def _broken_internal_links(self) -> list[tuple[str, str]]:
+        """Devuelve enlaces Markdown locales que no resuelven dentro del kit."""
+        broken: list[tuple[str, str]] = []
+        for source in self.system.rglob("*.md"):
+            content = source.read_text(encoding="utf-8")
+            for match in MARKDOWN_LINK.finditer(content):
+                raw_target = match.group(1).strip().strip("<>")
+                target = raw_target.split("#", maxsplit=1)[0]
+                if not target or "://" in target or target.startswith(("mailto:", "/")):
+                    continue
+                if not (source.parent / target).resolve().exists():
+                    broken.append((str(source.relative_to(self.root)), raw_target))
+        return broken
 
     def _copy_template(self, template: str, destination: Path) -> None:
         source = self.system / "templates" / template

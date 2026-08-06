@@ -1,7 +1,8 @@
-# Orquestador técnico v1
+# Guía de uso de AIDev CLI
 
-`aidev` ejecuta localmente el flujo gobernado. Usa Python 3.12 y Codex CLI
-como primer proveedor de agentes. No requiere servidor ni base de datos.
+`aidev` implementa localmente la [Orquestación gobernada
+v2](governed-orchestration-v2.md). Usa Python 3.12 y Codex CLI como primer
+proveedor de agentes. No requiere servidor ni base de datos.
 
 ## Instalación
 
@@ -15,6 +16,14 @@ aidev --help
 `aidev init` crea `.aidev/config.toml` si no existe. El
 proveedor usa el ejecutable `codex` y la sesión local ya autenticada; el modelo
 puede configurarse en ese archivo. No guardar claves ni secretos en el repo.
+
+Al finalizar, `aidev init` ejecuta automáticamente el diagnóstico base del
+kit. Para repetirlo o revisar un proyecto específico, usá:
+
+```bash
+aidev doctor
+aidev doctor mi-proyecto
+```
 
 Antes de ejecutar roles con Codex, instalá la integración nativa:
 
@@ -63,6 +72,7 @@ vuelve a planificación. El silencio nunca habilita una transición.
 | Comando | Efecto |
 | --- | --- |
 | `aidev init <proyecto> --responsible <persona>` | Inicializa intake, estado y aprobación inicial. |
+| `aidev doctor [proyecto]` | Verifica estructura, templates, enlaces locales, memoria activa e intake si se indica un proyecto. |
 | `aidev setup codex` | Instala reglas y skills nativos de Codex en `workspace/`. |
 | `aidev intake validate <proyecto>` | Comprueba contenido mínimo del Brief y del stack. |
 | `aidev approvals sync <proyecto>` | Lee y valida decisiones humanas en Markdown. |

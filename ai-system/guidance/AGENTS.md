@@ -8,7 +8,7 @@ Operar un desarrollo asistido por IA de forma portable, trazable y gobernada por
 
 Antes de trabajar, leer en este orden:
 
-1. `ai-system/memory/MEMORY.md` y los archivos de memoria enlazados.
+1. `ai-system/memory/MEMORY.md` y `ai-system/memory/context.md`.
 2. `ai-system/docs/sdd-flow-v1.md`.
 3. `ai-system/docs/governed-orchestration-v2.md`.
 4. El Project Brief, Technology Profile, spec, design y task aplicables.
@@ -42,4 +42,7 @@ Son acciones materiales: aprobar/publicar artefactos, iniciar implementación, a
 
 ## Validación y cierre
 
-Toda task declara validación. No declarar éxito sin evidencia. Después de trabajo relevante, actualizar `current-state.md`, `decisions.md` cuando corresponda, `open-questions.md`, `session-log.md` y `agent-handoffs.md`.
+Toda task declara validación. No declarar éxito sin evidencia. Al cerrar una
+task o hito, actualizar `memory/context.md` con el estado vigente, decisiones
+activas, dudas abiertas y próximo paso. El detalle cerrado se mueve o resume
+en `memory/archive/`; no cargarlo ni duplicarlo en la memoria activa.

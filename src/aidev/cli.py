@@ -20,6 +20,8 @@ def parser() -> argparse.ArgumentParser:
     init = sub.add_parser("init", help="Inicializa un proyecto")
     init.add_argument("project")
     init.add_argument("--responsible", required=True)
+    doctor = sub.add_parser("doctor", help="Verifica el kit y el estado opcional de un proyecto")
+    doctor.add_argument("project", nargs="?")
     intake = sub.add_parser("intake", help="Opera documentos de entrada")
     intake_sub = intake.add_subparsers(dest="intake_command", required=True)
     validate = intake_sub.add_parser("validate", help="Valida el intake")
@@ -68,6 +70,11 @@ def main(argv: list[str] | None = None) -> int:
             state = orchestrator.init_project(args.project, args.responsible)
             _ensure_config(root)
             print(f"Proyecto {state.project} inicializado; estado: {state.stage}")
+            _print_doctor(orchestrator.doctor())
+        elif args.command == "doctor":
+            checks = orchestrator.doctor(args.project)
+            _print_doctor(checks)
+            return 1 if any(not passed for passed, _ in checks) else 0
         elif args.command == "intake":
             issues = orchestrator.validate_intake(args.project)
             if issues:
@@ -109,6 +116,12 @@ def _ensure_config(root: Path) -> None:
     if not path.exists():
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text('[providers.codex]\nexecutable = "codex"\n# model = "gpt-5.6-codex"\n', encoding="utf-8")
+
+
+def _print_doctor(checks: list[tuple[bool, str]]) -> None:
+    """Muestra el resultado de las verificaciones sin ocultar los puntos fallidos."""
+    for passed, message in checks:
+        print(f"[{'OK' if passed else 'ERROR'}] {message}")
 
 
 if __name__ == "__main__":
