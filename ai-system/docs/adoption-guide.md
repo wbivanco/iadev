@@ -4,16 +4,17 @@
 
 1. Copiá `ai-system/`, `src/`, `tests/` y `pyproject.toml` en la raíz del proyecto destino.
 2. Conservá `workspace/` como código ejecutable o adaptá esa ruta de forma consistente.
-3. Instalá el comando local: `python -m pip install -e .`.
-4. Instalá la integración nativa de Codex: `aidev setup codex`.
-5. Inicializá el proyecto: `aidev init <proyecto> --responsible "<persona>"`.
-6. Completá `specs/intake/<proyecto>-brief.md` y `<proyecto>-technology-profile.md`.
-7. Ejecutá `aidev intake validate <proyecto>`.
-8. Aprobá el intake editando su Markdown y aplicá la decisión con `aidev approvals sync <proyecto>`.
-9. Después del plan aprobado, listá y seleccioná la task: `aidev task list <proyecto>` y `aidev task select <proyecto> <task-id>`.
-10. Para una task UI con diseño requerido, ejecutá el paso de diseño visual, aprobá el `.fig` y recién entonces autorizá la implementación.
-11. Tras la revisión aceptada, autorizá el commit local de la task y ejecutá el rol `smart-commit`; luego aprobá su cierre.
-12. Repetí selección de task, ejecución y aprobaciones hasta que no queden tasks abiertas.
+3. Creá y activá un entorno virtual: `python3 -m venv .venv` y `source .venv/bin/activate`.
+4. Instalá el comando local: `python -m pip install -e .`.
+5. Instalá la integración nativa de Codex: `aidev setup codex`.
+6. Inicializá el proyecto: `aidev init <proyecto> --responsible "<persona>"`.
+7. Completá `specs/intake/<proyecto>-brief.md` y `<proyecto>-technology-profile.md`.
+8. Ejecutá `aidev intake validate <proyecto>`.
+9. Aprobá el intake editando su Markdown y aplicá la decisión con `aidev approvals sync <proyecto>`.
+10. Después del plan aprobado, listá y seleccioná la task: `aidev task list <proyecto>` y `aidev task select <proyecto> <task-id>`.
+11. Para una task UI con diseño requerido, ejecutá el paso de diseño visual, aprobá el `.fig` y recién entonces autorizá la implementación.
+12. Tras la revisión aceptada, autorizá el commit local de la task y ejecutá el rol `smart-commit`; luego aprobá su cierre.
+13. Repetí selección de task, ejecución y aprobaciones hasta que no queden tasks abiertas.
 
 La referencia operativa de comandos, estados y archivos es la [guía de uso de
 AIDev CLI](orchestrator-cli.md).

@@ -9,9 +9,15 @@ proveedor de agentes. No requiere servidor ni base de datos.
 Desde la raíz del repositorio:
 
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate
 python -m pip install -e .
 aidev --help
 ```
+
+Usá Python 3.12 o superior. El entorno virtual evita modificar el Python
+administrado por el sistema o por Homebrew. En sesiones posteriores, reactivá
+el entorno con `source .venv/bin/activate` antes de usar `aidev`.
 
 `aidev init` crea `.aidev/config.toml` si no existe. El
 proveedor usa el ejecutable `codex` y la sesión local ya autenticada; el modelo
