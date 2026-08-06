@@ -16,8 +16,7 @@ acompanar o modificar proyectos reales.
 
 ## Objetivo del sistema
 
-Lograr una forma de trabajo consistente entre herramientas como VS Code,
-Cursor, OpenCode, Claude Code y Codex, sin depender de una sola plataforma.
+Lograr una forma de trabajo portable entre herramientas. El núcleo documental y el runtime Python no dependen de una plataforma; cada integración nativa se implementa como un target. Codex es el primer target operativo.
 
 El objetivo funcional es que el asistente pueda recibir una especificacion,
 mantener memoria y contexto del trabajo, decidir que skills o agentes necesita
@@ -31,7 +30,7 @@ El sistema busca separar por completo:
 
 ## Estado actual
 
-Fase actual: `V1.1 - Orquestación gobernada documentada`
+Fase actual: `V1.2 - Orquestación gobernada operativa con target Codex`
 
 Estado resumido:
 
@@ -39,7 +38,9 @@ Estado resumido:
 - La memoria persistente ya funciona.
 - Ya existe una versión operativa de reglas para agentes.
 - Ya existe un flujo SDD mínimo formalizado.
-- La orquestación gobernada agrega coordinación y aprobación humana documentadas; la automatización ejecutable de agentes sigue siendo una evolución posterior.
+- La orquestación gobernada se ejecuta mediante el CLI `aidev`: mantiene estado JSON/JSONL, crea gates y llama roles de Codex de forma acotada.
+- El target Codex instala reglas y skills nativos sin sobrescribir instrucciones existentes.
+- El runtime permite seleccionar una task explícitamente y, si la task UI lo requiere, ejecutar un diseño visual con OpenPencil y aprobar su `.fig` antes de implementar.
 
 ## Qué ya está resuelto
 
@@ -120,11 +121,12 @@ Este flujo ya fue formalizado en:
 
 ## Evolución posterior
 
-La v1.0 está cerrada como base documental portable. El uso en proyectos reales permitirá medir fricciones y priorizar una v1.1 o v2.
+La base documental v1.0 está cerrada; el runtime gobernado y el target Codex constituyen la evolución v1.2. El uso en proyectos reales permitirá medir fricciones y priorizar la siguiente versión.
 
 ### Prioridad alta
 
 - Aplicar la guía y checklist al adoptar el kit en un proyecto real.
+- Ejecutar y documentar un piloto completo, incluida una task UI con OpenPencil si aplica.
 - Registrar fricciones de los roles, skills, templates y handoffs.
 
 ### Prioridad media
@@ -134,9 +136,9 @@ La v1.0 está cerrada como base documental portable. El uso en proyectos reales 
 
 ### Prioridad baja
 
-- Automatización de memoria y orquestación autónoma.
+- Automatización adicional de memoria y capacidades no gobernadas.
 - Búsqueda avanzada con SQLite o FTS.
-- Integraciones con IDE, Git, MCPs u otras herramientas.
+- Nuevos targets nativos para otras herramientas e integraciones MCP adicionales.
 
 ## Criterio de éxito de v1
 

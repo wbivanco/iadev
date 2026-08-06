@@ -36,10 +36,12 @@ Cada transición hacia `Aprobado`, `En trabajo`, `Completado` o `Bloqueado` requ
 
 1. **Coordinador** recibe el intake, verifica completitud, abre dudas y pide aprobación humana.
 2. **Planner** convierte el intake aprobado en spec, design y tasks; antes de consolidar el plan pide aprobación humana.
-3. **Coordinador** selecciona una task aprobada y propone la asignación. Pide autorización para iniciar la implementación.
-4. **Implementer** ejecuta exclusivamente esa task; ante cualquier ampliación de alcance vuelve al coordinador. Al finalizar pide aprobación para entregar el resultado a revisión.
-5. **Reviewer** contrasta cambios y evidencia con los criterios. Pide aprobación humana para aceptar el resultado o abrir correcciones.
-6. **Closeout** prepara cierre y actualización de memoria. Pide autorización humana para marcar el trabajo como completado y registrar el cierre.
+3. **Coordinador** selecciona una task aprobada y propone la asignación. Si la task declara `visual_design: required`, la deriva primero al diseño visual.
+4. **Visual Designer** usa el MCP local `open-pencil` para crear `workspace/design/<task-id>.fig`; pide aprobación humana del artefacto antes de habilitar la implementación. Las tasks no visuales omiten este rol.
+5. **Coordinador** solicita autorización para iniciar la implementación una vez aprobada la task y, cuando aplica, su diseño visual.
+6. **Implementer** ejecuta exclusivamente esa task; ante cualquier ampliación de alcance vuelve al coordinador. Al finalizar pide aprobación para entregar el resultado a revisión.
+7. **Reviewer** contrasta cambios y evidencia con los criterios. Pide aprobación humana para aceptar el resultado o abrir correcciones.
+8. **Closeout** prepara cierre y actualización de memoria. Pide autorización humana para marcar el trabajo como completado y registrar el cierre.
 
 El coordinador es el único agente que enruta trabajo y cambia la etapa activa. No implementa, revisa ni reemplaza la decisión humana.
 
@@ -58,14 +60,13 @@ Todo handoff debe incluir enlaces al brief, perfil tecnológico, spec, design, t
 El protocolo se ejecuta con `aidev`. El estado canónico para la máquina es
 `.aidev/state/<proyecto>/project.json`; `runs/*.json` conserva resultados
 de roles y `events.jsonl` mantiene la auditoría. Las solicitudes en
-`specs/approvals/` son el registro editable por la persona responsable.
+`ai-system/specs/approvals/` son el registro editable por la persona responsable.
 
 Para aprobar mediante el runtime, editar el front matter con `decision:
 approved`, `rejected` o `conditional`, identificar `approved_by` y ejecutar
 `aidev approvals sync <proyecto>`. Una aprobación por chat puede registrarse en
 el Markdown, pero no habilita el CLI hasta ser sincronizada.
 
-El primer proveedor es Codex CLI. Se ejecuta en `workspace/` con sandbox de
-escritura y devuelve un resultado JSON estructurado. El proveedor no puede
+El primer proveedor es Codex CLI y se ejecuta en `workspace/` con sandbox de escritura. `aidev setup codex` instala los skills nativos requeridos, incluido `aidev-visual-design`. Para un diseño visual el runtime exige que Codex tenga habilitado el MCP `open-pencil`; la configuración concreta del MCP pertenece al entorno local del usuario y no al repositorio y devuelve un resultado JSON estructurado. El proveedor no puede
 cambiar el estado del orquestador: sólo el Coordinador aplica resultados,
 registra evidencia y crea la siguiente solicitud de aprobación.

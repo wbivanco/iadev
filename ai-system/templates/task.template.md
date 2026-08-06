@@ -1,3 +1,10 @@
+---
+id:
+kind: ui | non-ui
+visual_design: required | not_required
+design_artifact:
+---
+
 # Task Template
 
 ## Título

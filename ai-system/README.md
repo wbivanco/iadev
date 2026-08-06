@@ -1,4 +1,4 @@
-# AI Development System v1.1.0
+# AI Development System
 
 Kit portable para planificar, ejecutar y cerrar trabajo asistido por IA. Incluye
 memoria persistente, desarrollo guiado por especificaciones, templates, skills,
@@ -14,10 +14,14 @@ El código real del proyecto vive por convención en `../workspace`.
 
 ## Alcance
 
-La v1.1 incluye el CLI `aidev`, una máquina de estados, aprobaciones en
-Markdown, auditoría JSONL y un adaptador a Codex CLI con sandbox de workspace.
+El estado actual incluye el CLI `aidev`, una máquina de estados, aprobaciones en
+Markdown, auditoría JSONL, selección explícita de tasks y un adaptador a Codex
+CLI con sandbox de workspace.
 El orquestador ejecuta roles sólo cuando su gate correspondiente fue aprobado;
-no despliega, migra ni hace operaciones de red de forma autónoma.
+no despliega, migra ni hace operaciones de red de forma autónoma. Las tasks de
+interfaz pueden requerir un diseño visual aprobado: se ejecutan con el MCP
+local `open-pencil` y dejan un artefacto `.fig` en `workspace/design/` antes de
+habilitar la implementación.
 
 ## Referencias
 
@@ -25,3 +29,4 @@ no despliega, migra ni hace operaciones de red de forma autónoma.
 - [Guía del orquestador](docs/orchestrator-cli.md)
 - [Roles y handoffs](guidance/roles.md)
 - [Skills incluidos](guidance/skills/)
+- [Integración OpenPencil](integrations/open-pencil.toml)

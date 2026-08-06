@@ -21,6 +21,9 @@ Usá esta lista después de copiar o actualizar el kit.
 ## Operación
 
 - [ ] Una tarea normal tiene spec, task y validación declarada.
+- [ ] Cada task declara `visual_design: required` o `not_required`; si requiere diseño, define su artefacto `.fig`.
+- [ ] Cuando hay diseño visual, el destino configuró localmente el MCP `open-pencil` para Codex, sin versionar su comando, rutas, variables ni secretos.
+- [ ] El diseño visual aprobado se guarda en `workspace/design/<task-id>.fig` antes de iniciar implementación.
 - [ ] Un trabajo ambiguo tiene además design.
 - [ ] Se seleccionó un rol y, cuando aplica, un skill para la tarea.
 - [ ] El cierre actualiza `current-state.md`, decisiones, dudas y sesión.

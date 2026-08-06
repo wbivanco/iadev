@@ -1,3 +1,5 @@
+"""Punto de entrada de la CLI para operar IADev desde la terminal."""
+
 from __future__ import annotations
 
 import argparse
@@ -11,6 +13,7 @@ from .provider import CodexCliProvider
 
 
 def parser() -> argparse.ArgumentParser:
+    """Construye el parser y los subcomandos públicos de `aidev`."""
     root = argparse.ArgumentParser(prog="aidev", description="Orquestador local de desarrollo asistido por IA")
     root.add_argument("--root", type=Path, default=Path.cwd(), help="Raíz del repositorio")
     sub = root.add_subparsers(dest="command", required=True)
@@ -32,6 +35,13 @@ def parser() -> argparse.ArgumentParser:
     sync.add_argument("project")
     audit = sub.add_parser("audit", help="Muestra la auditoría")
     audit.add_argument("project")
+    task = sub.add_parser("task", help="Selecciona o lista tasks del proyecto")
+    task_sub = task.add_subparsers(dest="task_command", required=True)
+    task_list = task_sub.add_parser("list", help="Lista tasks disponibles")
+    task_list.add_argument("project")
+    task_select = task_sub.add_parser("select", help="Selecciona una task")
+    task_select.add_argument("project")
+    task_select.add_argument("task_id")
     setup = sub.add_parser("setup", help="Instala una integración nativa de IADev")
     setup.add_argument("target", choices=["codex"])
     setup.add_argument("--force", action="store_true", help="Restaura skills IADev modificados")
@@ -39,6 +49,7 @@ def parser() -> argparse.ArgumentParser:
 
 
 def provider_for(root: Path) -> CodexCliProvider:
+    """Crea el proveedor Codex usando la configuración local si existe."""
     config_path = root / ".aidev" / "config.toml"
     if not config_path.exists():
         return CodexCliProvider()
@@ -48,6 +59,7 @@ def provider_for(root: Path) -> CodexCliProvider:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Procesa un comando de IADev y devuelve un código de salida de consola."""
     args = parser().parse_args(argv)
     root = args.root.resolve()
     orchestrator = Orchestrator(root, provider_for(root))
@@ -74,6 +86,12 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "audit":
             path = root / ".aidev" / "state" / args.project / "events.jsonl"
             print(path.read_text(encoding="utf-8") if path.exists() else "Sin eventos")
+        elif args.command == "task":
+            if args.task_command == "list":
+                print("\n".join(orchestrator.list_tasks(args.project)))
+            else:
+                state = orchestrator.select_task(args.project, args.task_id)
+                print(f"Task seleccionada: {state.task_id}")
         elif args.command == "setup":
             result = setup_codex(root, force=args.force)
             for path in result.created:

@@ -27,6 +27,12 @@
 
 No incluir secretos. Referenciar el mecanismo seguro para configurarlos.
 
+### MCPs requeridos
+
+| MCP | Uso | Configuración |
+| --- | --- | --- |
+| open-pencil | Diseño visual de tasks UI | Instalación local del usuario; no versionar rutas ni secretos |
+
 ## Calidad y entrega
 
 - Comandos de instalación:

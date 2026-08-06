@@ -125,6 +125,27 @@ Regla:
 
 - si hay más de una sesión o más de un agente, las tasks son obligatorias
 
+### 4.1 Diseño visual de interfaz
+
+Propósito:
+
+- convertir una task UI aprobada en un artefacto visual revisable antes de escribir código
+
+Entrada mínima:
+
+- task con `visual_design: required`
+- MCP `open-pencil` disponible en Codex, el target nativo operativo actual
+
+Salida mínima:
+
+- `workspace/design/<task-id>.fig`
+- aprobación humana registrada para el diseño
+
+Regla:
+
+- el archivo `.fig` es evidencia de diseño, no sustituto de la implementación; no iniciar código UI hasta su aprobación
+- la configuración del MCP es local y no se guarda en el kit
+
 ### 5. Implementación
 
 Propósito:

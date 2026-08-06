@@ -66,6 +66,8 @@ vuelve a planificación. El silencio nunca habilita una transición.
 | `aidev setup codex` | Instala reglas y skills nativos de Codex en `workspace/`. |
 | `aidev intake validate <proyecto>` | Comprueba contenido mínimo del Brief y del stack. |
 | `aidev approvals sync <proyecto>` | Lee y valida decisiones humanas en Markdown. |
+| `aidev task list <proyecto>` | Lista las tasks planificadas y su requisito visual. |
+| `aidev task select <proyecto> <task-id>` | Selecciona la task aprobada que se ejecutará. |
 | `aidev run <proyecto> --responsible <persona>` | Ejecuta el siguiente rol o crea su gate de inicio. |
 | `aidev resume <proyecto> --responsible <persona>` | Equivale a `run`; continúa sólo si no falta aprobación. |
 | `aidev status <proyecto>` | Muestra etapa, rol activo, aprobaciones y ejecuciones. |
@@ -78,6 +80,10 @@ intake_pending
   -- aprobar intake --> planning
   -- planner --> planner_pending
   -- aprobar plan --> task_ready
+  -- seleccionar task sin diseño visual --> implementation_pending
+  -- seleccionar task con diseño visual --> visual_design
+  -- visual designer --> visual_design_pending
+  -- aprobar diseño visual --> implementation_ready
   -- autorizar inicio --> implementation_pending
   -- aprobar inicio --> implementation
   -- implementer --> implementer_pending
@@ -96,10 +102,10 @@ etapa que la solicitó.
 
 Todo es legible y versionable:
 
-- `state/<proyecto>/project.json`: etapa, rol, aprobaciones y ejecuciones.
-- `state/<proyecto>/runs/run-*.json`: resultado estructurado de cada agente.
-- `state/<proyecto>/events.jsonl`: auditoría append-only de transiciones.
-- `specs/approvals/*.md`: solicitud y decisión humana.
+- `.aidev/state/<proyecto>/project.json`: etapa, task seleccionada, rol, aprobaciones y ejecuciones.
+- `.aidev/state/<proyecto>/runs/run-*.json`: resultado estructurado de cada agente.
+- `.aidev/state/<proyecto>/events.jsonl`: auditoría append-only de transiciones.
+- `ai-system/specs/approvals/*.md`: solicitud y decisión humana.
 
 ## Límites de seguridad
 
@@ -109,3 +115,26 @@ directamente. El prompt prohíbe instalaciones, migraciones, red, despliegues y
 configuración compartida. Si son necesarias, el agente debe declararlas como
 `high_impact_actions`; el coordinador crea un gate adicional y no continúa sin
 aprobación explícita.
+
+## Tasks de interfaz y OpenPencil
+
+El Planner declara cada task en `ai-system/specs/tasks/<proyecto>/`. Una task
+de interfaz usa `visual_design: required` en su front matter. Después de
+aprobar el plan, elegí la unidad de trabajo explícitamente:
+
+```bash
+aidev task list <proyecto>
+aidev task select <proyecto> <task-id>
+```
+
+Para una task visual, `aidev run` ejecuta el rol **Visual Designer** antes de
+habilitar la implementación. Ese rol usa el MCP `open-pencil` ya configurado
+en Codex y debe generar únicamente `workspace/design/<task-id>.fig`. El
+orquestador verifica la disponibilidad del MCP y la existencia del archivo;
+luego crea una aprobación de diseño. Sólo al aprobarla continúa hacia el gate
+de inicio de implementación.
+
+La integración se declara en `ai-system/integrations/open-pencil.toml`, pero
+su comando, variables de entorno y credenciales son configuración local del
+usuario: no se copian ni se versionan desde IADev. Las tasks sin
+`visual_design: required` omiten esta etapa.

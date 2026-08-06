@@ -1,6 +1,10 @@
+"""Instalación y verificación de la integración nativa de IADev con Codex."""
+
 from __future__ import annotations
 
 import hashlib
+import json
+import subprocess
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -12,6 +16,7 @@ ROLE_SKILLS = {
     "reviewer": "aidev-review",
     "closeout": "aidev-closeout",
     "coordinator": "aidev-coordinator",
+    "visual_designer": "aidev-visual-design",
 }
 SKILL_SOURCES = {
     "planner": "planning.md",
@@ -19,6 +24,7 @@ SKILL_SOURCES = {
     "reviewer": "review.md",
     "closeout": "closeout.md",
     "coordinator": "coordinator.md",
+    "visual_designer": "visual-design.md",
 }
 START_MARKER = "<!-- aidev:codex:start -->"
 END_MARKER = "<!-- aidev:codex:end -->"
@@ -27,6 +33,8 @@ SKILL_MARKER = "<!-- aidev:codex:skill digest="
 
 @dataclass(frozen=True)
 class SetupResult:
+    """Resume los archivos creados o actualizados durante una instalación."""
+
     created: list[Path]
     updated: list[Path]
 
@@ -37,10 +45,12 @@ def _error(message: str) -> Exception:
 
 
 def skill_for_role(role: str) -> str | None:
+    """Devuelve el skill de Codex asociado a un rol del flujo."""
     return ROLE_SKILLS.get(role)
 
 
 def setup_codex(root: Path, *, force: bool = False) -> SetupResult:
+    """Instala reglas y skills en workspace sin sobrescribir contenido ajeno."""
     root = root.resolve()
     system = root / "ai-system"
     workspace = root / "workspace"
@@ -62,11 +72,24 @@ def setup_codex(root: Path, *, force: bool = False) -> SetupResult:
 
 
 def codex_setup_is_ready(root: Path, role: str) -> bool:
+    """Comprueba que el skill requerido por el rol esté instalado."""
     skill_name = skill_for_role(role)
     if not skill_name:
         return True
     path = root / "workspace" / ".agents" / "skills" / skill_name / "SKILL.md"
     return path.exists() and SKILL_MARKER in path.read_text(encoding="utf-8")
+
+
+def open_pencil_is_available(executable: str = "codex") -> bool:
+    """Comprueba que Codex tenga configurado el MCP local open-pencil."""
+    completed = subprocess.run([executable, "mcp", "list", "--json"], text=True, capture_output=True, check=False)
+    if completed.returncode != 0:
+        return False
+    try:
+        servers = json.loads(completed.stdout)
+    except json.JSONDecodeError:
+        return False
+    return any(server.get("name") == "open-pencil" and server.get("enabled") is True for server in servers if isinstance(server, dict))
 
 
 def _install_agents_block(path: Path, template: str, created: list[Path], updated: list[Path]) -> None:
@@ -114,6 +137,7 @@ def _render_skill(name: str, source: str) -> str:
         "aidev-review": "Revisar cambios y evidencia dentro del flujo gobernado de IADev.",
         "aidev-closeout": "Preparar el cierre trazable de un trabajo revisado de IADev.",
         "aidev-coordinator": "Coordinar intake, aprobaciones y transiciones del flujo IADev sin tomar decisiones humanas.",
+        "aidev-visual-design": "Crear y documentar diseños visuales aprobables mediante OpenPencil.",
     }
     core = f"---\nname: {name}\ndescription: {descriptions[name]}\n---\n\n{source.strip()}\n"
     digest = hashlib.sha256(core.encode("utf-8")).hexdigest()

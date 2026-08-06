@@ -29,3 +29,17 @@ Roles: planner → implementer → reviewer → closeout. Skills: planning, impl
 | Cierre | Resume resultado, validaciones, riesgo residual, decisión de retención y próximos pasos. |
 
 Este escenario exige design, tasks descompuestas, evidencia formal de QA y handoffs registrados. Muestra cuándo el flujo grande agrega rigor sin depender de una tecnología particular.
+
+## Escenario 3: cambio UI — panel de filtros
+
+| Etapa | Artefacto y resultado esperado |
+| --- | --- |
+| Spec y task | Se define el objetivo del panel y la task declara `visual_design: required`. |
+| Selección | El Coordinador selecciona la task con `aidev task select <proyecto> <task-id>`. |
+| Diseño visual | El Visual Designer usa el MCP local `open-pencil` y crea `workspace/design/<task-id>.fig`. |
+| Aprobación | La persona responsable revisa y aprueba el `.fig`; sin esta decisión no se habilita implementación. |
+| Implementación | El Implementer traduce el diseño aprobado a código y ejecuta las validaciones declaradas. |
+| Cierre | Se conserva la evidencia del diseño, los cambios y la validación. |
+
+Este escenario requiere que `open-pencil` esté habilitado localmente en Codex.
+La configuración del MCP no se copia ni se versiona en IADev.

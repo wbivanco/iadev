@@ -26,11 +26,12 @@ Declarar el rol de `guidance/roles.md`. Aplicar el skill correspondiente de `gui
 1. Recibir el Project Brief y Technology Profile.
 2. El Coordinador verifica completitud y obtiene aprobación del intake.
 3. El Planner genera spec, design y tasks; solicita aprobación del plan.
-4. El Coordinador solicita autorización para iniciar cada task.
-5. El Implementer ejecuta sólo la task aprobada y solicita autorización para entregarla a revisión.
-6. El Reviewer emite dictamen y solicita autorización para aceptar o corregir.
-7. El Closeout prepara el cierre y solicita autorización para completar.
-8. Registrar la respuesta y actualizar memoria tras cada transición.
+4. Si la task requiere diseño visual, el Visual Designer usa `open-pencil`, registra `workspace/design/<task-id>.fig` y obtiene su aprobación.
+5. El Coordinador solicita autorización para iniciar cada task.
+6. El Implementer ejecuta sólo la task aprobada y solicita autorización para entregarla a revisión.
+7. El Reviewer emite dictamen y solicita autorización para aceptar o corregir.
+8. El Closeout prepara el cierre y solicita autorización para completar.
+9. Registrar la respuesta y actualizar memoria tras cada transición.
 
 ## Regla de aprobación humana
 

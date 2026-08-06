@@ -1,3 +1,5 @@
+"""Núcleo del flujo gobernado: estados, aprobaciones, contexto y ejecuciones."""
+
 from __future__ import annotations
 
 import json
@@ -13,21 +15,27 @@ from .provider import Provider
 APPROVAL_TRANSITIONS = {
     "approve_intake": "planning",
     "approve_plan": "task_ready",
+    "approve_visual_design": "implementation_ready",
     "start_implementation": "implementation",
     "deliver_implementation": "review",
     "accept_review": "closeout",
     "complete_work": "completed",
 }
-ROLE_BY_STAGE = {"planning": "planner", "implementation": "implementer", "review": "reviewer", "closeout": "closeout"}
+ROLE_BY_STAGE = {"planning": "planner", "visual_design": "visual_designer", "implementation": "implementer", "review": "reviewer", "closeout": "closeout"}
 HIGH_IMPACT_WORDS = ("dependency", "dependencia", "migration", "migración", "deploy", "desplieg", "network", "red", "secret", "credencial", "shared configuration", "configuración compartida")
 
 
 class OrchestratorError(RuntimeError):
+    """Indica una transición inválida o un artefacto requerido ausente."""
+
     pass
 
 
 class Orchestrator:
+    """Coordina el ciclo de vida de un proyecto con gates humanos explícitos."""
+
     def __init__(self, root: Path, provider: Provider) -> None:
+        """Inicializa rutas del repositorio y el proveedor que ejecuta los roles."""
         self.root = root.resolve()
         self.provider = provider
         self.system = self.root / "ai-system"
@@ -38,6 +46,7 @@ class Orchestrator:
         self.guidance = self.system / "guidance"
 
     def init_project(self, project: str, responsible: str) -> ProjectState:
+        """Crea intake, estado inicial y la aprobación necesaria para planificar."""
         self._validate_project(project)
         project_dir = self._project_dir(project)
         if (project_dir / "project.json").exists():
@@ -54,12 +63,14 @@ class Orchestrator:
         return self.load(project)
 
     def load(self, project: str) -> ProjectState:
+        """Recupera el estado persistido de un proyecto inicializado."""
         path = self._project_dir(project) / "project.json"
         if not path.exists():
             raise OrchestratorError(f"No existe el proyecto {project}")
         return ProjectState.from_dict(json.loads(path.read_text(encoding="utf-8")))
 
     def validate_intake(self, project: str) -> list[str]:
+        """Devuelve los campos obligatorios que faltan en el intake del proyecto."""
         required = ("## Problema y oportunidad", "## Objetivo del producto", "## Capacidades requeridas", "## Criterios de éxito")
         brief = self.intake_root / f"{project}-brief.md"
         profile = self.intake_root / f"{project}-technology-profile.md"
@@ -78,7 +89,24 @@ class Orchestrator:
             issues.append("Falta contenido en ## Stack obligatorio")
         return issues
 
+    def list_tasks(self, project: str) -> list[str]:
+        """Lista las tasks individuales disponibles para el proyecto."""
+        directory = self.system / "specs" / "tasks" / project
+        return sorted(path.stem for path in directory.glob("*.md")) if directory.exists() else []
+
+    def select_task(self, project: str, task_id: str) -> ProjectState:
+        """Selecciona la task que se ejecutará en el siguiente tramo del flujo."""
+        state = self.load(project)
+        path = self.system / "specs" / "tasks" / project / f"{task_id}.md"
+        if state.stage != "task_ready" or not path.exists():
+            raise OrchestratorError("La task no existe o el proyecto no está listo para seleccionarla")
+        state.task_id = task_id
+        self._save(state)
+        self._event(project, "task_selected", {"task_id": task_id})
+        return state
+
     def create_approval(self, state: ProjectState, responsible: str, action: str, role: str, proposal: str) -> str:
+        """Crea una solicitud Markdown y la registra como aprobación pendiente."""
         approval_id = f"AP-{len(state.approvals) + 1:03d}-{action}"
         path = self.approvals_root / f"{state.project}-{approval_id}.md"
         text = f'''---
@@ -129,6 +157,7 @@ La transición queda bloqueada hasta contar con una decisión explícita.
         return approval_id
 
     def sync_approvals(self, project: str) -> ProjectState:
+        """Aplica al estado las decisiones humanas registradas en los Markdown."""
         state = self.load(project)
         for approval_id, approval in state.approvals.items():
             if approval["status"] != "pending":
@@ -159,10 +188,22 @@ La transición queda bloqueada hasta contar con una decisión explícita.
         return state
 
     def run_next(self, project: str, responsible: str) -> ProjectState:
+        """Ejecuta el siguiente rol habilitado o crea el gate previo correspondiente."""
         state = self.load(project)
         if state.stage.endswith("pending") or state.stage == "blocked":
             raise OrchestratorError(f"No se puede ejecutar en estado {state.stage}; sincronizá o resolvé la aprobación pendiente")
         if state.stage == "task_ready":
+            if self.list_tasks(project) and not state.task_id:
+                raise OrchestratorError("Seleccioná una task con `aidev task select <proyecto> <task-id>` antes de continuar")
+            if state.task_id and self._task_requires_visual_design(project, state.task_id):
+                state.stage = "visual_design"
+                self._save(state)
+                return state
+            self.create_approval(state, responsible, "start_implementation", "Coordinator", "Autorizar el inicio de la implementación de la task aprobada.")
+            state.stage = "implementation_pending"
+            self._save(state)
+            return state
+        if state.stage == "implementation_ready":
             self.create_approval(state, responsible, "start_implementation", "Coordinator", "Autorizar el inicio de la implementación de la task aprobada.")
             state.stage = "implementation_pending"
             self._save(state)
@@ -170,6 +211,10 @@ La transición queda bloqueada hasta contar con una decisión explícita.
         role = ROLE_BY_STAGE.get(state.stage)
         if not role:
             raise OrchestratorError(f"No hay una acción ejecutable para el estado {state.stage}")
+        if role == "visual_designer" and getattr(self.provider, "requires_installed_skills", False):
+            from .codex import open_pencil_is_available
+            if not open_pencil_is_available(getattr(self.provider, "executable", "codex")):
+                raise OrchestratorError("La task requiere OpenPencil, pero el MCP `open-pencil` no está disponible en Codex")
         if getattr(self.provider, "requires_installed_skills", False):
             from .codex import codex_setup_is_ready
             if not codex_setup_is_ready(self.root, role):
@@ -185,13 +230,17 @@ La transición queda bloqueada hasta contar con una decisión explícita.
             state.stage = "high_impact_pending"
             self._save(state)
             return state
+        if state.stage == "visual_design" and not self._design_path(state).exists():
+            state.stage = "blocked"
+            self._save(state)
+            return state
         for artifact in result.artifacts:
             self._write_artifact(artifact)
         if result.status != "completed":
             state.stage = "blocked"
             self._save(state)
             return state
-        action = {"planning": "approve_plan", "implementation": "deliver_implementation", "review": "accept_review", "closeout": "complete_work"}[state.stage]
+        action = {"planning": "approve_plan", "visual_design": "approve_visual_design", "implementation": "deliver_implementation", "review": "accept_review", "closeout": "complete_work"}[state.stage]
         self.create_approval(state, responsible, action, role, f"Aceptar el resultado entregado por {role}.")
         state.stage = f"{role}_pending"
         self._save(state)
@@ -209,8 +258,11 @@ La transición queda bloqueada hasta contar con una decisión explícita.
         ]
         if state.stage == "planning":
             context_files += [self.intake_root / f"{state.project}-brief.md", self.intake_root / f"{state.project}-technology-profile.md"]
+        if state.task_id:
+            context_files.append(self.system / "specs" / "tasks" / state.project / f"{state.task_id}.md")
         context = "\n\n".join(f"## {file.relative_to(self.root)}\n{file.read_text(encoding='utf-8')}" for file in context_files if file.exists())
-        return f"""Actuás como {role} dentro de un flujo gobernado.\n{context}\n\nSólo podés editar el workspace. No instales dependencias, no ejecutes migraciones, no uses red, no despliegues ni modifiques configuración compartida. Si alguna acción es necesaria, listala en high_impact_actions y no la ejecutes. Devolvé únicamente JSON conforme al schema. Para artifacts de planificación, devolvé path relativo a ai-system y content; no intentes escribirlos."""
+        visual_instruction = "" if role != "visual_designer" else f"Usá el MCP open-pencil y creá exclusivamente workspace/design/{state.task_id}.fig."
+        return f"""Actuás como {role} dentro de un flujo gobernado.\n{context}\n\nSólo podés editar el workspace. {visual_instruction} No instales dependencias, no ejecutes migraciones, no uses red, no despliegues ni modifiques configuración compartida. Si alguna acción es necesaria, listala en high_impact_actions y no la ejecutes. Devolvé únicamente JSON conforme al schema. Para artifacts de planificación, devolvé path relativo a ai-system y content; no intentes escribirlos."""
 
     def _record_run(self, state: ProjectState, role: str, result: AgentResult) -> None:
         run_id = f"run-{len(state.runs) + 1:03d}"
@@ -234,6 +286,14 @@ La transición queda bloqueada hasta contar con una decisión explícita.
 
     def _project_dir(self, project: str) -> Path:
         return self.state_root / project
+
+    def _task_requires_visual_design(self, project: str, task_id: str) -> bool:
+        path = self.system / "specs" / "tasks" / project / f"{task_id}.md"
+        metadata = self._front_matter(path.read_text(encoding="utf-8"))
+        return metadata.get("visual_design", "not_required").lower() == "required"
+
+    def _design_path(self, state: ProjectState) -> Path:
+        return self.workspace / "design" / f"{state.task_id}.fig"
 
     def _save(self, state: ProjectState) -> None:
         path = self._project_dir(state.project) / "project.json"

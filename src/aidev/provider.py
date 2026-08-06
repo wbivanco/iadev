@@ -1,3 +1,5 @@
+"""Contratos y adaptador para ejecutar roles de IADev mediante Codex CLI."""
+
 from __future__ import annotations
 
 import json
@@ -12,15 +14,18 @@ from .models import AgentResult
 
 
 class Provider(ABC):
+    """Contrato mínimo para un proveedor capaz de ejecutar un rol de IADev."""
+
     requires_installed_skills = False
 
     @abstractmethod
     def run(self, *, role: str, prompt: str, workspace: Path) -> AgentResult:
+        """Ejecuta un rol con el contexto dado y devuelve su resultado estructurado."""
         raise NotImplementedError
 
 
 class CodexCliProvider(Provider):
-    """Run a role through the locally authenticated Codex CLI."""
+    """Ejecuta un rol mediante la CLI local autenticada de Codex."""
 
     requires_installed_skills = True
 
@@ -29,6 +34,7 @@ class CodexCliProvider(Provider):
         self.model = model
 
     def run(self, *, role: str, prompt: str, workspace: Path) -> AgentResult:
+        """Invoca Codex en el workspace y convierte su salida JSON al contrato IADev."""
         schema = {
             "type": "object",
             "required": ["status", "summary", "evidence", "risks", "artifacts", "high_impact_actions"],

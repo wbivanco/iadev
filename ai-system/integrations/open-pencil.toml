@@ -1,0 +1,5 @@
+id = "open-pencil"
+kind = "mcp"
+required_for = "visual_design"
+output_directory = "workspace/design"
+configuration = "local-user-managed"

@@ -13,7 +13,7 @@ def make_root(path: Path) -> Path:
     (system / "targets" / "codex").mkdir(parents=True)
     (system / "targets" / "codex" / "AGENTS.md.template").write_text("Reglas IADev", encoding="utf-8")
     (system / "guidance" / "skills").mkdir(parents=True)
-    for source in ("planning.md", "implementation.md", "review.md", "closeout.md", "coordinator.md"):
+    for source in ("planning.md", "implementation.md", "review.md", "closeout.md", "coordinator.md", "visual-design.md"):
         (system / "guidance" / "skills" / source).write_text(f"# {source}\n\nInstrucciones", encoding="utf-8")
     return path
 
@@ -32,7 +32,7 @@ class CodexSetupTests(unittest.TestCase):
         guidance = workspace / "AGENTS.md"
         guidance.write_text("# Reglas existentes\n", encoding="utf-8")
         result = setup_codex(self.root)
-        self.assertEqual(len(result.created), 5)
+        self.assertEqual(len(result.created), 6)
         self.assertEqual(len(result.updated), 1)
         content = guidance.read_text(encoding="utf-8")
         self.assertIn("Reglas existentes", content)

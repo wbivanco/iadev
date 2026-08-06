@@ -1,3 +1,5 @@
+"""Modelos serializables que intercambian el orquestador y los proveedores."""
+
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
@@ -7,6 +9,8 @@ from typing import Any
 
 @dataclass
 class AgentResult:
+    """Resultado estructurado devuelto por la ejecución de un rol de IA."""
+
     status: str
     summary: str
     evidence: list[str] = field(default_factory=list)
@@ -16,6 +20,7 @@ class AgentResult:
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "AgentResult":
+        """Construye un resultado seguro a partir de datos JSON no confiables."""
         return cls(
             status=str(data.get("status", "blocked")),
             summary=str(data.get("summary", "")),
@@ -26,11 +31,14 @@ class AgentResult:
         )
 
     def to_dict(self) -> dict[str, Any]:
+        """Devuelve una representación apta para persistir como JSON."""
         return asdict(self)
 
 
 @dataclass
 class ProjectState:
+    """Estado persistente de un proyecto y de sus transiciones gobernadas."""
+
     project: str
     stage: str = "intake_pending"
     active_role: str | None = None
@@ -44,8 +52,10 @@ class ProjectState:
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "ProjectState":
+        """Reconstruye el estado guardado en disco."""
         return cls(**data)
 
     def to_dict(self) -> dict[str, Any]:
+        """Actualiza la marca temporal y serializa el estado para guardarlo."""
         self.updated_at = datetime.now(UTC).isoformat()
         return asdict(self)

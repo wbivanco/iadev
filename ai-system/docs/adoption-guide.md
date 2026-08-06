@@ -10,7 +10,9 @@
 6. Completá `specs/intake/<proyecto>-brief.md` y `<proyecto>-technology-profile.md`.
 7. Ejecutá `aidev intake validate <proyecto>`.
 8. Aprobá el intake editando su Markdown y aplicá la decisión con `aidev approvals sync <proyecto>`.
-9. Repetí `aidev run`, aprobación y `aidev approvals sync` hasta completar el ciclo.
+9. Después del plan aprobado, listá y seleccioná la task: `aidev task list <proyecto>` y `aidev task select <proyecto> <task-id>`.
+10. Para una task UI con diseño requerido, ejecutá el paso de diseño visual, aprobá el `.fig` y recién entonces autorizá la implementación.
+11. Repetí `aidev run`, aprobación y `aidev approvals sync` hasta completar el ciclo.
 
 La referencia operativa de comandos, estados y archivos es la [guía del
 orquestador](orchestrator-cli.md).
@@ -26,6 +28,7 @@ orquestador](orchestrator-cli.md).
 
 - Stack, arquitectura, comandos de test, CI/CD y convenciones de código.
 - Responsable humano, roles permitidos, modelo y configuración local de Codex.
+- MCPs locales requeridos por el proyecto, sin comandos, rutas, variables ni secretos en archivos versionados.
 - Requisitos funcionales, riesgos de negocio y políticas de despliegue.
 
 Nunca incluir secretos en Brief, Technology Profile, estado o archivos de
@@ -39,6 +42,10 @@ Las reglas existentes se conservan: sólo se actualiza el bloque delimitado por
 marcadores IADev. Los skills pueden usarse manualmente en Codex o los invoca
 explícitamente `aidev run` para cada rol. Si un skill generado fue modificado,
 la instalación pide `--force` antes de restaurarlo.
+
+## Diseño visual con OpenPencil
+
+Una task que declara `visual_design: required` necesita el MCP local `open-pencil` disponible en Codex. IADev sólo declara esa dependencia en `integrations/open-pencil.toml`: cada usuario administra su instalación y configuración local. El rol Visual Designer crea `workspace/design/<task-id>.fig`; el archivo se revisa y aprueba antes de habilitar al Implementer. Las tasks que no lo requieren continúan directamente al gate de inicio.
 
 ## Ciclo de vida documental
 
