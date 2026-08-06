@@ -23,6 +23,8 @@ flujo IADev.
 5. Validar el área preparada con `git diff --cached --check`.
 6. Crear un único commit local con un título breve que describa el resultado
    de la task y un cuerpo que indique alcance, validación y riesgos si aplican.
+   El título y el cuerpo se redactan siempre en castellano; preferir el formato
+   Conventional Commits, por ejemplo `feat: agregar validación de usuarios`.
 7. Informar hash, título, archivos incluidos y estado final del repositorio
    como evidencia para Closeout.
 
