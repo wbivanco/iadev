@@ -11,13 +11,16 @@ design_artifact:
 
 ## Estado
 
-Borrador | Pendiente de aprobación | Aprobada | En progreso | Bloqueada | Completada
+Pendiente | Seleccionada | En progreso | En revisión | Pendiente de commit | Bloqueada | Requiere corrección | Completada | Cancelada
 
 ## Responsable y aprobación
 
 - Responsable humano:
 - Solicitud de inicio:
 - Solicitud de entrega:
+- Solicitud de commit:
+- Commit (hash y mensaje):
+- Solicitud de cierre:
 
 ## Relación
 

@@ -12,7 +12,8 @@
 8. Aprobá el intake editando su Markdown y aplicá la decisión con `aidev approvals sync <proyecto>`.
 9. Después del plan aprobado, listá y seleccioná la task: `aidev task list <proyecto>` y `aidev task select <proyecto> <task-id>`.
 10. Para una task UI con diseño requerido, ejecutá el paso de diseño visual, aprobá el `.fig` y recién entonces autorizá la implementación.
-11. Repetí `aidev run`, aprobación y `aidev approvals sync` hasta completar el ciclo.
+11. Tras la revisión aceptada, autorizá el commit local de la task y ejecutá el rol `smart-commit`; luego aprobá su cierre.
+12. Repetí selección de task, ejecución y aprobaciones hasta que no queden tasks abiertas.
 
 La referencia operativa de comandos, estados y archivos es la [guía del
 orquestador](orchestrator-cli.md).

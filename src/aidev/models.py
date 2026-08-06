@@ -43,6 +43,7 @@ class ProjectState:
     stage: str = "intake_pending"
     active_role: str | None = None
     task_id: str | None = None
+    task_statuses: dict[str, str] = field(default_factory=dict)
     approvals: dict[str, dict[str, Any]] = field(default_factory=dict)
     artifacts: list[str] = field(default_factory=list)
     runs: list[str] = field(default_factory=list)

@@ -79,9 +79,10 @@ class OrchestratorTests(unittest.TestCase):
 
     def test_full_governed_flow(self) -> None:
         provider = FakeProvider([
-            AgentResult(status="completed", summary="plan"),
+            AgentResult(status="completed", summary="plan", artifacts=[{"path": "specs/tasks/demo/task-1.md", "content": "---\nvisual_design: not_required\n---\n# Task 1"}]),
             AgentResult(status="completed", summary="implementation", evidence=["tests ok"]),
             AgentResult(status="completed", summary="review"),
+            AgentResult(status="completed", summary="commit", evidence=["abc123"]),
             AgentResult(status="completed", summary="closeout"),
         ])
         orchestrator = Orchestrator(self.root, provider)
@@ -92,6 +93,7 @@ class OrchestratorTests(unittest.TestCase):
         state = orchestrator.run_next("demo", "Ana")
         approve(self.root, "demo", next(key for key, value in state.approvals.items() if value["action"] == "approve_plan"))
         self.assertEqual(orchestrator.sync_approvals("demo").stage, "task_ready")
+        orchestrator.select_task("demo", "task-1")
         state = orchestrator.run_next("demo", "Ana")
         self.assertEqual(state.stage, "implementation_pending")
         approve(self.root, "demo", next(key for key, value in state.approvals.items() if value["action"] == "start_implementation"))
@@ -101,11 +103,15 @@ class OrchestratorTests(unittest.TestCase):
         self.assertEqual(orchestrator.sync_approvals("demo").stage, "review")
         state = orchestrator.run_next("demo", "Ana")
         approve(self.root, "demo", next(key for key, value in state.approvals.items() if value["action"] == "accept_review"))
-        self.assertEqual(orchestrator.sync_approvals("demo").stage, "closeout")
+        self.assertEqual(orchestrator.sync_approvals("demo").stage, "commit_pending")
         state = orchestrator.run_next("demo", "Ana")
-        approve(self.root, "demo", next(key for key, value in state.approvals.items() if value["action"] == "complete_work"))
+        approve(self.root, "demo", next(key for key, value in state.approvals.items() if value["action"] == "approve_commit"))
+        self.assertEqual(orchestrator.sync_approvals("demo").stage, "committing")
+        self.assertEqual(orchestrator.run_next("demo", "Ana").stage, "closeout")
+        state = orchestrator.run_next("demo", "Ana")
+        approve(self.root, "demo", next(key for key, value in state.approvals.items() if value["action"] == "complete_task"))
         self.assertEqual(orchestrator.sync_approvals("demo").stage, "completed")
-        self.assertEqual(provider.calls, ["planner", "implementer", "reviewer", "closeout"])
+        self.assertEqual(provider.calls, ["planner", "implementer", "reviewer", "smart_committer", "closeout"])
 
     def test_cannot_run_while_approval_is_pending(self) -> None:
         orchestrator = Orchestrator(self.root, FakeProvider([]))
@@ -124,6 +130,47 @@ class OrchestratorTests(unittest.TestCase):
         self.assertEqual(state.stage, "high_impact_pending")
         self.assertTrue(any(item["action"] == "approve_high_impact" for item in state.approvals.values()))
 
+    def test_blocked_task_releases_the_project_for_another_task(self) -> None:
+        tasks = self.root / "ai-system" / "specs" / "tasks" / "demo"
+        tasks.mkdir(parents=True)
+        for task in ("task-1", "task-2"):
+            (tasks / f"{task}.md").write_text("---\nvisual_design: not_required\n---\n# Task", encoding="utf-8")
+        provider = FakeProvider([AgentResult(status="blocked", summary="waiting for external input")])
+        orchestrator = Orchestrator(self.root, provider)
+        state = orchestrator.init_project("demo", "Ana")
+        state.stage = "task_ready"
+        orchestrator._save(state)
+        orchestrator.select_task("demo", "task-1")
+        state = orchestrator.run_next("demo", "Ana")
+        approve(self.root, "demo", next(key for key, value in state.approvals.items() if value["action"] == "start_implementation"))
+        self.assertEqual(orchestrator.sync_approvals("demo").stage, "implementation")
+        self.assertEqual(orchestrator.run_next("demo", "Ana").stage, "task_ready")
+        self.assertEqual(orchestrator.task_status("demo", "task-1"), "blocked")
+        self.assertEqual(orchestrator.select_task("demo", "task-2").task_id, "task-2")
+
+    def test_completed_task_returns_to_the_next_task(self) -> None:
+        tasks = self.root / "ai-system" / "specs" / "tasks" / "demo"
+        tasks.mkdir(parents=True)
+        for task in ("task-1", "task-2"):
+            (tasks / f"{task}.md").write_text("---\nvisual_design: not_required\n---\n# Task", encoding="utf-8")
+        orchestrator = Orchestrator(self.root, FakeProvider([]))
+        state = orchestrator.init_project("demo", "Ana")
+        state.stage = "closeout_pending"
+        state.task_id = "task-1"
+        state.task_statuses["task-1"] = "closing"
+        orchestrator.create_approval(state, "Ana", "complete_task", "closeout", "Cerrar task")
+        approve(self.root, "demo", next(key for key, value in state.approvals.items() if value["action"] == "complete_task"))
+        self.assertEqual(orchestrator.sync_approvals("demo").stage, "task_ready")
+        self.assertEqual(orchestrator.task_status("demo", "task-1"), "completed")
+        self.assertEqual(orchestrator.select_task("demo", "task-2").task_id, "task-2")
+
+    def test_rejected_plan_returns_to_planning(self) -> None:
+        orchestrator = Orchestrator(self.root, FakeProvider([]))
+        state = orchestrator.init_project("demo", "Ana")
+        state.stage = "planner_pending"
+        orchestrator.create_approval(state, "Ana", "approve_plan", "planner", "Aceptar plan")
+        approve(self.root, "demo", next(key for key, value in state.approvals.items() if value["action"] == "approve_plan"), "rejected")
+        self.assertEqual(orchestrator.sync_approvals("demo").stage, "planning")
 
 if __name__ == "__main__":
     unittest.main()

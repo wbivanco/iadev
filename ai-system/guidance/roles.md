@@ -9,7 +9,8 @@ Los roles son responsabilidades temporales. Una misma persona o agente puede cub
 | Visual Designer | Task UI aprobada | Artefacto `.fig` y evidencia | Crear el diseño visual con el MCP local requerido y solicitar su aprobación. | No implementa producto ni reemplaza la revisión humana. |
 | Implementer | Task aprobada | Cambios y evidencia | Ejecutar sólo la unidad aprobada. | No amplía alcance ni entrega a revisión sin aprobación. |
 | Reviewer | Cambios, criterios y evidencia | Dictamen o correcciones | Verificar calidad, alcance y riesgos. | No acepta ni rechaza definitivamente sin aprobación humana. |
-| Closeout | Resultado revisado | Cierre y memoria actualizada | Registrar resultado, pendientes y siguiente paso. | No marca completado sin aprobación. |
+| Smart Committer | Task revisada y aprobación de commit | Commit local y evidencia | Crear un commit atómico limitado a la task. | No hace push, no reescribe historial ni incluye cambios ajenos. |
+| Closeout | Resultado revisado y commit | Cierre y memoria actualizada | Registrar resultado, pendientes y siguiente paso. | No marca completado sin aprobación. |
 | Responsable humano | Solicitudes de aprobación | Decisión registrada | Aprobar, rechazar o condicionar las transiciones materiales. | No delegar su decisión por silencio. |
 
 ## Contrato de handoff

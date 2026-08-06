@@ -66,7 +66,7 @@ vuelve a planificación. El silencio nunca habilita una transición.
 | `aidev setup codex` | Instala reglas y skills nativos de Codex en `workspace/`. |
 | `aidev intake validate <proyecto>` | Comprueba contenido mínimo del Brief y del stack. |
 | `aidev approvals sync <proyecto>` | Lee y valida decisiones humanas en Markdown. |
-| `aidev task list <proyecto>` | Lista las tasks planificadas y su requisito visual. |
+| `aidev task list <proyecto>` | Lista las tasks planificadas con su estado operativo. |
 | `aidev task select <proyecto> <task-id>` | Selecciona la task aprobada que se ejecutará. |
 | `aidev run <proyecto> --responsible <persona>` | Ejecuta el siguiente rol o crea su gate de inicio. |
 | `aidev resume <proyecto> --responsible <persona>` | Equivale a `run`; continúa sólo si no falta aprobación. |
@@ -89,12 +89,14 @@ intake_pending
   -- implementer --> implementer_pending
   -- aprobar entrega --> review
   -- reviewer --> reviewer_pending
-  -- aceptar revisión --> closeout
+  -- aceptar revisión --> commit_pending
+  -- autorizar commit --> committing
+  -- smart committer --> closeout
   -- closeout --> closeout_pending
-  -- aprobar cierre --> completed
+  -- aprobar cierre de task --> task_ready | completed (si no quedan tasks)
 ```
 
-Una ejecución que devuelve `blocked` bloquea el proyecto. Una acción de alto
+Una ejecución que devuelve `blocked` deja bloqueada sólo la task activa, la devuelve a `task_ready` y permite seleccionar otra task aprobada. Un rechazo o decisión condicional devuelve el resultado a corrección. Una acción de alto
 impacto crea `high_impact_pending`; tras aprobarla, el orquestador vuelve a la
 etapa que la solicitó.
 

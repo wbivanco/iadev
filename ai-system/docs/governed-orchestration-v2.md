@@ -30,7 +30,7 @@ Borrador -> Pendiente de aprobación -> Aprobado -> En trabajo
                                                Completado | Bloqueado
 ```
 
-Cada transición hacia `Aprobado`, `En trabajo`, `Completado` o `Bloqueado` requiere una solicitud registrada en `specs/approvals/`. Una respuesta de chat puede servir, pero el coordinador debe copiar la decisión y sus condiciones al registro antes de continuar.
+Cada transición hacia `Aprobado`, `En trabajo`, `Completado` o `Bloqueado` requiere una solicitud registrada en `specs/approvals/`. Una respuesta de chat puede servir, pero el coordinador debe copiar la decisión y sus condiciones al registro antes de continuar. Un rechazo o una decisión condicional devuelve el artefacto a la etapa corregible correspondiente; por ejemplo, una revisión no aceptada vuelve a implementación. No bloquea todo el proyecto salvo que exista un impedimento real.
 
 ## Flujo de agentes
 
@@ -41,7 +41,8 @@ Cada transición hacia `Aprobado`, `En trabajo`, `Completado` o `Bloqueado` requ
 5. **Coordinador** solicita autorización para iniciar la implementación una vez aprobada la task y, cuando aplica, su diseño visual.
 6. **Implementer** ejecuta exclusivamente esa task; ante cualquier ampliación de alcance vuelve al coordinador. Al finalizar pide aprobación para entregar el resultado a revisión.
 7. **Reviewer** contrasta cambios y evidencia con los criterios. Pide aprobación humana para aceptar el resultado o abrir correcciones.
-8. **Closeout** prepara cierre y actualización de memoria. Pide autorización humana para marcar el trabajo como completado y registrar el cierre.
+8. **Smart Committer** prepara y crea un commit local, atómico y limitado a la task sólo después de que el responsable humano apruebe explícitamente ese commit.
+9. **Closeout** prepara cierre y actualización de memoria de la task. Tras aprobarlo, el Coordinador vuelve a `task_ready` para seleccionar la siguiente; sólo marca el proyecto completado cuando todas las tasks están completadas o canceladas.
 
 El coordinador es el único agente que enruta trabajo y cambia la etapa activa. No implementa, revisa ni reemplaza la decisión humana.
 

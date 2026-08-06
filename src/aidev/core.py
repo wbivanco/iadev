@@ -18,10 +18,11 @@ APPROVAL_TRANSITIONS = {
     "approve_visual_design": "implementation_ready",
     "start_implementation": "implementation",
     "deliver_implementation": "review",
-    "accept_review": "closeout",
-    "complete_work": "completed",
+    "accept_review": "commit_pending",
+    "approve_commit": "committing",
+    "complete_task": "task_ready",
 }
-ROLE_BY_STAGE = {"planning": "planner", "visual_design": "visual_designer", "implementation": "implementer", "review": "reviewer", "closeout": "closeout"}
+ROLE_BY_STAGE = {"planning": "planner", "visual_design": "visual_designer", "implementation": "implementer", "review": "reviewer", "committing": "smart_committer", "closeout": "closeout"}
 HIGH_IMPACT_WORDS = ("dependency", "dependencia", "migration", "migración", "deploy", "desplieg", "network", "red", "secret", "credencial", "shared configuration", "configuración compartida")
 
 
@@ -94,13 +95,21 @@ class Orchestrator:
         directory = self.system / "specs" / "tasks" / project
         return sorted(path.stem for path in directory.glob("*.md")) if directory.exists() else []
 
+    def task_status(self, project: str, task_id: str) -> str:
+        """Devuelve el estado operativo de una task, incluyendo las aún no iniciadas."""
+        state = self.load(project)
+        return state.task_statuses.get(task_id, "pending")
+
     def select_task(self, project: str, task_id: str) -> ProjectState:
         """Selecciona la task que se ejecutará en el siguiente tramo del flujo."""
         state = self.load(project)
         path = self.system / "specs" / "tasks" / project / f"{task_id}.md"
         if state.stage != "task_ready" or not path.exists():
             raise OrchestratorError("La task no existe o el proyecto no está listo para seleccionarla")
+        if self.task_status(project, task_id) in {"completed", "cancelled"}:
+            raise OrchestratorError("La task ya está cerrada y no puede volver a seleccionarse")
         state.task_id = task_id
+        self._set_task_status(state, "selected")
         self._save(state)
         self._event(project, "task_selected", {"task_id": task_id})
         return state
@@ -173,27 +182,33 @@ La transición queda bloqueada hasta contar con una decisión explícita.
             approval["status"] = decision
             approval["decided_by"] = approved_by
             self._event(project, "approval_synced", {"id": approval_id, "decision": decision, "by": approved_by})
-            if decision == "rejected":
-                state.stage = "blocked"
-            elif decision == "conditional":
-                state.stage = "planning"
-            else:
-                action = approval["action"]
+            action = approval["action"]
+            if decision == "approved":
                 if action == "approve_high_impact":
                     state.stage = state.high_impact_return_stage or "implementation"
                     state.high_impact_return_stage = None
                 else:
                     state.stage = APPROVAL_TRANSITIONS[action]
+                    self._apply_approved_task_transition(state, action)
+            else:
+                self._return_from_unapproved_decision(state, action, decision)
         self._save(state)
         return state
 
     def run_next(self, project: str, responsible: str) -> ProjectState:
         """Ejecuta el siguiente rol habilitado o crea el gate previo correspondiente."""
         state = self.load(project)
+        if state.stage == "commit_pending":
+            self.create_approval(state, responsible, "approve_commit", "Smart Committer", "Autorizar el commit de los cambios revisados de la task aprobada.")
+            state.stage = "commit_approval_pending"
+            self._save(state)
+            return state
         if state.stage.endswith("pending") or state.stage == "blocked":
             raise OrchestratorError(f"No se puede ejecutar en estado {state.stage}; sincronizá o resolvé la aprobación pendiente")
         if state.stage == "task_ready":
-            if self.list_tasks(project) and not state.task_id:
+            if not self.list_tasks(project):
+                raise OrchestratorError("El plan no contiene tasks seleccionables")
+            if not state.task_id:
                 raise OrchestratorError("Seleccioná una task con `aidev task select <proyecto> <task-id>` antes de continuar")
             if state.task_id and self._task_requires_visual_design(project, state.task_id):
                 state.stage = "visual_design"
@@ -231,16 +246,25 @@ La transición queda bloqueada hasta contar con una decisión explícita.
             self._save(state)
             return state
         if state.stage == "visual_design" and not self._design_path(state).exists():
-            state.stage = "blocked"
+            self._set_task_status(state, "blocked")
+            state.task_id = None
+            state.stage = "task_ready"
             self._save(state)
             return state
         for artifact in result.artifacts:
             self._write_artifact(artifact)
         if result.status != "completed":
-            state.stage = "blocked"
+            self._set_task_status(state, "blocked")
+            state.task_id = None
+            state.stage = "task_ready"
             self._save(state)
             return state
-        action = {"planning": "approve_plan", "visual_design": "approve_visual_design", "implementation": "deliver_implementation", "review": "accept_review", "closeout": "complete_work"}[state.stage]
+        if role == "smart_committer":
+            state.stage = "closeout"
+            self._set_task_status(state, "closing")
+            self._save(state)
+            return state
+        action = {"planning": "approve_plan", "visual_design": "approve_visual_design", "implementation": "deliver_implementation", "review": "accept_review", "closeout": "complete_task"}[state.stage]
         self.create_approval(state, responsible, action, role, f"Aceptar el resultado entregado por {role}.")
         state.stage = f"{role}_pending"
         self._save(state)
@@ -262,7 +286,8 @@ La transición queda bloqueada hasta contar con una decisión explícita.
             context_files.append(self.system / "specs" / "tasks" / state.project / f"{state.task_id}.md")
         context = "\n\n".join(f"## {file.relative_to(self.root)}\n{file.read_text(encoding='utf-8')}" for file in context_files if file.exists())
         visual_instruction = "" if role != "visual_designer" else f"Usá el MCP open-pencil y creá exclusivamente workspace/design/{state.task_id}.fig."
-        return f"""Actuás como {role} dentro de un flujo gobernado.\n{context}\n\nSólo podés editar el workspace. {visual_instruction} No instales dependencias, no ejecutes migraciones, no uses red, no despliegues ni modifiques configuración compartida. Si alguna acción es necesaria, listala en high_impact_actions y no la ejecutes. Devolvé únicamente JSON conforme al schema. Para artifacts de planificación, devolvé path relativo a ai-system y content; no intentes escribirlos."""
+        commit_instruction = "" if role != "smart_committer" else "Podés usar git status, git diff, git add con rutas explícitas y git commit exclusivamente para la task activa ya autorizada; no hagas push ni reescribas historial."
+        return f"""Actuás como {role} dentro de un flujo gobernado.\n{context}\n\nSólo podés editar el workspace. {visual_instruction} {commit_instruction} No instales dependencias, no ejecutes migraciones, no uses red, no despliegues ni modifiques configuración compartida. Si alguna acción es necesaria, listala en high_impact_actions y no la ejecutes. Devolvé únicamente JSON conforme al schema. Para artifacts de planificación, devolvé path relativo a ai-system y content; no intentes escribirlos."""
 
     def _record_run(self, state: ProjectState, role: str, result: AgentResult) -> None:
         run_id = f"run-{len(state.runs) + 1:03d}"
@@ -270,6 +295,57 @@ La transición queda bloqueada hasta contar con una decisión explícita.
         path.write_text(json.dumps({"id": run_id, "role": role, "result": result.to_dict(), "at": datetime.now(UTC).isoformat()}, indent=2), encoding="utf-8")
         state.runs.append(str(path.relative_to(self.root)))
         self._event(state.project, "role_finished", {"run": run_id, "role": role, "status": result.status})
+
+    def _set_task_status(self, state: ProjectState, status: str) -> None:
+        """Actualiza el estado de la task activa sin perder las demás tasks del plan."""
+        if state.task_id:
+            state.task_statuses[state.task_id] = status
+
+    def _apply_approved_task_transition(self, state: ProjectState, action: str) -> None:
+        """Mantiene el estado por task alineado con una aprobación concedida."""
+        statuses = {
+            "start_implementation": "in_progress",
+            "deliver_implementation": "in_review",
+            "accept_review": "commit_pending",
+            "approve_commit": "committing",
+        }
+        if action == "complete_task":
+            self._set_task_status(state, "completed")
+            state.task_id = None
+            if self._all_tasks_closed(state):
+                state.stage = "completed"
+                self._event(state.project, "project_completed", {})
+            return
+        if action in statuses:
+            self._set_task_status(state, statuses[action])
+
+    def _return_from_unapproved_decision(self, state: ProjectState, action: str, decision: str) -> None:
+        """Devuelve una propuesta rechazada o condicionada a la etapa donde puede corregirse."""
+        returns = {
+            "approve_intake": "intake_pending",
+            "approve_plan": "planning",
+            "approve_visual_design": "visual_design",
+            "start_implementation": "task_ready",
+            "deliver_implementation": "implementation",
+            "accept_review": "implementation",
+            "approve_commit": "implementation",
+            "complete_task": "closeout",
+        }
+        if action == "approve_high_impact":
+            state.stage = state.high_impact_return_stage or "implementation"
+            state.high_impact_return_stage = None
+        else:
+            state.stage = returns.get(action, "planning")
+        if action == "start_implementation":
+            self._set_task_status(state, "pending")
+            state.task_id = None
+        elif state.task_id:
+            self._set_task_status(state, "needs_changes" if decision == "conditional" else "rework_required")
+        self._event(state.project, "approval_returned", {"action": action, "decision": decision, "stage": state.stage})
+
+    def _all_tasks_closed(self, state: ProjectState) -> bool:
+        tasks = self.list_tasks(state.project)
+        return bool(tasks) and all(state.task_statuses.get(task) in {"completed", "cancelled"} for task in tasks)
 
     def _write_artifact(self, artifact: dict[str, str]) -> None:
         path = (self.system / artifact["path"]).resolve()

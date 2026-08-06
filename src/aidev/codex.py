@@ -17,6 +17,7 @@ ROLE_SKILLS = {
     "closeout": "aidev-closeout",
     "coordinator": "aidev-coordinator",
     "visual_designer": "aidev-visual-design",
+    "smart_committer": "aidev-smart-commit",
 }
 SKILL_SOURCES = {
     "planner": "planning.md",
@@ -25,6 +26,7 @@ SKILL_SOURCES = {
     "closeout": "closeout.md",
     "coordinator": "coordinator.md",
     "visual_designer": "visual-design.md",
+    "smart_committer": "smart-commit.md",
 }
 START_MARKER = "<!-- aidev:codex:start -->"
 END_MARKER = "<!-- aidev:codex:end -->"
@@ -138,6 +140,7 @@ def _render_skill(name: str, source: str) -> str:
         "aidev-closeout": "Preparar el cierre trazable de un trabajo revisado de IADev.",
         "aidev-coordinator": "Coordinar intake, aprobaciones y transiciones del flujo IADev sin tomar decisiones humanas.",
         "aidev-visual-design": "Crear y documentar diseños visuales aprobables mediante OpenPencil.",
+        "aidev-smart-commit": "Crear un commit acotado y trazable para una task revisada de IADev.",
     }
     core = f"---\nname: {name}\ndescription: {descriptions[name]}\n---\n\n{source.strip()}\n"
     digest = hashlib.sha256(core.encode("utf-8")).hexdigest()

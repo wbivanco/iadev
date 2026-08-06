@@ -88,7 +88,7 @@ def main(argv: list[str] | None = None) -> int:
             print(path.read_text(encoding="utf-8") if path.exists() else "Sin eventos")
         elif args.command == "task":
             if args.task_command == "list":
-                print("\n".join(orchestrator.list_tasks(args.project)))
+                print("\n".join(f"{task}\t{orchestrator.task_status(args.project, task)}" for task in orchestrator.list_tasks(args.project)))
             else:
                 state = orchestrator.select_task(args.project, args.task_id)
                 print(f"Task seleccionada: {state.task_id}")

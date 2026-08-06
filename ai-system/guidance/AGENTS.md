@@ -30,14 +30,15 @@ Declarar el rol de `guidance/roles.md`. Aplicar el skill correspondiente de `gui
 5. El Coordinador solicita autorización para iniciar cada task.
 6. El Implementer ejecuta sólo la task aprobada y solicita autorización para entregarla a revisión.
 7. El Reviewer emite dictamen y solicita autorización para aceptar o corregir.
-8. El Closeout prepara el cierre y solicita autorización para completar.
-9. Registrar la respuesta y actualizar memoria tras cada transición.
+8. Tras aceptar la revisión, el Smart Committer crea el commit local de la task sólo con aprobación explícita.
+9. El Closeout prepara el cierre de la task y solicita autorización para completarla; después el Coordinador selecciona otra task pendiente.
+10. Registrar la respuesta y actualizar memoria tras cada transición.
 
 ## Regla de aprobación humana
 
 Antes de una acción material, crear una solicitud usando `templates/approval-request.template.md` y esperar una respuesta explícita. No avanzar por silencio ni por una aprobación ambigua. Si cambian alcance, arquitectura, costo, seguridad, fechas o riesgos, volver al Coordinador.
 
-Son acciones materiales: aprobar/publicar artefactos, iniciar implementación, ampliar una task, instalar dependencias, migrar, desplegar, modificar configuración compartida, comunicar externamente y cerrar trabajo.
+Son acciones materiales: aprobar/publicar artefactos, iniciar implementación, ampliar una task, crear commits, instalar dependencias, migrar, desplegar, modificar configuración compartida, comunicar externamente y cerrar trabajo.
 
 ## Validación y cierre
 
