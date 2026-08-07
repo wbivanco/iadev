@@ -381,6 +381,85 @@
         background: #ef7553;
       }
 
+      .local-info {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.25rem;
+        padding-block: clamp(3rem, 7vw, 5.5rem);
+      }
+
+      .info-card {
+        min-width: 0;
+        padding: clamp(1.5rem, 4vw, 2.25rem);
+        border: 1px solid #c9d3c7;
+        border-radius: 1.5rem;
+        background: #fff;
+        box-shadow: 0 0.75rem 1.75rem rgb(19 45 40 / 8%);
+      }
+
+      .info-card h2 {
+        margin: 0 0 1.25rem;
+        font-size: 1.5rem;
+      }
+
+      .info-card address,
+      .info-card__data {
+        margin: 0;
+        font-size: 1.05rem;
+        font-style: normal;
+        line-height: 1.6;
+      }
+
+      .info-card__label {
+        margin: 0 0 0.35rem;
+        color: #3c6543;
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .info-card ul {
+        display: grid;
+        gap: 0.7rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        line-height: 1.5;
+      }
+
+      .info-card--contact {
+        border-color: #132d28;
+        background: #132d28;
+        color: #fff;
+      }
+
+      .info-card--contact .info-card__label {
+        color: #f9cf4a;
+      }
+
+      .info-card--contact #aviso-whatsapp {
+        margin-top: 1.25rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .info-card--contact button {
+        margin-top: 0.5rem;
+        padding: 0.8rem 1rem;
+        border: 0;
+        border-radius: 0.6rem;
+        background: #f9cf4a;
+        color: #132d28;
+        font: inherit;
+        font-weight: 700;
+      }
+
+      .info-card--contact button:disabled {
+        cursor: not-allowed;
+        opacity: 0.85;
+      }
+
       @media (max-width: 42rem) {
         .header-row {
           align-items: flex-start;
@@ -405,6 +484,10 @@
         }
 
         .brands__list {
+          grid-template-columns: 1fr;
+        }
+
+        .local-info {
           grid-template-columns: 1fr;
         }
       }
@@ -491,26 +574,29 @@
         </ul>
       </section>
 
-      <section id="ubicacion" aria-labelledby="titulo-ubicacion">
-        <h2 id="titulo-ubicacion">Ubicación</h2>
-        <address>Avenida del Deporte 123, Ciudad Ejemplo, Provincia Ficticia.</address>
-      </section>
+      <div class="local-info">
+        <section class="info-card" id="ubicacion" aria-labelledby="titulo-ubicacion">
+          <h2 id="titulo-ubicacion">Ubicación</h2>
+          <address>Avenida del Deporte 123, Ciudad Ejemplo, Provincia Ficticia.</address>
+        </section>
 
-      <section id="horarios" aria-labelledby="titulo-horarios">
-        <h2 id="titulo-horarios">Horarios</h2>
-        <ul>
-          <li>Lunes a viernes: 9:30 a 13:00 y 16:30 a 20:30.</li>
-          <li>Sábados: 10:00 a 13:00.</li>
-          <li>Domingos: cerrado.</li>
-        </ul>
-      </section>
+        <section class="info-card" id="horarios" aria-labelledby="titulo-horarios">
+          <h2 id="titulo-horarios">Horarios</h2>
+          <ul>
+            <li>Lunes a viernes de 9:30 a 13:00 y de 16:30 a 20:30.</li>
+            <li>Sábados de 10:00 a 13:00.</li>
+            <li>Domingos cerrado.</li>
+          </ul>
+        </section>
 
-      <section id="contacto" aria-labelledby="titulo-contacto">
-        <h2 id="titulo-contacto">Contacto</h2>
-        <p>Teléfono de demostración: +54 9 11 0000-0000 (no operativo).</p>
-        <p id="aviso-whatsapp">El WhatsApp de demostración no es operativo ni apto para producción.</p>
-        <button type="button" disabled aria-describedby="aviso-whatsapp">Consultar por WhatsApp (demostración no operativa)</button>
-      </section>
+        <section class="info-card info-card--contact" id="contacto" aria-labelledby="titulo-contacto">
+          <h2 id="titulo-contacto">Contacto</h2>
+          <p class="info-card__label">Teléfono</p>
+          <p class="info-card__data">+54 9 11 0000-0000 — número ficticio, no operativo.</p>
+          <p id="aviso-whatsapp">El WhatsApp de demostración no es operativo ni apto para producción.</p>
+          <button type="button" disabled aria-describedby="aviso-whatsapp">Consultar por WhatsApp (demostración no operativa)</button>
+        </section>
+      </div>
     </main>
 
     <footer>

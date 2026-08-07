@@ -57,17 +57,18 @@ Landing estática de una página para presentar la casa de deportes, destacar of
 - **Validación:** revisión de lista de marcas, textos alternativos y comportamiento visual en distintos anchos.
 - **Dependencias:** 1.1 y 1.2.
 - **Decisiones diferidas:** activos de marca definitivos, orden de prioridad y si alguna marca enlazará a un sitio externo.
-- **Cierre:** aceptada por el usuario el 2026-08-07. Validación: Tidy y `git diff --check` sin errores; revisión independiente aprobada para fidelidad de las marcas, lista semántica, presentación tipográfica sin activos externos y grilla responsive estática. Riesgo residual: queda pendiente la comprobación visual manual en viewports móvil y escritorio; los logos, enlaces y orden comercial definitivo deberán confirmarse antes de publicar. Hash: pendiente de commit.
+- **Cierre:** aceptada por el usuario el 2026-08-07. Validación: Tidy y `git diff --check` sin errores; revisión independiente aprobada para fidelidad de las marcas, lista semántica, presentación tipográfica sin activos externos y grilla responsive estática. Riesgo residual: queda pendiente la comprobación visual manual en viewports móvil y escritorio; los logos, enlaces y orden comercial definitivo deberán confirmarse antes de publicar. Hash: `2dbbe80`.
 
 ## Módulo 3 — Información del local y conversión
 
-### [ ] 3.1 Publicar ubicación, horarios y datos de contacto
+### [x] 3.1 Publicar ubicación, horarios y datos de contacto
 
 - **Alcance:** incorporar dirección, horarios, teléfono u otros canales entregados, y un acceso a indicaciones de llegada si se aprueba un destino de mapa.
 - **Aceptación:** la información del local es completa, legible y consistente con la fuente comercial; teléfono y mapa sólo son interactivos cuando sus destinos fueron confirmados.
 - **Validación:** revisión contra la fuente, prueba de enlaces de teléfono/mapa cuando existan y lectura en móvil.
 - **Dependencias:** 1.1 y 1.2.
 - **Decisiones diferidas:** proveedor y URL de mapa; inclusión de redes sociales u otros canales.
+- **Cierre:** aceptada por el usuario el 2026-08-07. Validación: Tidy y `git diff --check` sin errores; revisión independiente aprobada para fidelidad de dirección, horarios y teléfono, semántica, ausencia de destinos no aprobados y grilla responsive estática. Riesgo residual: queda pendiente la comprobación visual manual en viewports móvil y escritorio; teléfono, WhatsApp, mapa y datos comerciales definitivos deberán sustituirse y verificarse antes de publicar. Hash: pendiente de commit.
 
 ### [ ] 3.2 Unificar los puntos de conversión a WhatsApp
 
@@ -129,3 +130,4 @@ Landing estática de una página para presentar la casa de deportes, destacar of
 - 2026-08-07: tarea 2.1 aceptada por el usuario tras refinamiento estético del hero y menú, y revisión de calidad independiente.
 - 2026-08-07: tarea 2.2 aceptada por el usuario tras revisión de calidad independiente.
 - 2026-08-07: tarea 2.3 aceptada por el usuario tras revisión de calidad independiente.
+- 2026-08-07: tarea 3.1 aceptada por el usuario tras revisión de calidad independiente.
