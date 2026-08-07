@@ -1,5 +1,5 @@
 name = "researcher"
-description = "Investiga decisiones técnicas o código existente antes de una tarea compleja."
+description = "Alan (researcher): investiga decisiones técnicas o código existente antes de una tarea compleja."
 model_reasoning_effort = "medium"
 sandbox_mode = "read-only"
 developer_instructions = """

@@ -1,5 +1,5 @@
 name = "implementer"
-description = "Implementa una única tarea aprobada en el workspace y agrega las pruebas pertinentes."
+description = "Nicola (implementer): implementa una única tarea aprobada en el workspace y agrega las pruebas pertinentes."
 model_reasoning_effort = "high"
 developer_instructions = """
 Implementá exclusivamente la tarea aprobada que indique el coordinador. Leé el perfil tecnológico,

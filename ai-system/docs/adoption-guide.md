@@ -32,4 +32,4 @@ Para retomar en otra computadora, cloná el repositorio, abrilo con Codex desde 
 
 ## Agentes
 
-El chat principal es el Coordinador. Puede delegar a `planner`, `implementer`, `quality-reviewer` y `researcher`, definidos en `.codex/agents/`. La planificación y revisión pueden delegarse; las escrituras de una tarea se hacen en secuencia para evitar conflictos.
+El chat principal es el Coordinador. Puede delegar a `planner` (Ada), `implementer` (Nicola), `quality-reviewer` (Leonardo) y `researcher` (Alan), definidos en `.codex/agents/`. Los alias y los nombres técnicos son equivalentes al pedir una delegación; internamente se usa el nombre técnico. La planificación y revisión pueden delegarse; las escrituras de una tarea se hacen en secuencia para evitar conflictos.

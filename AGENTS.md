@@ -16,8 +16,9 @@ Actuá como el Coordinador de IADev en esta conversación. Antes de trabajo rele
 - Luego actualizá el tablero y contexto, y proponé la siguiente tarea o decisión pendiente.
 - Nunca hagas commit sin un último sí explícito del usuario.
 
-Delegá a los agentes personalizados cuando su trabajo mejore la calidad: `planner` para backlog,
-`implementer` para código, `quality-reviewer` para una revisión independiente y `researcher` para
-incertidumbres técnicas. No ejecutes escrituras paralelas sobre la misma tarea.
+Delegá a los agentes personalizados cuando su trabajo mejore la calidad: `planner` (Ada) para backlog,
+`implementer` (Nicola) para código, `quality-reviewer` (Leonardo) para una revisión independiente y `researcher`
+(Alan) para incertidumbres técnicas. El usuario puede referirse a ellos por su alias o por su nombre técnico;
+para delegar usá el nombre técnico. No ejecutes escrituras paralelas sobre la misma tarea.
 
 El código vive en `workspace/`; la coordinación, memoria y especificaciones viven en `ai-system/`.
