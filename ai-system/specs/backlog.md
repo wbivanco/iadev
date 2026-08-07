@@ -21,13 +21,14 @@ Landing estática de una página para presentar la casa de deportes, destacar of
 - **Decisiones diferidas:** identidad visual final; cantidad definitiva de ofertas y marcas; autorización y formato de las imágenes.
 - **Cierre:** aceptada por el usuario el 2026-08-07. Validación: revisión independiente aprobada y comprobación de formato/señalización de la fuente de demo; `git diff --check` sin errores. Riesgo residual: todos los datos ficticios, incluido WhatsApp, deben sustituirse y verificarse antes de publicar. Hash: pendiente de commit.
 
-### [ ] 1.2 Crear la estructura semántica de la landing
+### [x] 1.2 Crear la estructura semántica de la landing
 
 - **Alcance:** construir el documento base de una sola página con encabezado, navegación, contenido principal por secciones y pie; establecer anclas para las secciones públicas.
 - **Aceptación:** están representadas las secciones de presentación, ofertas, marcas, ubicación, horarios y contacto; la jerarquía de encabezados es coherente y la navegación apunta a secciones existentes.
 - **Validación:** inspección del HTML y recorrido con los enlaces internos en escritorio y móvil.
 - **Dependencias:** 1.1 para los textos y nombres definitivos; puede iniciar con contenido temporal señalado.
 - **Decisiones diferidas:** nombres finales de anclas y etiquetas de navegación si cambian los textos comerciales.
+- **Cierre:** aceptada por el usuario el 2026-08-07. Validación: Tidy, comprobación de anclas y estructura semántica, y revisión independiente aprobada; `git diff --check` sin errores. Riesgo residual: la revisión visual responsive se realizará con los estilos en la tarea 4.1. Hash: pendiente de commit.
 
 ## Módulo 2 — Identidad y secciones comerciales
 
@@ -121,3 +122,4 @@ Landing estática de una página para presentar la casa de deportes, destacar of
 - 2026-08-07: Backlog aprobado por el usuario.
 - 2026-08-07: el usuario autorizó que la tarea 1.1 use contenido ficticio para una demo; se adecuaron sus criterios de aceptación y validación para admitir un WhatsApp no operativo, con verificación real diferida a producción.
 - 2026-08-07: tarea 1.1 aceptada por el usuario tras revisión de calidad independiente.
+- 2026-08-07: tarea 1.2 aceptada por el usuario tras revisión de calidad independiente.

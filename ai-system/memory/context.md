@@ -2,7 +2,7 @@
 
 ## Estado
 
-Brief, Perfil Tecnológico y Backlog aprobados. La tarea 1.1 fue aceptada como fuente de contenido para una demo local; la siguiente tarea pendiente es 1.2, estructura semántica de la landing.
+Brief, Perfil Tecnológico y Backlog aprobados. Las tareas 1.1 (contenido demo) y 1.2 (estructura semántica) fueron aceptadas; la siguiente tarea pendiente es 2.1, presentación principal de la landing.
 
 ## Decisiones vigentes
 
@@ -14,5 +14,5 @@ Brief, Perfil Tecnológico y Backlog aprobados. La tarea 1.1 fue aceptada como f
 
 ## Pendientes y próximo paso
 
-- Implementar la estructura semántica de la landing tras aprobación explícita de la tarea 1.2.
+- Implementar la presentación principal de la landing tras aprobación explícita de la tarea 2.1.
 - Definir hosting y sustituir los contenidos demo por datos comerciales aprobados antes de publicar.
