@@ -1,20 +1,20 @@
 ---
-status: draft
-approved_at: ""
-updated_at: ""
+status: approved
+approved_at: "2026-08-07"
+updated_at: "2026-08-07"
 ---
 
 # Perfil tecnológico
 
 ## Decisiones mínimas
 
-- Lenguaje: pendiente.
-- Framework: pendiente o no aplica.
-- Base de datos: pendiente o no aplica.
+- Lenguaje: HTML, CSS y JavaScript.
+- Framework: no aplica; se desarrollará una landing estática sin framework.
+- Base de datos: no aplica; no habrá panel de administración en esta primera versión.
 
 ## Arquitectura (opcional)
 
-Pendiente. Registrar un bosquejo o marcar la decisión como diferida con su impacto.
+Landing estática de una sola página, con secciones semánticas y recursos locales. Las ofertas se cargarán inicialmente como contenido estático.
 
 ### Principio de proporcionalidad
 
@@ -22,16 +22,20 @@ Aplicar buenas prácticas de forma proporcional a las necesidades actuales. No i
 
 ## Calidad y convenciones (opcional hasta que haya código)
 
-- Formato: pendiente.
-- Lint: pendiente.
-- Tests: pendiente.
-- Convenciones del proyecto: pendiente.
+- Formato: pendiente de definir.
+- Lint: pendiente de definir.
+- Tests: comprobación manual responsive y de enlaces/CTA en esta primera versión.
+- Convenciones del proyecto: HTML semántico, CSS responsive y JavaScript sin dependencias.
 
 ## Decisiones diferidas
 
-- Ninguna todavía.
+- Despliegue/hosting: pendiente; condiciona la URL pública de la landing.
+- Activos y contenido comercial: pendientes; se necesitarán logo, ofertas, marcas, dirección, horarios y número/enlace de WhatsApp definitivos.
+- Analítica: pendiente; no se incorporará en la primera versión salvo decisión posterior.
 
 ## Historial
 
 - Creado; pendiente de entrevista técnica.
 - 2026-08-07: se incorporó el principio de proporcionalidad para evitar complejidad prematura.
+- 2026-08-07: perfil tecnológico completado en borrador a partir de la entrevista.
+- 2026-08-07: Perfil tecnológico aprobado por el usuario.
