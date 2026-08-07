@@ -1,8 +1,10 @@
+# Código y artefactos locales
 __pycache__/
 *.py[cod]
+.venv/
+.codex-log/
 
 # Archivos locales del sistema operativo.
 .DS_Store
 
-# Integración local de Codex regenerable con `aidev setup codex`.
-workspace/.agents/
+# Cada producto dentro de workspace/ agrega sus dependencias y builds propios.

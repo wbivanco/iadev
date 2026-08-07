@@ -1,1 +1,0 @@
-# Agent Handoffs\n\nEste archivo registra traspasos entre agentes o entre sesiones.\n\n---\n\n## Handoff Template\n\n### Fecha\n\n### Rol emisor → Rol receptor\n\n### Objetivo y estado\n\n### Artefactos relevantes\n\n- Spec:\n- Design:\n- Task:\n- Evidencia:\n\n### Decisiones, riesgos y bloqueos\n\n### Próximo paso verificable\n

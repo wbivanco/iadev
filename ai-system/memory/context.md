@@ -1,28 +1,14 @@
 # Contexto activo
 
-## Resumen vigente
+## Estado
 
-IADev es un kit portable para planificar, implementar, validar y cerrar
-software asistido por IA, con aprobación humana por transición material.
+El proyecto todavía no fue definido.
 
-## Estado actual
+## Decisiones vigentes
 
-- Fase: V1.2, adopción piloto del runtime gobernado.
-- Próximo objetivo: ejecutar un proyecto piloto completo y registrar las
-  fricciones observadas.
+- IADev se coordina desde Codex mediante documentos Markdown versionados.
+- El código vive en `workspace/`; el contexto y backlog en `ai-system/`.
 
-## Decisiones activas
+## Pendientes y próximo paso
 
-- Separar el sistema de trabajo en `ai-system/` del código en `workspace/`.
-- Mantener el flujo SDD y la aprobación humana como controles centrales.
-- Usar roles temporales y skills genéricos; no agentes persistentes.
-
-## Dudas abiertas
-
-- Evaluar automatización adicional sólo después de adopciones reales.
-- Evaluar búsqueda de memoria bajo demanda si el archivo histórico crece.
-
-## Próximo paso verificable
-
-Ejecutar un proyecto piloto con `aidev`, completar el intake y recorrer el
-flujo de planificación, implementación, revisión y cierre.
+Iniciar la entrevista del Brief a partir de la idea del usuario.
