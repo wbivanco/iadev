@@ -2,7 +2,7 @@
 
 ## Módulo activo
 
-Módulo 2 — Identidad y secciones comerciales.
+Módulo 3 — Información del local y conversión.
 
 ## Progreso
 
@@ -10,8 +10,9 @@ Módulo 2 — Identidad y secciones comerciales.
 - [x] 1.2 Crear la estructura semántica de la landing.
 - [x] 2.1 Definir e implementar la presentación principal.
 - [x] 2.2 Incorporar el sector de ofertas destacadas.
-- [ ] 2.3 Incorporar el sector de marcas comercializadas.
+- [x] 2.3 Incorporar el sector de marcas comercializadas.
+- [ ] 3.1 Publicar ubicación, horarios y datos de contacto.
 
 ## Próximo paso
 
-Presentar la tarea 2.3 para aprobación explícita antes de implementarla.
+Presentar la tarea 3.1 para aprobación explícita antes de implementarla.

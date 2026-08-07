@@ -48,15 +48,16 @@ Landing estática de una página para presentar la casa de deportes, destacar of
 - **Validación:** comparación con el contenido normalizado, inspección visual en móvil/escritorio y prueba del CTA.
 - **Dependencias:** 1.1 y 1.2.
 - **Decisiones diferidas:** precios, vigencia, condiciones promocionales y necesidad de enlaces individuales por oferta.
-- **Cierre:** aceptada por el usuario el 2026-08-07. Validación: Tidy y `git diff --check` sin errores; revisión independiente aprobada para fidelidad del contenido, semántica de tarjetas, visuales decorativos, CTAs de demo y grilla responsive estática. Riesgo residual: queda pendiente la comprobación visual manual en viewports móvil y escritorio; los CTAs por oferta permanecerán deshabilitados hasta contar con un WhatsApp real aprobado y verificado. Hash: pendiente de commit.
+- **Cierre:** aceptada por el usuario el 2026-08-07. Validación: Tidy y `git diff --check` sin errores; revisión independiente aprobada para fidelidad del contenido, semántica de tarjetas, visuales decorativos, CTAs de demo y grilla responsive estática. Riesgo residual: queda pendiente la comprobación visual manual en viewports móvil y escritorio; los CTAs por oferta permanecerán deshabilitados hasta contar con un WhatsApp real aprobado y verificado. Hash: `4ee4d33`.
 
-### [ ] 2.3 Incorporar el sector de marcas comercializadas
+### [x] 2.3 Incorporar el sector de marcas comercializadas
 
 - **Alcance:** presentar las marcas aprobadas mediante logotipos autorizados o texto como alternativa accesible.
 - **Aceptación:** cada marca se reconoce sin depender exclusivamente de una imagen; los logotipos mantienen proporción y no se usan activos sin autorización.
 - **Validación:** revisión de lista de marcas, textos alternativos y comportamiento visual en distintos anchos.
 - **Dependencias:** 1.1 y 1.2.
 - **Decisiones diferidas:** activos de marca definitivos, orden de prioridad y si alguna marca enlazará a un sitio externo.
+- **Cierre:** aceptada por el usuario el 2026-08-07. Validación: Tidy y `git diff --check` sin errores; revisión independiente aprobada para fidelidad de las marcas, lista semántica, presentación tipográfica sin activos externos y grilla responsive estática. Riesgo residual: queda pendiente la comprobación visual manual en viewports móvil y escritorio; los logos, enlaces y orden comercial definitivo deberán confirmarse antes de publicar. Hash: pendiente de commit.
 
 ## Módulo 3 — Información del local y conversión
 
@@ -127,3 +128,4 @@ Landing estática de una página para presentar la casa de deportes, destacar of
 - 2026-08-07: tarea 1.2 aceptada por el usuario tras revisión de calidad independiente.
 - 2026-08-07: tarea 2.1 aceptada por el usuario tras refinamiento estético del hero y menú, y revisión de calidad independiente.
 - 2026-08-07: tarea 2.2 aceptada por el usuario tras revisión de calidad independiente.
+- 2026-08-07: tarea 2.3 aceptada por el usuario tras revisión de calidad independiente.

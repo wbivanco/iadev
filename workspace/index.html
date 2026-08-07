@@ -336,6 +336,51 @@
         font-size: 0.875rem;
       }
 
+      .brands {
+        padding-block: clamp(3rem, 7vw, 5.5rem);
+      }
+
+      .brands > h2 {
+        margin: 0 0 2rem;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        line-height: 1;
+      }
+
+      .brands__list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .brands__item {
+        display: grid;
+        min-height: 7rem;
+        place-items: center;
+        padding: 1rem;
+        border: 2px solid #132d28;
+        border-radius: 1rem;
+        color: #132d28;
+        font-size: clamp(1.1rem, 2.4vw, 1.75rem);
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        text-align: center;
+      }
+
+      .brands__item:nth-child(1) {
+        background: #f9cf4a;
+      }
+
+      .brands__item:nth-child(2) {
+        background: #d7e6c9;
+      }
+
+      .brands__item:nth-child(3) {
+        background: #ef7553;
+      }
+
       @media (max-width: 42rem) {
         .header-row {
           align-items: flex-start;
@@ -356,6 +401,10 @@
         }
 
         .offers__grid {
+          grid-template-columns: 1fr;
+        }
+
+        .brands__list {
           grid-template-columns: 1fr;
         }
       }
@@ -433,12 +482,12 @@
         <p class="offers__notice" id="aviso-whatsapp-ofertas">WhatsApp de demostración: las consultas por oferta no son operativas ni aptas para producción.</p>
       </section>
 
-      <section id="marcas" aria-labelledby="titulo-marcas">
+      <section class="brands" id="marcas" aria-labelledby="titulo-marcas">
         <h2 id="titulo-marcas">Marcas comercializadas</h2>
-        <ul>
-          <li>Vértice Demo</li>
-          <li>Pulso Norte Demo</li>
-          <li>Ruta X Demo</li>
+        <ul class="brands__list">
+          <li class="brands__item">Vértice Demo</li>
+          <li class="brands__item">Pulso Norte Demo</li>
+          <li class="brands__item">Ruta X Demo</li>
         </ul>
       </section>
 
