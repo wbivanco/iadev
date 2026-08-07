@@ -39,15 +39,16 @@ Landing estática de una página para presentar la casa de deportes, destacar of
 - **Validación:** comprobación visual inicial en viewport móvil y de escritorio; prueba funcional del CTA.
 - **Dependencias:** 1.1 y 1.2.
 - **Decisiones diferidas:** imagen hero definitiva, mensaje comercial final y posible CTA secundario.
-- **Cierre:** aceptada por el usuario el 2026-08-07. Validación: Tidy y `git diff --check` sin errores; revisión independiente aprobada, incluidas semántica, anclas, foco visible, contraste y comportamiento responsive estático del menú. Riesgo residual: queda pendiente la comprobación visual manual en viewports móvil y escritorio porque el navegador no estuvo disponible; el CTA de WhatsApp permanece señalizado y deshabilitado hasta contar con un destino real verificado. Hash: pendiente de commit.
+- **Cierre:** aceptada por el usuario el 2026-08-07. Validación: Tidy y `git diff --check` sin errores; revisión independiente aprobada, incluidas semántica, anclas, foco visible, contraste y comportamiento responsive estático del menú. Riesgo residual: queda pendiente la comprobación visual manual en viewports móvil y escritorio porque el navegador no estuvo disponible; el CTA de WhatsApp permanece señalizado y deshabilitado hasta contar con un destino real verificado. Hash: `75b90cf`.
 
-### [ ] 2.2 Incorporar el sector de ofertas destacadas
+### [x] 2.2 Incorporar el sector de ofertas destacadas
 
 - **Alcance:** mostrar las ofertas provistas como elementos visuales legibles, con título, descripción breve y, si se entrega, imagen; incluir una salida clara para consultar por WhatsApp.
 - **Aceptación:** todas las ofertas aprobadas se distinguen entre sí, no muestran precios ni condiciones no provistos y el CTA permite iniciar una consulta; el diseño soporta la cantidad acordada de ofertas sin desbordes.
 - **Validación:** comparación con el contenido normalizado, inspección visual en móvil/escritorio y prueba del CTA.
 - **Dependencias:** 1.1 y 1.2.
 - **Decisiones diferidas:** precios, vigencia, condiciones promocionales y necesidad de enlaces individuales por oferta.
+- **Cierre:** aceptada por el usuario el 2026-08-07. Validación: Tidy y `git diff --check` sin errores; revisión independiente aprobada para fidelidad del contenido, semántica de tarjetas, visuales decorativos, CTAs de demo y grilla responsive estática. Riesgo residual: queda pendiente la comprobación visual manual en viewports móvil y escritorio; los CTAs por oferta permanecerán deshabilitados hasta contar con un WhatsApp real aprobado y verificado. Hash: pendiente de commit.
 
 ### [ ] 2.3 Incorporar el sector de marcas comercializadas
 
@@ -125,3 +126,4 @@ Landing estática de una página para presentar la casa de deportes, destacar of
 - 2026-08-07: tarea 1.1 aceptada por el usuario tras revisión de calidad independiente.
 - 2026-08-07: tarea 1.2 aceptada por el usuario tras revisión de calidad independiente.
 - 2026-08-07: tarea 2.1 aceptada por el usuario tras refinamiento estético del hero y menú, y revisión de calidad independiente.
+- 2026-08-07: tarea 2.2 aceptada por el usuario tras revisión de calidad independiente.

@@ -172,6 +172,170 @@
         background: #24563a;
       }
 
+      .offers {
+        padding-block: clamp(3rem, 7vw, 5.5rem);
+      }
+
+      .offers > h2 {
+        max-width: 16ch;
+        margin: 0 0 2rem;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        line-height: 1;
+      }
+
+      .offers__grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.25rem;
+      }
+
+      .offer-card {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid #c9d3c7;
+        border-radius: 1.5rem;
+        background: #fff;
+        box-shadow: 0 0.75rem 1.75rem rgb(19 45 40 / 8%);
+      }
+
+      .offer-card__visual {
+        position: relative;
+        min-height: 10rem;
+        overflow: hidden;
+      }
+
+      .offer-card__visual::before,
+      .offer-card__visual::after {
+        position: absolute;
+        content: "";
+      }
+
+      .offer-card__visual--kit {
+        background: #f9cf4a;
+      }
+
+      .offer-card__visual--kit::before {
+        top: 1.75rem;
+        left: 50%;
+        width: 5.5rem;
+        height: 5.5rem;
+        border: 0.7rem solid #132d28;
+        border-radius: 50%;
+        transform: translateX(-50%);
+      }
+
+      .offer-card__visual--kit::after {
+        top: 2.75rem;
+        left: 50%;
+        width: 1.75rem;
+        height: 1.75rem;
+        border-radius: 0.35rem;
+        background: #ef7553;
+        transform: translateX(-50%) rotate(45deg);
+      }
+
+      .offer-card__visual--zapatillas {
+        background: #d7e6c9;
+      }
+
+      .offer-card__visual--zapatillas::before {
+        right: 15%;
+        bottom: 2.5rem;
+        width: 9rem;
+        height: 3.5rem;
+        border-radius: 3rem 1rem 1rem 1rem;
+        background: #24563a;
+        transform: rotate(-14deg);
+      }
+
+      .offer-card__visual--zapatillas::after {
+        right: 12%;
+        bottom: 1.65rem;
+        width: 7rem;
+        height: 0.65rem;
+        border-radius: 999px;
+        background: #f7f4ec;
+        transform: rotate(-14deg);
+      }
+
+      .offer-card__visual--cancha {
+        background: #ef7553;
+      }
+
+      .offer-card__visual--cancha::before {
+        inset: -4rem 20% auto auto;
+        width: 12rem;
+        height: 12rem;
+        border: 1.25rem solid #132d28;
+        border-radius: 50%;
+      }
+
+      .offer-card__visual--cancha::after {
+        bottom: 1.5rem;
+        left: 13%;
+        width: 5rem;
+        height: 5rem;
+        border: 0.8rem solid #f9cf4a;
+        border-radius: 50%;
+        box-shadow: 3.5rem -1.3rem 0 -0.5rem #d7e6c9;
+      }
+
+      .offer-card__content {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        padding: 1.5rem;
+      }
+
+      .offer-card h3 {
+        margin: 0;
+        font-size: 1.35rem;
+        line-height: 1.15;
+      }
+
+      .offer-card p {
+        line-height: 1.5;
+      }
+
+      .offer-card__price {
+        margin-bottom: 0;
+        color: #24563a;
+        font-weight: 700;
+      }
+
+      .offer-card__conditions {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .offer-card__cta {
+        margin-top: auto;
+        padding: 0.8rem 1rem;
+        border: 0;
+        border-radius: 0.6rem;
+        background: #24563a;
+        color: #fff;
+        font: inherit;
+        font-weight: 700;
+      }
+
+      .offer-card__cta:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+      }
+
+      .offer-card__cta:focus-visible {
+        outline: 3px solid #f9cf4a;
+        outline-offset: 3px;
+      }
+
+      .offers__notice {
+        margin: 1rem 0 0;
+        font-size: 0.875rem;
+      }
+
       @media (max-width: 42rem) {
         .header-row {
           align-items: flex-start;
@@ -189,6 +353,10 @@
 
         .hero__visual {
           min-height: 15rem;
+        }
+
+        .offers__grid {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -225,29 +393,44 @@
         </div>
       </section>
 
-      <section id="ofertas" aria-labelledby="titulo-ofertas">
+      <section class="offers" id="ofertas" aria-labelledby="titulo-ofertas">
         <h2 id="titulo-ofertas">Ofertas destacadas</h2>
 
-        <article>
-          <h3>Kit de entrenamiento Demo</h3>
-          <p>Remera deportiva, short y botella reutilizable para armar tu equipo de entrenamiento.</p>
-          <p>ARS 48.900. Vigencia: del 1 al 30 de septiembre de 2026.</p>
-          <p>Stock limitado; no acumulable con otras promociones.</p>
-        </article>
+        <div class="offers__grid">
+          <article class="offer-card">
+            <div class="offer-card__visual offer-card__visual--kit" aria-hidden="true"></div>
+            <div class="offer-card__content">
+              <h3>Kit de entrenamiento Demo</h3>
+              <p>Remera deportiva, short y botella reutilizable para armar tu equipo de entrenamiento.</p>
+              <p class="offer-card__price">ARS 48.900. Vigencia: del 1 al 30 de septiembre de 2026.</p>
+              <p class="offer-card__conditions">Stock limitado; no acumulable con otras promociones.</p>
+              <button class="offer-card__cta" type="button" disabled aria-describedby="aviso-whatsapp-ofertas">Consultar Kit de entrenamiento Demo por WhatsApp</button>
+            </div>
+          </article>
 
-        <article>
-          <h3>Zapatillas Paso Firme Demo</h3>
-          <p>Calzado liviano de uso urbano y entrenamiento de baja intensidad.</p>
-          <p>ARS 79.900. Vigencia: del 1 al 30 de septiembre de 2026.</p>
-          <p>Talles sujetos a disponibilidad; cambios dentro de los 15 días con comprobante.</p>
-        </article>
+          <article class="offer-card">
+            <div class="offer-card__visual offer-card__visual--zapatillas" aria-hidden="true"></div>
+            <div class="offer-card__content">
+              <h3>Zapatillas Paso Firme Demo</h3>
+              <p>Calzado liviano de uso urbano y entrenamiento de baja intensidad.</p>
+              <p class="offer-card__price">ARS 79.900. Vigencia: del 1 al 30 de septiembre de 2026.</p>
+              <p class="offer-card__conditions">Talles sujetos a disponibilidad; cambios dentro de los 15 días con comprobante.</p>
+              <button class="offer-card__cta" type="button" disabled aria-describedby="aviso-whatsapp-ofertas">Consultar Zapatillas Paso Firme Demo por WhatsApp</button>
+            </div>
+          </article>
 
-        <article>
-          <h3>Combo cancha Demo</h3>
-          <p>Pelota recreativa y par de medias deportivas para tus partidos.</p>
-          <p>ARS 31.500. Vigencia: del 1 al 30 de septiembre de 2026.</p>
-          <p>Válido hasta agotar stock; una unidad por compra.</p>
-        </article>
+          <article class="offer-card">
+            <div class="offer-card__visual offer-card__visual--cancha" aria-hidden="true"></div>
+            <div class="offer-card__content">
+              <h3>Combo cancha Demo</h3>
+              <p>Pelota recreativa y par de medias deportivas para tus partidos.</p>
+              <p class="offer-card__price">ARS 31.500. Vigencia: del 1 al 30 de septiembre de 2026.</p>
+              <p class="offer-card__conditions">Válido hasta agotar stock; una unidad por compra.</p>
+              <button class="offer-card__cta" type="button" disabled aria-describedby="aviso-whatsapp-ofertas">Consultar Combo cancha Demo por WhatsApp</button>
+            </div>
+          </article>
+        </div>
+        <p class="offers__notice" id="aviso-whatsapp-ofertas">WhatsApp de demostración: las consultas por oferta no son operativas ni aptas para producción.</p>
       </section>
 
       <section id="marcas" aria-labelledby="titulo-marcas">
