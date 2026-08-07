@@ -32,13 +32,14 @@ Landing estática de una página para presentar la casa de deportes, destacar of
 
 ## Módulo 2 — Identidad y secciones comerciales
 
-### [ ] 2.1 Definir e implementar la presentación principal
+### [x] 2.1 Definir e implementar la presentación principal
 
 - **Alcance:** componer la sección inicial con propuesta de valor, identidad disponible y CTA principal a WhatsApp; contemplar un recurso visual local o una alternativa sin imagen.
 - **Aceptación:** al cargar la página se identifica qué ofrece el comercio y se ve un CTA de consulta a WhatsApp sin desplazarse; la ausencia de un activo definitivo no rompe la composición.
 - **Validación:** comprobación visual inicial en viewport móvil y de escritorio; prueba funcional del CTA.
 - **Dependencias:** 1.1 y 1.2.
 - **Decisiones diferidas:** imagen hero definitiva, mensaje comercial final y posible CTA secundario.
+- **Cierre:** aceptada por el usuario el 2026-08-07. Validación: Tidy y `git diff --check` sin errores; revisión independiente aprobada, incluidas semántica, anclas, foco visible, contraste y comportamiento responsive estático del menú. Riesgo residual: queda pendiente la comprobación visual manual en viewports móvil y escritorio porque el navegador no estuvo disponible; el CTA de WhatsApp permanece señalizado y deshabilitado hasta contar con un destino real verificado. Hash: pendiente de commit.
 
 ### [ ] 2.2 Incorporar el sector de ofertas destacadas
 
@@ -123,3 +124,4 @@ Landing estática de una página para presentar la casa de deportes, destacar of
 - 2026-08-07: el usuario autorizó que la tarea 1.1 use contenido ficticio para una demo; se adecuaron sus criterios de aceptación y validación para admitir un WhatsApp no operativo, con verificación real diferida a producción.
 - 2026-08-07: tarea 1.1 aceptada por el usuario tras revisión de calidad independiente.
 - 2026-08-07: tarea 1.2 aceptada por el usuario tras revisión de calidad independiente.
+- 2026-08-07: tarea 2.1 aceptada por el usuario tras refinamiento estético del hero y menú, y revisión de calidad independiente.
