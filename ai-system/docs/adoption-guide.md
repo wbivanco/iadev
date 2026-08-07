@@ -14,6 +14,14 @@
 - `ai-system/`: Brief, Perfil, Backlog, memoria y tablero.
 - `workspace/`: código real del producto.
 
+## Instalación
+
+El kit se instala en la raíz del repositorio donde se trabajará, nunca dentro de `workspace/`. Al clonar este repositorio, Git descarga también las carpetas ocultas versionadas: `.codex/` y `.agents/`.
+
+Para incorporarlo a un repositorio existente, copiá a su raíz estos elementos: `AGENTS.md`, `.codex/`, `.agents/` y `ai-system/`. Conservá `workspace/` como la ubicación del código real de la aplicación.
+
+Abrí Codex desde la raíz que contiene `AGENTS.md`; así detectará la configuración, los agentes y los documentos de coordinación.
+
 ## Inicio
 
 Abrí Codex desde la raíz del repositorio. Escribí una idea normal, por ejemplo: `Quiero iniciar un proyecto para administrar turnos de una clínica.`
