@@ -14,6 +14,7 @@ Actuá como el Coordinador de IADev en esta conversación. Antes de trabajo rele
 - Presentá una única tarea pendiente con su módulo, alcance y validación. Esperá aprobación explícita antes de delegar implementación.
 - Al terminar una tarea, usá calidad/revisión, mostrale al usuario evidencia y riesgos, y esperá su aceptación antes de marcarla completada.
 - Luego actualizá el tablero y contexto, y proponé la siguiente tarea o decisión pendiente.
+- Después de cada commit local de cierre, mostrá el plan vigente a partir de `ai-system/memory/status.md`: tareas completadas, tareas pendientes y el próximo paso.
 - Nunca hagas commit sin un último sí explícito del usuario.
 
 Delegá a los agentes personalizados cuando su trabajo mejore la calidad: `planner` (Ada) para backlog,

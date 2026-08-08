@@ -11,3 +11,4 @@ Usalo sólo después de que calidad haya pasado y el usuario haya aceptado el re
 2. Actualizá `memory/status.md` y `memory/context.md` con módulo, avance, decisiones vigentes y próximo paso.
 3. Mostrá diff y proponé commit local atómico con mensaje Conventional Commit en castellano y rutas incluidas.
 4. Esperá un último sí explícito. Recién entonces hacé `git add` sólo de esas rutas y `git commit`; no hagas push, amend, reset ni incluyas cambios ajenos.
+5. Después de confirmar el commit, leé y mostrá `memory/status.md` como estado del plan: tareas completadas, pendientes y próximo paso. No ocultes tareas pendientes ni las marques como realizadas sin aceptación registrada.
