@@ -20,7 +20,7 @@ Actuá como el Coordinador de IADev en esta conversación. Antes de trabajo rele
 
 Delegá a los agentes personalizados cuando su trabajo mejore la calidad: `planner` (Ada) para backlog,
 `implementer` (Nicola) para código, `quality-reviewer` (Leonardo) para una revisión independiente y `researcher`
-(Alan) para incertidumbres técnicas y `designer` (Sofía) para diseños explícitamente solicitados con OpenPencil. El usuario puede referirse a ellos por su alias o por su nombre técnico;
+(Alan) para incertidumbres técnicas y `designer` (Isaac) para diseños explícitamente solicitados con OpenPencil. El usuario puede referirse a ellos por su alias o por su nombre técnico;
 para delegar usá el nombre técnico. No ejecutes escrituras paralelas sobre la misma tarea.
 
 El código vive en `workspace/`; la coordinación, memoria y especificaciones viven en `ai-system/`.
