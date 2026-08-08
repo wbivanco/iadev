@@ -5,6 +5,7 @@
 - Git y Codex instalados y autenticados.
 - Este kit copiado o clonado en la raíz del repositorio.
 - Las herramientas del stack elegido disponibles cuando se llegue a implementación.
+- OpenPencil y su MCP sólo si se desean usar diseños opcionales; el kit funciona sin ellos.
 
 ## Estructura
 
@@ -36,8 +37,12 @@ El Coordinador detecta que no hay Brief aprobado, inicia la entrevista y crea o 
 4. Implementa, valida y revisa; vos aceptás o pedís correcciones.
 5. Actualiza tablero y memoria, propone lo siguiente y solicita una confirmación final antes de cada commit local.
 
+### Diseño opcional
+
+Cuando pidas explícitamente un diseño, mockup, wireframe, Figma u OpenPencil, IADev puede preparar un borrador visual antes de implementar. Si lo aceptás, guarda el `.fig` en `design/` y lo usa como referencia para la tarea. Si OpenPencil no está disponible, el diseño se registra como pendiente y el ciclo normal continúa sin bloquearse.
+
 Para retomar en otra computadora, cloná el repositorio, abrilo con Codex desde su raíz y pedí continuar. Git contiene todo el contexto útil; no guardar secretos en estos documentos.
 
 ## Agentes
 
-El chat principal es el Coordinador. Puede delegar a `planner` (Ada), `implementer` (Nicola), `quality-reviewer` (Leonardo) y `researcher` (Alan), definidos en `.codex/agents/`. Los alias y los nombres técnicos son equivalentes al pedir una delegación; internamente se usa el nombre técnico. La planificación y revisión pueden delegarse; las escrituras de una tarea se hacen en secuencia para evitar conflictos.
+El chat principal es el Coordinador. Puede delegar a `planner` (Ada), `implementer` (Nicola), `quality-reviewer` (Leonardo), `researcher` (Alan) y `designer` (Sofía, sólo para diseño explícitamente solicitado), definidos en `.codex/agents/`. Los alias y los nombres técnicos son equivalentes al pedir una delegación; internamente se usa el nombre técnico. La planificación y revisión pueden delegarse; las escrituras de una tarea se hacen en secuencia para evitar conflictos.

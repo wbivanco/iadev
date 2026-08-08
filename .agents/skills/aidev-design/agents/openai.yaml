@@ -1,0 +1,4 @@
+interface:
+  display_name: "Diseño IADev"
+  short_description: "Flujo visual opcional con OpenPencil"
+  default_prompt: "Usá $aidev-design para diseñar una tarea aprobada con OpenPencil."
