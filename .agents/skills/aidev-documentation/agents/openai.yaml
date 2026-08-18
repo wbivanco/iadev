@@ -1,0 +1,4 @@
+interface:
+  display_name: "Documentación de IADev"
+  short_description: "Actualiza la guía técnica y sus enlaces"
+  default_prompt: "Usá $aidev-documentation para actualizar la guía técnica del proyecto."

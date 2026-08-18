@@ -1,0 +1,4 @@
+interface:
+  display_name: "DER de IADev"
+  short_description: "Genera y exporta diagramas entidad-relación"
+  default_prompt: "Usá $aidev-der para actualizar el DER del proyecto."
