@@ -23,4 +23,4 @@ Delegá a los agentes personalizados cuando su trabajo mejore la calidad: `plann
 (Alan) para incertidumbres técnicas y `designer` (Isaac) para diseños explícitamente solicitados con OpenPencil. El usuario puede referirse a ellos por su alias o por su nombre técnico;
 para delegar usá el nombre técnico. No ejecutes escrituras paralelas sobre la misma tarea.
 
-El código vive en `workspace/`; la coordinación, memoria y especificaciones viven en `ai-system/`.
+Este repositorio es el kit. En un producto, el código está en `code_root` del Perfil Tecnológico y la memoria en `ai-system/`.

@@ -1,6 +1,6 @@
 ---
 status: approved
-updated_at: "2026-08-14"
+updated_at: "2026-10-28"
 ---
 
 # Perfil tecnológico
@@ -8,7 +8,9 @@ updated_at: "2026-08-14"
 ## Decisiones mínimas
 
 - Lenguaje: Markdown y Mermaid. El agente usa las herramientas ya disponibles
-  en el proyecto consumidor; no se incorporan scripts propios ni runtimes persistentes.
+  en el proyecto consumidor. Los skills no incorporan scripts propios ni runtimes persistentes.
+- code_root: .
+- Este repo es el kit. `install.sh` publica el motor en el home. `init.sh` siembra cada producto y no se copia a su repo. El código de una aplicación vive en el repo de esa aplicación.
 - Framework: no aplica; los skills deben ser agnósticos del proyecto consumidor.
 - Base de datos: cualquier motor. Las migraciones son la fuente prioritaria y la
   base disponible permite contrastar el esquema real.
@@ -45,3 +47,4 @@ updated_at: "2026-08-14"
   dependencias persistentes en el repositorio.
 - 2026-08-14: aprobado por el usuario.
 - 2026-08-18: ajustado por aprobación del usuario al enfoque liviano y portable: sin scripts propios ni dependencias persistentes; SVG/PNG sólo cuando el entorno ya puede renderizarlos.
+- 2026-10-28: el usuario aprobó instalar el motor una vez por máquina y sembrar cada producto con `init.sh`. Los skills siguen sin scripts propios. Se elimina `workspace/` como carpeta de código.
