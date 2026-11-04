@@ -8,6 +8,8 @@ description: Crea o actualiza la guía técnica de proyectos IADev y enlaza docu
 Mantené una guía técnica que permita a una persona desarrolladora ubicar el
 modelo de datos y los documentos de trabajo relevantes sin duplicar información.
 
+Resolvé la memoria como indica `aidev-coordinator`. `ai-system/` es esa carpeta, aunque el código esté en otro directorio.
+
 ## Descubrimiento y ubicación de la guía
 
 1. Localizá primero la guía técnica que el proyecto ya use. Considerá sólo

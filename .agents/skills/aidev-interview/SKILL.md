@@ -5,7 +5,7 @@ description: Entrevista una idea de producto para completar y aprobar el Brief y
 
 # Entrevista IADev
 
-Trabajá sobre `ai-system/specs/intake/project-brief.md` y `technology-profile.md`.
+Resolvé la memoria como indica `aidev-coordinator`. Trabajá sobre `ai-system/specs/intake/project-brief.md` y `technology-profile.md`, relativos a la carpeta que contiene `ai-system/`.
 
 Preguntá de a pocos e indicá **obligatorio** u **opcional** y el motivo. Para el Brief son obligatorios problema, objetivo/usuarios, capacidades/alcance y criterio de éxito. No supongas requisitos faltantes.
 
