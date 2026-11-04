@@ -274,6 +274,7 @@ copy_if_missing "$SEED/status.md" "$TARGET/ai-system/memory/status.md"
 copy_if_missing "$SEED/context.md" "$TARGET/ai-system/memory/context.md"
 copy_if_missing "$SEED/ai-system-readme.md" "$TARGET/ai-system/README.md"
 replace_agents
+copy_if_missing "$SEED/CLAUDE.md" "$TARGET/CLAUDE.md"
 ensure_code_root
 remove_old_motor
 
@@ -286,11 +287,11 @@ else
     if [[ -s "$DOCKERIGNORE" ]]; then
       printf '\n'
     fi
-    printf '%s\n' "$MARKER" "ai-system" "AGENTS.md"
+    printf '%s\n' "$MARKER" "ai-system" "AGENTS.md" "CLAUDE.md"
   } >> "$DOCKERIGNORE"
   echo "actualizado: $DOCKERIGNORE"
 fi
 
 echo "Listo en $TARGET."
 echo "El código queda en la raíz y la memoria en ai-system/. No hice commit."
-echo "Si el deploy no usa Docker, excluí ai-system/ y AGENTS.md en la herramienta que publica. Si solo publicás la salida del build, no hace falta otro ignore."
+echo "Si el deploy no usa Docker, excluí ai-system/, AGENTS.md y CLAUDE.md en la herramienta que publica. Si solo publicás la salida del build, no hace falta otro ignore."

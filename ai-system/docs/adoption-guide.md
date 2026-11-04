@@ -13,6 +13,7 @@ La instalación del motor y el `init` de cada producto están en el [README de l
 ## Estructura de un producto
 
 - `AGENTS.md`: arranque del coordinador. Apunta a los skills instalados en el home.
+- `CLAUDE.md`: una línea (`@AGENTS.md`) para que Claude Code, que no lee `AGENTS.md`, siga el mismo flujo.
 - `ai-system/`: Brief, Perfil, Backlog, memoria y tablero. Se versiona y no se despliega.
 - Código en `code_root` del Perfil Tecnológico. En un producto nuevo es la raíz del repo. Un repo que todavía tiene `workspace/` se convierte al correr `init.sh`: el código pasa a la raíz y `ai-system/` se conserva.
 
@@ -37,6 +38,10 @@ El Coordinador detecta que no hay Brief aprobado, inicia la entrevista y complet
 Cuando pidas explícitamente un diseño, mockup, wireframe, Figma u OpenPencil, IADev puede preparar un borrador visual antes de implementar. Si lo aceptás, guarda el `.fig` en `design/` y lo usa como referencia para la tarea. Si OpenPencil no está disponible, el diseño se registra como pendiente y el ciclo normal continúa sin bloquearse.
 
 Para retomar en otra computadora, instalá el kit, cloná el producto y pedí continuar. Git del producto contiene el contexto útil; no guardar secretos en estos documentos.
+
+## Varias herramientas según la complejidad
+
+Cada tarea del Backlog lleva `complejidad` (baja, media o alta). En el Perfil, la sección `Enrutamiento de herramientas` dice qué herramienta conviene para cada nivel (por ejemplo alta: Claude Code, baja: Cursor). El Coordinador muestra la recomendación al presentar la tarea; si estás en otra herramienta, abrí la recomendada y pedí "retomá IADev, tarea X". La memoria en `ai-system/` es la misma, y `status.md` registra la tarea activa y su herramienta. Es una recomendación: la aprobación sigue siendo tuya.
 
 ## Agentes
 

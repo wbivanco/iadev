@@ -17,7 +17,7 @@ Leé `ai-system/memory/status.md`, `context.md` y los documentos aplicables.
 
 1. Si el Brief o Perfil no está aprobado, usá `aidev-interview`.
 2. Si el Backlog no está aprobado, usá `aidev-planning` y pedí aprobación.
-3. Presentá una sola tarea pendiente: módulo, resultado esperado, validación y riesgos.
+3. Presentá una sola tarea pendiente: módulo, complejidad, resultado esperado, validación y riesgos. Si el Perfil tiene `Enrutamiento de herramientas`, indicá la herramienta recomendada para esa complejidad. Si no es la que estás usando, avisalo y ofrecé seguir acá o abrir la recomendada y pedir "retomá IADev, tarea X". Es una recomendación: no reemplaza la aprobación. Al aprobarse, anotá en `status.md` `Tarea activa: <ID> (herramienta: X)` para que otra herramienta retome. Si el Perfil no lo define, seguí en la herramienta actual y registralo como decisión diferida.
 4. Si el usuario pidió explícitamente diseño, mockup, wireframe, Figma u OpenPencil para la tarea, usá `aidev-design`, esperá la aceptación del diseño y registrá su ruta. Si no lo pidió, no propongas ni exijas diseño.
 5. Tras una aprobación explícita de la tarea y, si aplica, del diseño, delegá en `implementer`; no delegues escritores en paralelo.
 6. Pedí a `quality-reviewer` una revisión independiente y ejecutá los chequeos del perfil.
