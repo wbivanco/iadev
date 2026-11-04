@@ -47,4 +47,5 @@ updated_at: "2026-10-28"
   dependencias persistentes en el repositorio.
 - 2026-08-14: aprobado por el usuario.
 - 2026-08-18: ajustado por aprobación del usuario al enfoque liviano y portable: sin scripts propios ni dependencias persistentes; SVG/PNG sólo cuando el entorno ya puede renderizarlos.
-- 2026-10-28: el usuario aprobó instalar el motor una vez por máquina y sembrar cada producto con `init.sh`. Los skills siguen sin scripts propios. Se elimina `workspace/` como carpeta de código.
+- 2026-10-28: el usuario aprobó instalar el motor una vez por máquina y sembrar cada producto con `init.sh`. Los skills siguen sin scripts propios. Este repo ya no usa `workspace/`.
+- 2026-10-28: un producto que todavía tiene `workspace/` y no declara `code_root` sigue con el código ahí. `ai-system/` se resuelve en la raíz de coordinación, aunque el chat se abra dentro del código.

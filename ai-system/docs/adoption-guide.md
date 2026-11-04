@@ -14,7 +14,7 @@ La instalación del motor y el `init` de cada producto están en el [README de l
 
 - `AGENTS.md`: arranque del coordinador. Apunta a los skills instalados en el home.
 - `ai-system/`: Brief, Perfil, Backlog, memoria y tablero. Se versiona y no se despliega.
-- Código en `code_root` del Perfil Tecnológico. En un producto nuevo es la raíz del repo.
+- Código en `code_root` del Perfil Tecnológico. En un producto nuevo es la raíz del repo. Un repo que todavía tiene `workspace/` se convierte al correr `init.sh`: el código pasa a la raíz y `ai-system/` se conserva.
 
 El motor (`.agents/skills/` y `.codex/agents/`) permanece en el repo del kit. Cursor usa los skills. Codex, además, usa los agentes `.toml`.
 

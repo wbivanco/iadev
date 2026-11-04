@@ -13,6 +13,8 @@ reemplaza a las migraciones.
 
 ## Contrato de artefactos
 
+Resolvé la memoria como indica `aidev-coordinator`. Las rutas siguientes son relativas a la carpeta que contiene `ai-system/`, aunque el código esté en `workspace/`.
+
 - Guardá cada DER en `ai-system/docs/der/<nombre>.md` y
   `ai-system/docs/der/<nombre>.mmd`.
 - Creá o actualizá `ai-system/docs/der/<nombre>.svg` y

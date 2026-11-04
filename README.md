@@ -51,6 +51,24 @@ Un cambio en un skill o agente que ya estaba enlazado se ve en todos los proyect
 - Si el pipeline publica solo `dist/`, `build/` o un binario, no entran al artefacto.
 - Si el servidor hace `git pull` del repo completo, excluí `ai-system/` y `AGENTS.md` en esa herramienta (por ejemplo `.vercelignore` o `rsync --exclude`). `.dockerignore` en ese caso no actúa.
 
+## Proyecto que ya tenía IADev
+
+En la raíz de ese repo:
+
+```bash
+~/herramientas/iadev/init.sh
+```
+
+`init` lo pasa a la estructura nueva:
+
+- Mueve el contenido de `workspace/` a la raíz. Si ese nombre ya existe en la raíz, no mueve nada y lo dice.
+- Une `.gitignore` y `.dockerignore` si hay uno en la raíz y otro en `workspace/`.
+- Deja `ai-system/` como está y, si faltaba, escribe `code_root: .`.
+- Reemplaza `AGENTS.md` por el corto. El anterior queda en `AGENTS.md.iadev-bak`.
+- Quita los skills `aidev-*` y los agentes de IADev copiados en el repo. Un skill con otro nombre se conserva.
+
+No hace commit. Si el repo es git, el renombre del código queda preparado en el index.
+
 ## Skill de un solo producto
 
 Va en ese repo, en `.agents/skills/nombre/SKILL.md`, y se commitea ahí. Convive con los skills del home. `install.sh` no lo pisa.
