@@ -69,6 +69,10 @@ En la raíz de ese repo:
 
 No hace commit. Si el repo es git, el renombre del código queda preparado en el index.
 
+## Varias herramientas en un mismo producto
+
+Se puede usar Claude Code para tareas complejas y Cursor para las simples. El Perfil guarda el mapa complejidad→herramienta y cada tarea del Backlog tiene su complejidad; el Coordinador recomienda dónde correrla. `init` crea un `CLAUDE.md` con `@AGENTS.md` para que Claude Code siga el mismo flujo. Detalle en `ai-system/docs/adoption-guide.md`.
+
 ## Skill de un solo producto
 
 Va en ese repo, en `.agents/skills/nombre/SKILL.md`, y se commitea ahí. Convive con los skills del home. `install.sh` no lo pisa.

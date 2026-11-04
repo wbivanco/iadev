@@ -10,6 +10,10 @@ Pendiente.
 - [ ] Perfil tecnológico.
 - [ ] Backlog.
 
+## Tarea activa
+
+Ninguna. Formato: `<ID> (herramienta: X)`.
+
 ## Próximo paso
 
 Completar el Brief.
