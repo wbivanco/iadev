@@ -101,10 +101,10 @@ titulo "3. Archivos"
 buscar "lectura o descarga con ruta tomada de la petición" '(Storage::[a-z]+\(\)?->?(get|download|response|readStream)|response\(\)->(download|file))\(\s*\$request' app
 sin_max=""
 while IFS= read -r archivo; do
-    grep -q "max:" "$archivo" || sin_max+="$archivo"$'\n'
-done < <(grep -rlE "'(file|image)'|mimes:|mimetypes:" app/Http 2>/dev/null | grep -i request)
+    grep -Eq "max:|->max\(|::max\(" "$archivo" || sin_max+="$archivo"$'\n'
+done < <(grep -rlE "'(file|image)'|mimes:|mimetypes:|File::" app/Http 2>/dev/null | grep -i request)
 if [[ -n "$sin_max" ]]; then
-    revisar "Form Requests con reglas de archivo y sin ningún max: (tamaño máximo):"
+    revisar "Form Requests con reglas de archivo y sin tamaño máximo (max: o ->max()):"
     printf '%s' "$sin_max" | sed 's/^/             /'
 else
     ok "Los Form Requests con archivos fijan un tamaño máximo (confirmar el tipo real: mimetypes)."
