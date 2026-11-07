@@ -1,3 +1,5 @@
 # Basura local. El kit no genera código ni dependencias.
 .DS_Store
 .codex-log/
+__pycache__/
+*.pyc

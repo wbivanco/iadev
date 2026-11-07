@@ -1,0 +1,4 @@
+interface:
+  display_name: "Seguridad de IADev"
+  short_description: "Revisa la seguridad de la aplicación y reporta hallazgos verificados"
+  default_prompt: "Usá $aidev-seguridad para revisar la seguridad del proyecto."

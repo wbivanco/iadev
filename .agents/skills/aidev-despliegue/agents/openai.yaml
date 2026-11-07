@@ -1,0 +1,4 @@
+interface:
+  display_name: "Despliegue de IADev"
+  short_description: "Verifica que un equipo o servidor esté listo según la guía de despliegue"
+  default_prompt: "Usá $aidev-despliegue para chequear el despliegue del proyecto."
