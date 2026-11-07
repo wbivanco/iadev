@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deuda técnica de IADev"
+  short_description: "Mide la deuda técnica contra una línea base y guía qué reutilizar"
+  default_prompt: "Usá $aidev-deuda-tecnica para revisar la deuda técnica del proyecto."
