@@ -10,6 +10,8 @@ modelo de datos y los documentos de trabajo relevantes sin duplicar información
 
 Resolvé la memoria como indica `aidev-coordinator`. `ai-system/` es esa carpeta, aunque el código esté en otro directorio.
 
+Ruta de la documentación: si el Perfil Tecnológico declara una «Ruta de documentación técnica» (por ejemplo `docs/`), usala en lugar de `ai-system/docs/` en todo lo que sigue, incluida la ruta propuesta para una guía nueva. Si no declara ninguna, la ruta es `ai-system/docs/`.
+
 ## Descubrimiento y ubicación de la guía
 
 1. Localizá primero la guía técnica que el proyecto ya use. Considerá sólo
