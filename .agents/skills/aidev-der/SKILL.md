@@ -15,6 +15,8 @@ reemplaza a las migraciones.
 
 Resolvé la memoria como indica `aidev-coordinator`. Las rutas siguientes son relativas a la carpeta que contiene `ai-system/`, aunque el código esté en `workspace/`.
 
+Ruta de la documentación: si el Perfil Tecnológico declara una «Ruta de documentación técnica» (por ejemplo `docs/`), usala en lugar de `ai-system/docs/` en todo lo que sigue. Si no declara ninguna, la ruta es `ai-system/docs/`.
+
 - Guardá cada DER en `ai-system/docs/der/<nombre>.md` y
   `ai-system/docs/der/<nombre>.mmd`.
 - Creá o actualizá `ai-system/docs/der/<nombre>.svg` y
